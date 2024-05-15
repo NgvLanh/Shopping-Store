@@ -1,15 +1,18 @@
 package com.poly.controllers;
 
+import com.poly.model.Customer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
 
+    // client
     private String setPage(Model model, String pageName) {
         model.addAttribute("page", pageName);
-        return "index";
+        return "client/index";
     }
 
     @GetMapping("/home")
@@ -71,4 +74,23 @@ public class HomeController {
     public String trackingOrder(Model model) {
         return setPage(model, "tracking-order.jsp");
     }
+
+    // admin
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin/index";
+    }
+
+    // login
+    @PostMapping("/login")
+    public String login(Customer customer) {
+        String email = "lanhnvpc06581@fpt.edu.vn";
+        String password = "admin";
+        if (customer.getPassword().equals(password) && customer.getEmail().equals(email)) {
+            return "redirect:/admin";
+        } else {
+            return "redirect:/home";
+        }
+    }
+
 }
