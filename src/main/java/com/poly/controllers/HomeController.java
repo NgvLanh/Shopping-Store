@@ -80,17 +80,4 @@ public class HomeController {
     public String admin() {
         return "admin/index";
     }
-
-    // login
-    @PostMapping("/login")
-    public String login(Customer customer) {
-        String email = "lanhnvpc06581@fpt.edu.vn";
-        String password = "admin";
-        if (customer.getPassword().equals(password) && customer.getEmail().equals(email)) {
-            return "redirect:/admin";
-        } else {
-            return "redirect:/home";
-        }
-    }
-
 }
