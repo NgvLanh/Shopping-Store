@@ -1,56 +1,74 @@
 package com.poly.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    @GetMapping("/home")
-    public String home() {
+
+    private String setPage(Model model, String pageName) {
+        model.addAttribute("page", pageName);
         return "index";
     }
 
+    @GetMapping("/home")
+    public String home(Model model) {
+        return setPage(model, "home.jsp");
+    }
+
     @GetMapping("/contact")
-    public void contact() {
+    public String contact(Model model) {
+        return setPage(model, "contact.jsp");
     }
 
     @GetMapping("/category")
-    public void category() {
+    public String category(Model model) {
+        return setPage(model, "category.jsp");
     }
 
     @GetMapping("/single-product")
-    public void singleProduct() {
+    public String singleProduct(Model model) {
+        return setPage(model, "single-product.jsp");
     }
 
     @GetMapping("/checkout")
-    public void checkout() {
+    public String checkout(Model model) {
+        return setPage(model, "checkout.jsp");
     }
 
     @GetMapping("/confirmation")
-    public void confirmation() {
+    public String confirmation(Model model) {
+        return setPage(model, "confirmation.jsp");
     }
 
     @GetMapping("/cart")
-    public void cart() {
+    public String cart(Model model) {
+        return setPage(model, "cart.jsp");
     }
 
     @GetMapping("/blog")
-    public void blog() {
+    public String blog(Model model) {
+        return setPage(model, "blog.jsp");
     }
 
     @GetMapping("/single-blog")
-    public void singleBlog() {
+    public String singleBlog(Model model) {
+        return setPage(model, "single-blog.jsp");
     }
 
     @GetMapping("/login")
-    public void login() {
+    public String login(Model model) {
+        return setPage(model, "login.jsp");
     }
 
     @GetMapping("/register")
-    public void register() {
+    public String register(Model model) {
+        return setPage(model, "register.jsp");
     }
 
     @GetMapping("/tracking-order")
-    public void trackingOrder() {
+    public String trackingOrder(Model model) {
+        return setPage(model, "tracking-order.jsp");
     }
 }
