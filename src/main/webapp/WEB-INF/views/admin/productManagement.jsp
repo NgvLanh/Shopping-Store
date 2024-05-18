@@ -2,7 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="c" %>
 <style>
     input[type="file"]::file-selector-button {
-        background: linear-gradient(to right, whitesmoke, skyblue);
+        background: linear-gradient(to left, whitesmoke, skyblue);
         border: none;
         padding: 5px 10px;
         border-radius: 4px;
@@ -190,8 +190,10 @@
                                         <td>T-shirt</td>
                                         <td>M</td>
                                         <td>New House</td>
-                                        <td><i class="mdi mdi-table-edit" style="font-size: 1.5rem; color: darkgreen"></i></td>
-                                        <td><i class="mdi mdi-delete" style="font-size: 1.5rem; color: red"></i></td>
+                                        <td><i class="mdi mdi-table-edit"
+                                               style="font-size: 1.5rem; color: darkgreen"></i></td>
+                                        <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
+                                                                         style="font-size: 1.5rem; color: red"></i></td>
                                     </tr>
                                     <tr>
                                         <td><img src="../../../uploads/s7-AI710944762001_lifestyle.webp" alt=""></td>
@@ -210,8 +212,10 @@
                                         <td>T-shirt</td>
                                         <td>L</td>
                                         <td>New House</td>
-                                        <td><i class="mdi mdi-table-edit" style="font-size: 1.5rem; color: darkgreen"></i></td>
-                                        <td><i class="mdi mdi-delete" style="font-size: 1.5rem; color: red"></i></td>
+                                        <td><i class="mdi mdi-table-edit"
+                                               style="font-size: 1.5rem; color: darkgreen"></i></td>
+                                        <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
+                                                                         style="font-size: 1.5rem; color: red"></i></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -223,10 +227,31 @@
         </div>
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
-                        href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
+                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Design by LANH</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Contact to <a href="">lanhnvpc06581@fpt.edu.vn</a></span>
             </div>
         </footer>
     </div>
 </div>
+<script>
+    const confirmDelete = (e) => {
+        console.log(e)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
+    }
+</script>
