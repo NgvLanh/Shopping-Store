@@ -15,8 +15,20 @@ public class Product {
     private Integer quantity;
     private MultipartFile image;
     private String category;
-    private String band;
+    private String brand;
     private String supplier;
+    private String color;
+    private String size;
     // Getters and setters
+    public void print() {
+        System.out.println(name);
+        System.out.println(description);
+        System.out.println(price);
+        System.out.println(quantity);
+        System.out.println(image.getOriginalFilename());
+        System.out.println(category);
+        System.out.println(brand);
+        System.out.println(supplier);
+    }
 }
 

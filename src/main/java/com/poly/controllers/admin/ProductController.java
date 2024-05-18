@@ -1,13 +1,24 @@
 package com.poly.controllers.admin;
 
 import com.poly.models.Product;
+import jakarta.servlet.ServletContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @Controller
 @RequestMapping("/product-management")
 public class ProductController {
+
+    @Autowired
+    ServletContext context;
+
     @ModelAttribute("product")
     public Product product() {
         return new Product();
@@ -27,9 +38,34 @@ public class ProductController {
 
     @PostMapping("/create")
     public String createProduct(@ModelAttribute("product") Product product, Model model) {
-        // Logic to handle the product creation (e.g., save the product to the database)
+        MultipartFile file = product.getImage();
+        if (!file.isEmpty()) {
+            // Luư file ảnh vào thư mục uploads
+            try {
+                String fileName = file.getOriginalFilename();
+                // Kiểm tra xem có đường dẫn chưa
+                File uploadFolder = new File(context.getRealPath("/uploads/"));
+                if (!uploadFolder.exists()) {
+                    uploadFolder.mkdirs();
+                }
+                // Tạo file trong thư mục uploads
+                assert fileName != null;
+                File dirFile = new File(uploadFolder, fileName);
+
+                file.transferTo(dirFile);
+
+                model.addAttribute("image", "/uploads/" + fileName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        product.print();
+
+        // Logic to handle product creation (e.g., save to the database)
+        // productService.save(product); (uncomment and implement this line if you have a service for saving the product)
 
         model.addAttribute("page", "productManagement.jsp");
         return "admin/index";
     }
+
 }

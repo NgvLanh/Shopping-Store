@@ -29,7 +29,7 @@
 <div class="container-scroller">
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="text-center sidebar-brand-wrapper d-block">
-            <a class="sidebar-brand brand-logo d-flex justify-content-center" href="admin">
+            <a class="sidebar-brand brand-logo d-flex justify-content-center" href="/admin">
                 <img src="/assets/images/logo.png" alt="logo" class="m-auto"/>
             </a>
         </div>
@@ -49,25 +49,25 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="dashboard">
+                <a class="nav-link" href="/dashboard">
                     <i class="mdi mdi-home menu-icon"></i>
                     <span class="menu-title">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="product-management">
+                <a class="nav-link" href="/product-management">
                     <i class="mdi mdi-desktop-tower menu-icon"></i>
                     <span class="menu-title">Product</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="customer-management">
+                <a class="nav-link" href="/customer-management">
                     <i class="mdi mdi-account-search menu-icon"></i>
                     <span class="menu-title">Customer</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="supplier-management">
+                <a class="nav-link" href="/supplier-management">
                     <i class="mdi mdi-bank menu-icon"></i>
                     <span class="menu-title">Supplier</span>
                 </a>
@@ -82,25 +82,25 @@
                 <div class="collapse show" id="ui-basic" style="">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="bands-management">Bands</a>
+                            <a class="nav-link" href="/brands-management">Brand</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="categories-management">Categories</a>
+                            <a class="nav-link" href="/categories-management">Categories</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="size-color-management">Size & color</a>
+                            <a class="nav-link" href="/size-color-management">Size & color</a>
                         </li>
                     </ul>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="review-management">
+                <a class="nav-link" href="/review-management">
                     <i class="mdi mdi-border-color menu-icon"></i>
                     <span class="menu-title">Review</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="order-management">
+                <a class="nav-link" href="/order-management">
                     <i class="mdi mdi-barcode-scan menu-icon"></i>
                     <span class="menu-title">Order process</span>
                 </a>
@@ -109,7 +109,7 @@
                 <div class="nav-link">
                     <div class="mt-4">
                         <div class="border-none">
-                            <a href="notification-management" class="text-black">Notification</a>
+                            <a href="/notification-management" class="text-black">Notification</a>
                         </div>
                         <ul class="mt-4 pl-0">
                             <li>Sign Out</li>

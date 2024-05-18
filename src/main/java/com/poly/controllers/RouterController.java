@@ -106,9 +106,9 @@ public class RouterController {
         return setPageAdmin(model, "orderManagement.jsp");
     }
 
-    @GetMapping("/bands-management")
+    @GetMapping("/brands-management")
     public String bandsManagement(Model model) {
-        return setPageAdmin(model, "bandsManagement.jsp");
+        return setPageAdmin(model, "brandsManagement.jsp");
     }
 
     @GetMapping("/categories-management")
