@@ -1,4 +1,4 @@
-package com.poly.model;
+package com.poly.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,4 +21,5 @@ public class Customer {
     private String state;
     private String zipCode;
     private Timestamp createdDate;
+    private Boolean role = false;
 }

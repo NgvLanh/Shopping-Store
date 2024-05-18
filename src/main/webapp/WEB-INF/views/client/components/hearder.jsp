@@ -1,8 +1,12 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <header class="header_area">
     <div class="main_menu">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <a class="navbar-brand logo_h" href="home"><img src="img/logo.png" alt=""></a>
+                <a class="navbar-brand logo_h" href="home">
+                    <%--                    <img src="img/logo.png" alt="">--%>
+                    FOUR
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,10 +52,12 @@
                         <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true"
-                               aria-expanded="false">Language</a>
+                               aria-expanded="false">
+                                <%--                                <spring:message code="language"/>--%>
+                            </a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="vi">Vietnamese</a></li>
-                                <li class="nav-item"><a class="nav-link" href="en">English</a></li>
+                                <li class="nav-item"><a class="nav-link" href="?lang=vi">Vietnamese</a></li>
+                                <li class="nav-item"><a class="nav-link" href="?lang=en">English</a></li>
                             </ul>
                         </li>
                     </ul>

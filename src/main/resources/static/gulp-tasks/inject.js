@@ -44,7 +44,7 @@ gulp.task("injectAssets", function () {
       inject(
         gulp.src(
           [
-            // './assets/css/shared/style.css',
+            // './assets/css/shared/custom.css',
             "./assets/js/off-canvas.js",
             "./assets/js/hoverable-collapse.js",
             "./assets/js/misc.js",
