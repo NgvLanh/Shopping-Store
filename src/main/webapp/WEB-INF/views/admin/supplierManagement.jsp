@@ -1,117 +1,124 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 5/18/2024
-  Time: 12:27 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <div class="content-wrapper">
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title">Suppliers management</h3>
+                <h3 class="page-title">Quản lý nhà cung cấp</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin">Admin</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"> Suppliers management </li>
+                        <li class="breadcrumb-item"><a href="<spring:url value='/admin' />">Admin</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"> Quản lý nhà cung cấp </li>
                     </ol>
                 </nav>
             </div>
             <div class="row">
-                <div class="col-md-6 grid-margin stretch-card">
+                <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Supplier form</h4>
-                            <p class="card-description">Basic form layout</p>
-                            <form class="forms-sample">
+                            <h4 class="card-title">Biểu mẫu nhà cung cấp</h4>
+                            <p class="card-description">Bố cục biểu mẫu cơ bản</p>
+                            <form:form method="post" action="/yourSpringControllerMapping" modelAttribute="supplier">
                                 <div class="form-group">
-                                    <label for="exampleInputUsername1">Username</label>
-                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                    <label for="supplierName">Tên nhà cung cấp</label>
+                                    <form:input path="supplierName" class="form-control" id="supplierName" placeholder="Tên nhà cung cấp"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    <label for="contactName">Tên người liên hệ</label>
+                                    <form:input path="contactName" class="form-control" id="contactName" placeholder="Tên người liên hệ"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputConfirmPassword1">Confirm Password</label>
-                                    <input type="password" class="form-control" id="exampleInputConfirmPassword1" placeholder="Password">
+                                    <label for="contactPhone">Số điện thoại liên hệ</label>
+                                    <form:input path="contactPhone" class="form-control" id="contactPhone" placeholder="Số điện thoại liên hệ"/>
                                 </div>
-                                <div class="form-check form-check-flat form-check-primary">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input"> Remember me <i class="input-helper"></i></label>
+                                <div class="form-group">
+                                    <label for="contactEmail">Email liên hệ</label>
+                                    <form:input path="contactEmail" class="form-control" id="contactEmail" placeholder="Email liên hệ"/>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr-2"> Submit </button>
-                                <button class="btn btn-light">Cancel</button>
-                            </form>
+                                <div class="form-group">
+                                    <label for="address">Địa chỉ</label>
+                                    <form:input path="address" class="form-control" id="address" placeholder="Địa chỉ"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">Thành phố</label>
+                                    <form:input path="city" class="form-control" id="city" placeholder="Thành phố"/>
+                                </div>
+                                <button type="submit" class="btn btn-primary mr-2"> Gửi </button>
+                                <button type="reset" class="btn btn-light">Hủy</button>
+                            </form:form>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 grid-margin stretch-card">
+                <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Hoverable Table</h4>
-                            <p class="card-description"> Add class <code>.table-hover</code>
+                            <h4 class="card-title">Bảng có thể hover</h4>
+                            <p class="card-description"> Thêm class <code>.table-hover</code>
                             </p>
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>User</th>
-                                        <th>Product</th>
-                                        <th>Sale</th>
-                                        <th>Status</th>
+                                        <th>Tên nhà cung cấp</th>
+                                        <th>Tên người liên hệ</th>
+                                        <th>Số điện thoại liên hệ</th>
+                                        <th>Email liên hệ</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Thành phố</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <td>Jacob</td>
-                                        <td>Photoshop</td>
-                                        <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i>
-                                        </td>
+                                        <td>NgVanTien</td>
+                                        <td>0834619802</td>
                                         <td>
-                                            <label class="badge badge-danger">Pending</label>
+                                           tiennvpc06608@gmail.com
                                         </td>
+                                        <td>Xóm Chài</td>
+                                        <td>Cần Thơ</td>
                                     </tr>
                                     <tr>
                                         <td>Messsy</td>
-                                        <td>Flash</td>
-                                        <td class="text-danger"> 21.06% <i class="mdi mdi-arrow-down"></i>
-                                        </td>
+                                        <td>NgVanTien</td>
+                                        <td>0834619802</td>
                                         <td>
-                                            <label class="badge badge-warning">In progress</label>
+                                            tiennvpc06608@gmail.com
                                         </td>
+                                        <td>Xóm Chài</td>
+                                        <td>Cần Thơ</td>
                                     </tr>
                                     <tr>
                                         <td>John</td>
-                                        <td>Premier</td>
-                                        <td class="text-danger"> 35.00% <i class="mdi mdi-arrow-down"></i>
-                                        </td>
+                                        <td>NgVanTien</td>
+                                        <td>0834619802</td>
                                         <td>
-                                            <label class="badge badge-info">Fixed</label>
+                                            tiennvpc06608@gmail.com
                                         </td>
+                                        <td>Xóm Chài</td>
+                                        <td>Cần Thơ</td>
                                     </tr>
                                     <tr>
                                         <td>Peter</td>
-                                        <td>After effects</td>
-                                        <td class="text-success"> 82.00% <i class="mdi mdi-arrow-up"></i>
-                                        </td>
+                                        <td>NgVanTien</td>
+                                        <td>0834619802</td>
                                         <td>
-                                            <label class="badge badge-success">Completed</label>
+                                            tiennvpc06608@gmail.com
                                         </td>
+                                        <td>Xóm Chài</td>
+                                        <td>Cần Thơ</td>
                                     </tr>
                                     <tr>
                                         <td>Dave</td>
-                                        <td>53275535</td>
-                                        <td class="text-success"> 98.05% <i class="mdi mdi-arrow-up"></i>
-                                        </td>
+                                        <td>NgVanTien</td>
+                                        <td>0834619802</td>
                                         <td>
-                                            <label class="badge badge-warning">In progress</label>
+                                            tiennvpc06608@gmail.com
                                         </td>
+                                        <td>Xóm Chài</td>
+                                        <td>Cần Thơ</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -123,8 +130,7 @@
         </div>
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
+                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Bản quyền © createby@tiennvpc06608@fpt.edu.vn</span>
             </div>
         </footer>
     </div>
