@@ -6,11 +6,11 @@
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title">Suppliers management</h3>
+                <h3 class="page-title">Suppliers Management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<spring:url value='/admin' />">Admin</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"> Quản lý nhà cung cấp </li>
+                        <li class="breadcrumb-item active" aria-current="page"> Suppliers management </li>
                     </ol>
                 </nav>
             </div>
@@ -18,35 +18,34 @@
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Biểu mẫu nhà cung cấp</h4>
-                            <p class="card-description">Bố cục biểu mẫu cơ bản</p>
+                            <h4 class="card-title">Suppliers management</h4>
                             <form:form method="post" action="/yourSpringControllerMapping" modelAttribute="supplier">
                                 <div class="form-group">
-                                    <label for="supplierName">Tên nhà cung cấp</label>
+                                    <label for="supplierName">Supplier name</label>
                                     <form:input path="supplierName" class="form-control" id="supplierName" placeholder="Tên nhà cung cấp"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="contactName">Tên người liên hệ</label>
+                                    <label for="contactName">Contact name</label>
                                     <form:input path="contactName" class="form-control" id="contactName" placeholder="Tên người liên hệ"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="contactPhone">Số điện thoại liên hệ</label>
+                                    <label for="contactPhone">Contact Phone</label>
                                     <form:input path="contactPhone" class="form-control" id="contactPhone" placeholder="Số điện thoại liên hệ"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="contactEmail">Email liên hệ</label>
+                                    <label for="contactEmail">Contact Email</label>
                                     <form:input path="contactEmail" class="form-control" id="contactEmail" placeholder="Email liên hệ"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="address">Địa chỉ</label>
+                                    <label for="address">Address</label>
                                     <form:input path="address" class="form-control" id="address" placeholder="Địa chỉ"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="city">Thành phố</label>
+                                    <label for="city">City</label>
                                     <form:input path="city" class="form-control" id="city" placeholder="Thành phố"/>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr-2"> Gửi </button>
-                                <button type="reset" class="btn btn-light">Hủy</button>
+                                <button type="submit" class="btn btn-primary mr-2"> Save </button>
+                                <button type="reset" class="btn btn-light">Cancel</button>
                             </form:form>
                         </div>
                     </div>
@@ -54,19 +53,19 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Bảng có thể hover</h4>
-                            <p class="card-description"> Thêm class <code>.table-hover</code>
+<%--                            <h4 class="card-title">Bảng có thể hover</h4>--%>
+                            <p class="card-description"> Suppliers Information
                             </p>
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Tên nhà cung cấp</th>
-                                        <th>Tên người liên hệ</th>
-                                        <th>Số điện thoại liên hệ</th>
-                                        <th>Email liên hệ</th>
-                                        <th>Địa chỉ</th>
-                                        <th>Thành phố</th>
+                                        <th>Supplier Name</th>
+                                        <th>Contact Name</th>
+                                        <th>Contact Phone</th>
+                                        <th>Contact Email</th>
+                                        <th>Address</th>
+                                        <th>City</th>
                                     </tr>
                                     </thead>
                                     <tbody>
