@@ -88,7 +88,7 @@
                             <a class="nav-link" href="/brands-management">Brand</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/categories-management">Categories</a>
+                            <a class="nav-link" href="/categories-management">Category</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/size-color-management">Size & color</a>
