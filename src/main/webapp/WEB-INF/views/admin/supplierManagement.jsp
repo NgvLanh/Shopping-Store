@@ -6,7 +6,7 @@
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title">Quản lý nhà cung cấp</h3>
+                <h3 class="page-title">Suppliers management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<spring:url value='/admin' />">Admin</a></li>
