@@ -91,7 +91,8 @@
                                     <div class="form-group">
                                         <label for="brand">Brand</label>
                                         <form:select path="brand" class="form-control" id="brand">
-                                            <form:option value="2">Brand 2</form:option>
+                                            <form:option value="null">-- Select Brand --</form:option>
+                                            <form:option value="1">Brand 1</form:option>
                                             <!-- Add more options as necessary -->
                                         </form:select>
                                     </div>

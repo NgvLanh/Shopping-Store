@@ -10,11 +10,11 @@
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title">Categories management</h3>
+                <h3 class="page-title text-warning">Categories management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="admin">Admin</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"> Categories management </li>
+                        <li class="breadcrumb-item active " aria-current="page" > Categories management </li>
                     </ol>
                 </nav>
             </div>
@@ -22,28 +22,16 @@
                 <div class="col-md-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Category form</h4>
-                            <p class="card-description">Basic form layout</p>
+                            <h4 class="card-title card-description"></h4>
                             <form class="forms-sample">
+
                                 <div class="form-group">
-                                    <label for="exampleInputUsername1">Username</label>
-                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
+                                    <label for="exampleInputEmail1" class="text-danger">Category Name</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Category Name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputConfirmPassword1">Confirm Password</label>
-                                    <input type="password" class="form-control" id="exampleInputConfirmPassword1" placeholder="Password">
-                                </div>
-                                <div class="form-check form-check-flat form-check-primary">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input"> Remember me <i class="input-helper"></i></label>
+                                    <label for="exampleInputPassword1" class="text-success">Description</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Description">
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2"> Submit </button>
                                 <button class="btn btn-light">Cancel</button>
@@ -54,65 +42,29 @@
                 <div class="col-lg-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Hoverable Table</h4>
-                            <p class="card-description"> Add class <code>.table-hover</code>
-                            </p>
+                            <h4 class="card-title card-description ">Categories Table</h4>
+
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>User</th>
-                                        <th>Product</th>
-                                        <th>Sale</th>
-                                        <th>Status</th>
+                                        <th class="text-danger">Category Name:</th>
+                                        <th class="text-success">Description</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>Jacob</td>
-                                        <td>Photoshop</td>
-                                        <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i>
-                                        </td>
-                                        <td>
-                                            <label class="badge badge-danger">Pending</label>
-                                        </td>
+                                        <td>Trousers</td>
+                                        <td>description</td>
+
                                     </tr>
                                     <tr>
-                                        <td>Messsy</td>
-                                        <td>Flash</td>
-                                        <td class="text-danger"> 21.06% <i class="mdi mdi-arrow-down"></i>
-                                        </td>
-                                        <td>
-                                            <label class="badge badge-warning">In progress</label>
-                                        </td>
+                                        <td>T-shirt</td>
+                                        <td>description</td>
+
                                     </tr>
-                                    <tr>
-                                        <td>John</td>
-                                        <td>Premier</td>
-                                        <td class="text-danger"> 35.00% <i class="mdi mdi-arrow-down"></i>
-                                        </td>
-                                        <td>
-                                            <label class="badge badge-info">Fixed</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Peter</td>
-                                        <td>After effects</td>
-                                        <td class="text-success"> 82.00% <i class="mdi mdi-arrow-up"></i>
-                                        </td>
-                                        <td>
-                                            <label class="badge badge-success">Completed</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dave</td>
-                                        <td>53275535</td>
-                                        <td class="text-success"> 98.05% <i class="mdi mdi-arrow-up"></i>
-                                        </td>
-                                        <td>
-                                            <label class="badge badge-warning">In progress</label>
-                                        </td>
-                                    </tr>
+
+
                                     </tbody>
                                 </table>
                             </div>
