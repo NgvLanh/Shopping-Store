@@ -10,11 +10,11 @@
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title">Reviews management</h3>
+                <h3 class="page-title text-primary">Reviews management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="admin">Admin</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"> Reviews management </li>
+                        <li class="breadcrumb-item active " aria-current="page"> Reviews management</li>
                     </ol>
                 </nav>
             </div>
@@ -23,17 +23,19 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Review Table</h4>
-                            <p class="card-description"> Add class <code>.table-striped</code>
+
                             </p>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>User</th>
-                                        <th>First name</th>
-                                        <th>Progress</th>
-                                        <th>Amount</th>
-                                        <th>Deadline</th>
+                                        <th>Photo</th>
+                                        <th>Name</th>
+                                        <th>Rating</th>
+                                        <th>Comment</th>
+                                        <th>Reviews Date</th>
+                                        <th></th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -41,93 +43,67 @@
                                         <td class="py-1">
                                             <img src="../../assets/images/faces-clipart/pic-1.png" alt="image">
                                         </td>
-                                        <td>Herman Beck</td>
+                                        <td>John</td>
+                                        <td >
+
+                                            <i class="mdi mdi-star text-warning">
+                                            <i class="mdi mdi-star ">
+                                            <i class="mdi mdi-star ">
+                                            <i class="mdi mdi-star">
+                                            <i class="mdi mdi-star">
+
+
+                                        </td>
+                                        <td>Very good</td>
+                                        <td>2024-05-19</td>
                                         <td>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                            <button class="btn btn-danger">Delete</button>
                                         </td>
-                                        <td>$ 77.99</td>
-                                        <td>May 15, 2015</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-1">
-                                            <img src="../../assets/images/faces-clipart/pic-2.png" alt="image">
-                                        </td>
-                                        <td>Messsy Adam</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-danger" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </td>
-                                        <td>$245.30</td>
-                                        <td>July 1, 2015</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-1">
-                                            <img src="../../assets/images/faces-clipart/pic-3.png" alt="image">
-                                        </td>
-                                        <td>John Richards</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </td>
-                                        <td>$138.00</td>
-                                        <td>Apr 12, 2015</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-1">
-                                            <img src="../../assets/images/faces-clipart/pic-4.png" alt="image">
-                                        </td>
-                                        <td>Peter Meggik</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-primary" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </td>
-                                        <td>$ 77.99</td>
-                                        <td>May 15, 2015</td>
                                     </tr>
                                     <tr>
                                         <td class="py-1">
                                             <img src="../../assets/images/faces-clipart/pic-1.png" alt="image">
                                         </td>
-                                        <td>Edward</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-danger" role="progressbar" style="width: 35%;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                        <td>Tony</td>
+                                        <td >
+
+                                            <i class="mdi mdi-star text-warning">
+                                                <i class="mdi mdi-star ">
+                                                    <i class="mdi mdi-star ">
+
+
+
                                         </td>
-                                        <td>$ 160.25</td>
-                                        <td>May 03, 2015</td>
-                                    </tr>
-                                    <tr>
+                                        <td>Medium</td>
+                                        <td>2024-05-19</td>
+                                        <td>
+                                            <button class="btn btn-danger">Delete</button>
+                                        </td>
+
+                                    </tr> <tr>
                                         <td class="py-1">
-                                            <img src="../../assets/images/faces-clipart/pic-2.png" alt="image">
+                                            <img src="../../assets/images/faces-clipart/pic-1.png" alt="image">
                                         </td>
-                                        <td>John Doe</td>
+                                        <td>Alice</td>
+                                        <td >
+
+                                            <i class="mdi mdi-star text-warning">
+                                                <i class="mdi mdi-star ">
+                                                    <i class="mdi mdi-star ">
+                                                        <i class="mdi mdi-star">
+
+
+
+                                        </td>
+                                        <td>Good</td>
+                                        <td>2024-05-19</td>
                                         <td>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-info" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                            <button class="btn btn-danger">Delete</button>
                                         </td>
-                                        <td>$ 123.21</td>
-                                        <td>April 05, 2015</td>
                                     </tr>
-                                    <tr>
-                                        <td class="py-1">
-                                            <img src="../../assets/images/faces-clipart/pic-3.png" alt="image">
-                                        </td>
-                                        <td>Henry Tom</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </td>
-                                        <td>$ 150.00</td>
-                                        <td>June 16, 2015</td>
-                                    </tr>
+
+
+
                                     </tbody>
                                 </table>
                             </div>
@@ -138,8 +114,7 @@
         </div>
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
+
             </div>
         </footer>
     </div>
