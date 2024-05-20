@@ -1,11 +1,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<style>
+    .text-secondary.mx-1.p-1:hover {
+        color: #0b20ea !important;
+    }
+</style>
 <header class="header_area">
     <div class="main_menu">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
                 <a class="navbar-brand logo_h" href="home">
-                    <%--                    <img src="img/logo.png" alt="">--%>
-                    FOUR
+                    <img src="/assets/images/logo.png" alt="" width="120px" style="margin-top: -10px">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent"
@@ -64,10 +68,33 @@
 
                     <ul class="nav-shop">
                         <li class="nav-item">
-                            <button><i class="ti-search"></i></button>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="" data-toggle="modal" data-target="#searchModal">
+                                <i class="ti-search"></i>
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body pt-0">
+                                            <form action="#" method="post">
+                                                <label for="search"></label>
+                                                <input type="text" id="search" class="w-100 border-secondary p-2 rounded"
+                                                       placeholder="Search anything here ..."
+                                                       style="border: 1px solid;">
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer p-1">
+                                            <button type="button" class="text-secondary mx-1 p-1">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                         <li class="nav-item">
-                            <button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button>
+                            <button onclick="window.location.href='cart'"><i class="ti-shopping-cart"></i><span
+                                    class="nav-shop__circle">3</span></button>
                         </li>
                         <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li>
                     </ul>
@@ -76,3 +103,4 @@
         </nav>
     </div>
 </header>
+<!-- Button trigger modal -->
