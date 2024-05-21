@@ -26,11 +26,11 @@
                             <form class="forms-sample">
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1" class="text-danger">Category Name</label>
+                                    <label for="exampleInputEmail1">Category Name</label>
                                     <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Category Name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1" class="text-success">Description</label>
+                                    <label for="exampleInputPassword1">Description</label>
                                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Description">
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2"> Submit </button>
@@ -42,14 +42,14 @@
                 <div class="col-lg-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title card-description ">Categories Table</h4>
+                            <h4 class="card-title card-descriptio ">Categories Table</h4>
 
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th class="text-danger">Category Name:</th>
-                                        <th class="text-success">Description</th>
+                                        <th>Category Name:</th>
+                                        <th>Description</th>
                                     </tr>
                                     </thead>
                                     <tbody>

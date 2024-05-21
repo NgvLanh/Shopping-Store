@@ -27,12 +27,12 @@
                             <form class="forms-sample">
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1" class="text-success">Brand name:</label>
+                                    <label for="exampleInputEmail1">Brand name</label>
                                     <input type="email" class="form-control" id="exampleInputEmail1"
                                            placeholder="Brand name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1" class="text-warning">Description:</label>
+                                    <label for="exampleInputPassword1">Description</label>
                                     <input type="password" class="form-control" id="exampleInputPassword1"
                                            placeholder="Description">
                                 </div>
@@ -51,8 +51,8 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th class="text-success">Brand name</th>
-                                        <th class="text-warning">Description</th>
+                                        <th>Brand name</th>
+                                        <th>Description</th>
 
                                     </tr>
                                     </thead>
