@@ -1,4 +1,3 @@
-
 <!--================ End Header Menu Area =================-->
 
 <!-- ================ start banner area ================= -->
@@ -27,7 +26,7 @@
             <div class="col-lg-6">
                 <div class="owl-carousel owl-theme s_Product_carousel">
                     <div class="single-prd-item">
-                        <img class="img-fluid" src="img/category/s-p1.jpg" alt="">
+                        <img class="img-fluid" src="img/category/img.png" alt="">
                     </div>
                     <!-- <div class="single-prd-item">
                         <img class="img-fluid" src="img/category/s-p1.jpg" alt="">
@@ -50,19 +49,54 @@
                         something that can make your interior look awesome, and at the same time give you the pleasant
                         warm feeling
                         during the winter.</p>
-                    <div class="product_count">
+                    <div class="product_count d-flex">
                         <label for="qty">Quantity:</label>
-                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
-                        <input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:"
-                               class="input-text qty">
-                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
-                        <a class="button primary-btn" href="#">Add to Cart</a>
+                        <div class="position-relative">
+                            <button onclick="
+                        const result = document.getElementById('qty');
+                        const sst = result.value;
+                        if( !isNaN( sst ))
+                            result.value++;
+                        " class="increase items-count" type="button" style="right: -15px;">
+                                <i class="ti-angle-up"></i>
+                            </button>
+                            <input type="text" name="qty" id="qty" size="2" maxlength="12" value="1" title="quantity"
+                                   class="input-text qty text-center w-75 px-1"
+                                   oninput="const result = document.getElementById('qty');
+                                            const value = result.value;
+                                            if (isNaN(value)) result.value = 1;">
+                            <button onclick="const result = document.getElementById('qty');
+                            const sst = result.value;
+                            if( !isNaN( sst ) && sst > 1 )
+                                result.value--;"
+                                    class="reduced items-count" type="button" style="right: -15px;">
+                                <i class="ti-angle-down"></i>
+                            </button>
+                        </div>
+
                     </div>
-                    <div class="card_area d-flex align-items-center">
-                        <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-                        <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+                    <div class="card_area row">
+                        <div class="col-md-6">
+                            <span>Color</span>
+                            <div>
+                                <a class="icon_btn bg-warning" href="#"></a>
+                                <a class="icon_btn bg-primary" href="#"></a>
+                                <a class="icon_btn bg-danger" href="#"></a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <span>Size</span>
+                            <div>
+                                <select name="size" id="size">
+                                    <option value="">S</option>
+                                    <option value="">M</option>
+                                    <option value="">L</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add_to_cart mt-4">
+                        <a class="button primary-btn" href="#">Add to Cart</a>
                     </div>
                 </div>
             </div>
@@ -547,4 +581,4 @@
 </section>
 <!--================ end related Product area =================-->
 
-<!--================ Start footer Area  =================-->
+<!--================ Start footer Area =================-->

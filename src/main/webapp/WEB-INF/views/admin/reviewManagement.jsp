@@ -44,7 +44,7 @@
                                             <img src="../../assets/images/faces-clipart/pic-1.png" alt="image">
                                         </td>
                                         <td>John</td>
-                                        <td >
+                                        <td>
 
                                             <i class="mdi mdi-star text-warning">
                                                 <i class="mdi mdi-star ">
@@ -65,12 +65,11 @@
                                             <img src="../../assets/images/faces-clipart/pic-1.png" alt="image">
                                         </td>
                                         <td>Tony</td>
-                                        <td >
+                                        <td>
 
                                             <i class="mdi mdi-star text-warning">
                                                 <i class="mdi mdi-star ">
                                                     <i class="mdi mdi-star ">
-
 
 
                                         </td>
@@ -80,18 +79,18 @@
                                             <button class="btn btn-danger">Delete</button>
                                         </td>
 
-                                    </tr> <tr>
+                                    </tr>
+                                    <tr>
                                         <td class="py-1">
                                             <img src="../../assets/images/faces-clipart/pic-1.png" alt="image">
                                         </td>
                                         <td>Alice</td>
-                                        <td >
+                                        <td>
 
                                             <i class="mdi mdi-star text-warning">
                                                 <i class="mdi mdi-star ">
                                                     <i class="mdi mdi-star ">
                                                         <i class="mdi mdi-star">
-
 
 
                                         </td>
@@ -101,9 +100,6 @@
                                             <button class="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
-
-
-
                                     </tbody>
                                 </table>
                             </div>
