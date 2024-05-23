@@ -38,35 +38,42 @@
                                     <label for="name">Name</label>
                                     <form:input path="name" type="text" class="form-control" id="name"
                                                 placeholder="Product name"/>
+                                    <form:errors path="name" cssClass="text-danger"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="description">Description</label>
                                     <form:input path="description" type="text" class="form-control" id="description"
                                                 placeholder="Description"/>
+                                    <form:errors path="description" cssClass="text-danger"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="price">Price</label>
                                     <form:input path="price" type="text" class="form-control" id="price"
                                                 placeholder="Price"/>
+                                    <form:errors path="price" cssClass="text-danger"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="quantity">Quantity</label>
                                     <form:input path="quantity" type="text" class="form-control" id="quantity"
                                                 placeholder="Quantity"/>
+                                    <form:errors path="quantity" cssClass="text-danger"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="image">Image</label>
                                     <form:input path="file" type="file" class="form-control" id="image"
                                                 placeholder="Image"/>
+
                                     <div class="border d-block mt-2" style="height: 200px;">
                                         <img src="${image}" alt="image" id="imagePreview" width="50%" height="100%"
                                              style="display: none; margin: auto">
                                     </div>
+                                    <form:errors path="fileName" cssClass="text-danger"/>
                                 </div>
                                 <script>
                                     document.addEventListener('DOMContentLoaded', () => {
                                         const imagePreview = document.getElementById('imagePreview');
-                                        if (imagePreview.src !== 'http://localhost:8080/admin/product-management') {
+                                        if (imagePreview.src !== 'http://localhost:8080/admin/product-management' &&
+                                            imagePreview.src !== 'http://localhost:8080/admin/product-management/create' ) {
                                             imagePreview.style.display = 'block';
                                         }
                                     });
@@ -91,28 +98,31 @@
                                     <div class="form-group">
                                         <label for="brand">Brand</label>
                                         <form:select path="brand" class="form-control" id="brand">
-                                            <form:option value="null">-- Select Brand --</form:option>
+                                            <form:option value="">-- Select Brand --</form:option>
                                             <form:option value="brand 1">Brand 1</form:option>
                                             <!-- Add more options as necessary -->
                                         </form:select>
+                                        <form:errors path="brand" cssClass="text-danger"/>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="category">Category</label>
                                             <form:select path="category" class="form-control" id="category">
-                                                <form:option value="null">-- Select Category --</form:option>
+                                                <form:option value="">-- Select Category --</form:option>
                                                 <form:option value="category 1">Category 1</form:option>
                                                 <!-- Add more options as necessary -->
                                             </form:select>
+                                            <form:errors path="category" cssClass="text-danger"/>
                                         </div>
 
                                         <div class="form-group col-md-6">
                                             <label for="supplier">Supplier</label>
                                             <form:select path="supplier" class="form-control" id="supplier">
-                                                <form:option value="null">-- Select Supplier --</form:option>
+                                                <form:option value="">-- Select Supplier --</form:option>
                                                 <form:option value="supplier 1">Supplier 1</form:option>
                                                 <!-- Add more options as necessary -->
                                             </form:select>
+                                            <form:errors path="supplier" cssClass="text-danger"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -137,6 +147,7 @@
                                                         <label for="white" style="cursor: pointer"
                                                                class="m-2">White</label>
                                                     </div>
+                                                    <form:errors path="color" cssClass="text-danger"/>
                                                 </div>
 
                                             </div>
@@ -167,6 +178,7 @@
                                                         <label for="xl" style="cursor: pointer"
                                                                class="m-2">XL</label>
                                                     </div>
+                                                    <form:errors path="color" cssClass="text-danger"/>
                                                 </div>
                                             </div>
                                         </div>
