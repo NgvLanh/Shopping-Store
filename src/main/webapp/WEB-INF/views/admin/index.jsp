@@ -38,7 +38,7 @@
         </div>
         <ul class="nav">
             <li class="nav-item nav-profile">
-                <a href="" class="nav-link">
+                <a href="/admin/dashboard" class="nav-link">
                     <div class="nav-profile-image">
                         <img src="/assets/images/faces-clipart/pic-4.png" alt="profile"/>
                         <span class="login-status online"></span>
@@ -52,25 +52,25 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="dashboard">
+                <a class="nav-link" href="/admin/dashboard">
                     <i class="mdi mdi-home menu-icon"></i>
                     <span class="menu-title">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="product-management">
+                <a class="nav-link" href="/admin/product-management">
                     <i class="mdi mdi-desktop-tower menu-icon"></i>
                     <span class="menu-title">Product</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="customer-management">
+                <a class="nav-link" href="/admin/customer-management">
                     <i class="mdi mdi-account-search menu-icon"></i>
                     <span class="menu-title">Customer</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="supplier-management">
+                <a class="nav-link" href="/admin/supplier-management">
                     <i class="mdi mdi-bank menu-icon"></i>
                     <span class="menu-title">Supplier</span>
                 </a>
@@ -85,25 +85,25 @@
                 <div class="collapse show" id="ui-basic" style="">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="brands-management">Brand</a>
+                            <a class="nav-link" href="/admin/brands-management">Brand</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="categories-management">Category</a>
+                            <a class="nav-link" href="/admin/categories-management">Category</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="size-color-management">Size & color</a>
+                            <a class="nav-link" href="/admin/size-color-management">Size & color</a>
                         </li>
                     </ul>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="review-management">
+                <a class="nav-link" href="/admin/review-management">
                     <i class="mdi mdi-border-color menu-icon"></i>
                     <span class="menu-title">Review</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="order-management">
+                <a class="nav-link" href="/admin/order-management">
                     <i class="mdi mdi-barcode-scan menu-icon"></i>
                     <span class="menu-title">Order process</span>
                 </a>
@@ -112,7 +112,7 @@
                 <div class="nav-link">
                     <div class="mt-4">
                         <div class="border-none">
-                            <a href="notification-management" class="text-black">Notification</a>
+                            <a href="/admin/notification-management" class="text-black">Notification</a>
                         </div>
                         <ul class="mt-4 pl-0">
                             <li>Sign Out</li>
@@ -142,7 +142,7 @@
         </div>
         <nav class="navbar col-lg-12 col-12 p-lg-0 fixed-top d-flex flex-row">
             <div class="navbar-menu-wrapper d-flex align-items-stretch justify-content-between">
-                <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="dashboard"><img
+                <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="/admin/dashboard"><img
                         src="/assets/images/logo-mini.svg" alt="logo"/></a>
                 <button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button"
                         data-toggle="minimize">
@@ -186,7 +186,7 @@
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="notification-management" class="p-3 mb-0">View all activities</a>
+                            <a href=/admin/"notification-management" class="p-3 mb-0">View all activities</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown d-none d-sm-flex">
