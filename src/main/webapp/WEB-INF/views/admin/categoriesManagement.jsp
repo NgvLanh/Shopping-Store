@@ -10,7 +10,7 @@
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title text-warning">Categories management</h3>
+                <h3 class="page-title">Categories management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="admin">Admin</a></li>
@@ -26,8 +26,8 @@
                             <form class="forms-sample">
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Category Name</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Category Name">
+                                    <label for="exampleInputEmail1">Category name</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Category name">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Description</label>
@@ -48,7 +48,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Category Name:</th>
+                                        <th>Category name</th>
                                         <th>Description</th>
                                     </tr>
                                     </thead>

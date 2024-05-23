@@ -22,27 +22,27 @@
                             <form:form method="post" action="/yourSpringControllerMapping" modelAttribute="supplier">
                                 <div class="form-group">
                                     <label for="supplierName">Supplier name</label>
-                                    <form:input path="supplierName" class="form-control" id="supplierName" placeholder="Tên nhà cung cấp"/>
+                                    <form:input path="supplierName" class="form-control" id="supplierName" placeholder="Supplier name"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="contactName">Contact name</label>
-                                    <form:input path="contactName" class="form-control" id="contactName" placeholder="Tên người liên hệ"/>
+                                    <form:input path="contactName" class="form-control" id="contactName" placeholder="Contact name"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="contactPhone">Contact Phone</label>
-                                    <form:input path="contactPhone" class="form-control" id="contactPhone" placeholder="Số điện thoại liên hệ"/>
+                                    <form:input path="contactPhone" class="form-control" id="contactPhone" placeholder="Contact Phone"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="contactEmail">Contact Email</label>
-                                    <form:input path="contactEmail" class="form-control" id="contactEmail" placeholder="Email liên hệ"/>
+                                    <form:input path="contactEmail" class="form-control" id="contactEmail" placeholder="Contact Email"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Address</label>
-                                    <form:input path="address" class="form-control" id="address" placeholder="Địa chỉ"/>
+                                    <form:input path="address" class="form-control" id="address" placeholder="Address"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="city">City</label>
-                                    <form:input path="city" class="form-control" id="city" placeholder="Thành phố"/>
+                                    <form:input path="city" class="form-control" id="city" placeholder="City"/>
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2"> Save </button>
                                 <button type="reset" class="btn btn-light">Cancel</button>

@@ -31,7 +31,8 @@
                         <div class="card-body">
                             <h4 class="card-title">Product form</h4>
                             <p class="card-description">Create - Update</p>
-                            <form:form class="forms-sample row" method="post" action="/product-management/create"
+                            <%--@elvariable id="product" type="com.poly.entities.Product"--%>
+                            <form:form class="forms-sample row" method="post" action="/admin/product-management/create"
                                        modelAttribute="product" enctype="multipart/form-data">
                                 <div class="form-group col-md-6">
                                     <label for="name">Name</label>
@@ -55,7 +56,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="image">Image</label>
-                                    <form:input path="image" type="file" class="form-control" id="image"
+                                    <form:input path="file" type="file" class="form-control" id="image"
                                                 placeholder="Image"/>
                                     <div class="border d-block mt-2" style="height: 200px;">
                                         <img src="${image}" alt="image" id="imagePreview" width="50%" height="100%"
@@ -65,8 +66,7 @@
                                 <script>
                                     document.addEventListener('DOMContentLoaded', () => {
                                         const imagePreview = document.getElementById('imagePreview');
-                                        if (imagePreview.src !== 'http://localhost:8080/product-management' &&
-                                            imagePreview.src !== 'http://localhost:8080/product-management/create') {
+                                        if (imagePreview.src !== 'http://localhost:8080/admin/product-management') {
                                             imagePreview.style.display = 'block';
                                         }
                                     });
@@ -92,7 +92,7 @@
                                         <label for="brand">Brand</label>
                                         <form:select path="brand" class="form-control" id="brand">
                                             <form:option value="null">-- Select Brand --</form:option>
-                                            <form:option value="1">Brand 1</form:option>
+                                            <form:option value="brand 1">Brand 1</form:option>
                                             <!-- Add more options as necessary -->
                                         </form:select>
                                     </div>
@@ -101,7 +101,7 @@
                                             <label for="category">Category</label>
                                             <form:select path="category" class="form-control" id="category">
                                                 <form:option value="null">-- Select Category --</form:option>
-                                                <form:option value="">Category 1</form:option>
+                                                <form:option value="category 1">Category 1</form:option>
                                                 <!-- Add more options as necessary -->
                                             </form:select>
                                         </div>
@@ -110,7 +110,7 @@
                                             <label for="supplier">Supplier</label>
                                             <form:select path="supplier" class="form-control" id="supplier">
                                                 <form:option value="null">-- Select Supplier --</form:option>
-                                                <form:option value="">Supplier 1</form:option>
+                                                <form:option value="supplier 1">Supplier 1</form:option>
                                                 <!-- Add more options as necessary -->
                                             </form:select>
                                         </div>
@@ -118,20 +118,56 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label for="color">Color</label>
-                                                <form:select path="color" class="form-control" id="color">
-                                                    <form:option value="null">-- Select Color --</form:option>
-                                                    <form:option value="red">Color Red</form:option>
-                                                    <!-- Add more options as necessary -->
-                                                </form:select>
+                                                <label>Color</label>
+                                                <div style="user-select: none;" class="row">
+                                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
+                                                        <form:checkbox path="color" value="red" id="red"
+                                                                       cssStyle="accent-color: red; transform: scale(1.5);"/>
+                                                        <label for="red" style="cursor: pointer" class="m-2">Red</label>
+                                                    </div>
+                                                    <div class="col-md-3 d-flex align-content-center justify-content-between">
+                                                        <form:checkbox path="color" value="blue" id="blue"
+                                                                       cssStyle="accent-color: blue; transform: scale(1.5);"/>
+                                                        <label for="blue" style="cursor: pointer"
+                                                               class="m-2">Blue</label>
+                                                    </div>
+                                                    <div class="col-md-3 d-flex align-content-center justify-content-between">
+                                                        <form:checkbox path="color" value="white" id="white"
+                                                                       cssStyle="accent-color: white; transform: scale(1.5);"/>
+                                                        <label for="white" style="cursor: pointer"
+                                                               class="m-2">White</label>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="size">Size</label>
-                                                <form:select path="size" class="form-control" id="size">
-                                                    <form:option value="null">-- Select Size --</form:option>
-                                                    <form:option value="s">Size S</form:option>
-                                                    <!-- Add more options as necessary -->
-                                                </form:select>
+                                                <label>Size</label>
+                                                <div style="user-select: none;" class="row">
+                                                    <div class="col-md-3 d-flex align-content-center justify-content-around">
+                                                        <form:checkbox path="size" value="s" id="s"
+                                                                       cssStyle="accent-color: white; transform: scale(1.5);"/>
+                                                        <label for="s" style="cursor: pointer"
+                                                               class="m-2">S</label>
+                                                    </div>
+                                                    <div class="col-md-3 d-flex align-content-center justify-content-around">
+                                                        <form:checkbox path="size" value="m" id="m"
+                                                                       cssStyle="accent-color: white; transform: scale(1.5);"/>
+                                                        <label for="m" style="cursor: pointer"
+                                                               class="m-2">M</label>
+                                                    </div>
+                                                    <div class="col-md-3 d-flex align-content-center justify-content-around">
+                                                        <form:checkbox path="size" value="l" id="l"
+                                                                       cssStyle="accent-color: white; transform: scale(1.5);"/>
+                                                        <label for="l" style="cursor: pointer"
+                                                               class="m-2">L</label>
+                                                    </div>
+                                                    <div class="col-md-3 d-flex align-content-center justify-content-around">
+                                                        <form:checkbox path="size" value="xl" id="xl"
+                                                                       cssStyle="accent-color: white; transform: scale(1.5);"/>
+                                                        <label for="xl" style="cursor: pointer"
+                                                               class="m-2">XL</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -140,7 +176,7 @@
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary mr-2">Create</button>
                                     <button type="button" class="btn btn-light"
-                                            onclick="window.location.href='/product-management'">Cancel
+                                            onclick="window.location.href='product-management'">Cancel
                                     </button>
                                 </div>
                             </form:form>
@@ -194,7 +230,8 @@
                                         <td><i class="mdi mdi-table-edit"
                                                style="font-size: 1.5rem; color: darkgreen"></i></td>
                                         <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
-                                                                         style="font-size: 1.5rem; color: red"></i></td>
+                                                                             style="font-size: 1.5rem; color: red"></i>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><img src="../../../uploads/s7-AI710944762001_lifestyle.webp" alt=""></td>
@@ -216,7 +253,8 @@
                                         <td><i class="mdi mdi-table-edit"
                                                style="font-size: 1.5rem; color: darkgreen"></i></td>
                                         <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
-                                                                         style="font-size: 1.5rem; color: red"></i></td>
+                                                                             style="font-size: 1.5rem; color: red"></i>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

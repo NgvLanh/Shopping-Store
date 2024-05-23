@@ -1,7 +1,5 @@
 package com.poly.controllers;
 
-import com.poly.models.Customer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,7 +78,7 @@ public class RouterController {
         model.addAttribute("page", pageName);
         return "admin/index";
     }
-    @GetMapping({"/dashboard", "/admin"})
+    @GetMapping("/admin/dashboard")
     public String admin(Model model) {
         return setPageAdmin(model, "home.jsp");
     }
@@ -89,7 +87,7 @@ public class RouterController {
 //    public String productManagement(Model model) {
 //        return setPageAdmin(model, "productManagement.jsp");
 //    }
-    @GetMapping("/customer-management")
+    @GetMapping("/admin/customer-management")
     public String customerManagement(Model model) {
         return setPageAdmin(model, "customerManagement.jsp");
     }
@@ -97,30 +95,30 @@ public class RouterController {
 //    public String supplierManagement(Model model) {
 //        return setPageAdmin(model, "supplierManagement.jsp");
 //    }
-    @GetMapping("/review-management")
+    @GetMapping("/admin/review-management")
     public String reviewManagement(Model model) {
         return setPageAdmin(model, "reviewManagement.jsp");
     }
-    @GetMapping("/order-management")
+    @GetMapping("/admin/order-management")
     public String orderManagement(Model model) {
         return setPageAdmin(model, "orderManagement.jsp");
     }
 
-    @GetMapping("/brands-management")
+    @GetMapping("/admin/brands-management")
     public String bandsManagement(Model model) {
         return setPageAdmin(model, "brandsManagement.jsp");
     }
 
-    @GetMapping("/categories-management")
+    @GetMapping("/admin/categories-management")
     public String categoriesManagement(Model model) {
         return setPageAdmin(model, "categoriesManagement.jsp");
     }
-    @GetMapping("/size-color-management")
+    @GetMapping("/admin/size-color-management")
     public String sizeColorManagement(Model model) {
         return setPageAdmin(model, "sizeColorManagement.jsp");
     }
 
-    @GetMapping("/notification-management")
+    @GetMapping("/admin/notification-management")
     public String notificationManagement(Model model) {
         return setPageAdmin(model, "notificationManagement.jsp");
     }

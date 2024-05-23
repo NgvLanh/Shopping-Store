@@ -38,8 +38,13 @@ To change this template use File | Settings | File Templates.
                                     <input type="date" class="form-control" id="exampleInputDate" placeholder="date">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputStatus">Status</label>
-                                    <input type="text" class="form-control" id="exampleInputStatus" placeholder="status">
+                                    <label for="">Status</label>
+                                    <select name="" id="" class="form-control">
+                                        <option value="">Awaiting Confirmation</option>
+                                        <option value="">Confirmed</option>
+<%--                                        <option value="">Delivered</option>--%>
+                                        <option value="">Cancelled</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputTotal">Total</label>
@@ -71,7 +76,7 @@ To change this template use File | Settings | File Templates.
                                         <th>Status</th>
                                         <th>Total</th>
                                         <th>Update</th>
-                                        <th>Delete</th>
+                                        <th>View</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -88,8 +93,8 @@ To change this template use File | Settings | File Templates.
                                         <td>500.000</td>
                                         <td><i class="mdi mdi-table-edit"
                                                style="font-size: 1.5rem; color: darkgreen"></i></td>
-                                        <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
-                                                                             style="font-size: 1.5rem; color: red"></i></td>
+                                        <td><i class="mdi mdi-eye-outline"
+                                               style="font-size: 1.5rem; color: sandybrown"></i></td>
                                     </tr>
                                     <tr>
                                         <td>M2</td>
@@ -104,8 +109,8 @@ To change this template use File | Settings | File Templates.
                                         <td>600.000</td>
                                         <td><i class="mdi mdi-table-edit"
                                                style="font-size: 1.5rem; color: darkgreen"></i></td>
-                                        <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
-                                                                             style="font-size: 1.5rem; color: red"></i></td>
+                                        <td><i class="mdi mdi-eye-outline"
+                                               style="font-size: 1.5rem; color: sandybrown"></i></td>
                                     </tr>
 
                                     </tbody>

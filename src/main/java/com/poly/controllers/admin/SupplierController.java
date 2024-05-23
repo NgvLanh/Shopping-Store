@@ -1,7 +1,7 @@
 package com.poly.controllers.admin;
 
 
-import com.poly.models.Supplier;
+import com.poly.entities.Supplier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/supplier-management")
+@RequestMapping("/admin/supplier-management")
 public class SupplierController {
     @ModelAttribute("supplier")
     public Supplier supplier() {
