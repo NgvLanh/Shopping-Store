@@ -27,6 +27,7 @@ public class Product {
     @NotNull(message = "NotNull.product.quantity")
     private Integer quantity;
 
+    @NotNull(message = "NotNull.product.file")
     private MultipartFile file;
 
     @NotBlank(message = "NotBlank.product.fileName")

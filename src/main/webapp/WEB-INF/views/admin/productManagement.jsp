@@ -38,25 +38,25 @@
                                     <label for="name">Name</label>
                                     <form:input path="name" type="text" class="form-control" id="name"
                                                 placeholder="Product name"/>
-                                    <form:errors path="name" cssClass="text-danger"/>
+                                    <form:errors path="name" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="description">Description</label>
                                     <form:input path="description" type="text" class="form-control" id="description"
                                                 placeholder="Description"/>
-                                    <form:errors path="description" cssClass="text-danger"/>
+                                    <form:errors path="description" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="price">Price</label>
                                     <form:input path="price" type="text" class="form-control" id="price"
                                                 placeholder="Price"/>
-                                    <form:errors path="price" cssClass="text-danger"/>
+                                    <form:errors path="price" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="quantity">Quantity</label>
                                     <form:input path="quantity" type="text" class="form-control" id="quantity"
                                                 placeholder="Quantity"/>
-                                    <form:errors path="quantity" cssClass="text-danger"/>
+                                    <form:errors path="quantity" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="image">Image</label>
@@ -67,7 +67,7 @@
                                         <img src="${image}" alt="image" id="imagePreview" width="50%" height="100%"
                                              style="display: none; margin: auto">
                                     </div>
-                                    <form:errors path="fileName" cssClass="text-danger"/>
+                                    <form:errors path="fileName" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <script>
                                     document.addEventListener('DOMContentLoaded', () => {
@@ -102,7 +102,7 @@
                                             <form:option value="brand 1">Brand 1</form:option>
                                             <!-- Add more options as necessary -->
                                         </form:select>
-                                        <form:errors path="brand" cssClass="text-danger"/>
+                                        <form:errors path="brand" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
@@ -112,7 +112,7 @@
                                                 <form:option value="category 1">Category 1</form:option>
                                                 <!-- Add more options as necessary -->
                                             </form:select>
-                                            <form:errors path="category" cssClass="text-danger"/>
+                                            <form:errors path="category" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                         </div>
 
                                         <div class="form-group col-md-6">
@@ -122,7 +122,7 @@
                                                 <form:option value="supplier 1">Supplier 1</form:option>
                                                 <!-- Add more options as necessary -->
                                             </form:select>
-                                            <form:errors path="supplier" cssClass="text-danger"/>
+                                            <form:errors path="supplier" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -147,7 +147,7 @@
                                                         <label for="white" style="cursor: pointer"
                                                                class="m-2">White</label>
                                                     </div>
-                                                    <form:errors path="color" cssClass="text-danger"/>
+                                                    <form:errors path="color" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                                 </div>
 
                                             </div>
@@ -178,7 +178,7 @@
                                                         <label for="xl" style="cursor: pointer"
                                                                class="m-2">XL</label>
                                                     </div>
-                                                    <form:errors path="color" cssClass="text-danger"/>
+                                                    <form:errors path="size" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                                 </div>
                                             </div>
                                         </div>
