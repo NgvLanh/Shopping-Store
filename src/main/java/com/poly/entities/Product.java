@@ -1,8 +1,6 @@
 package com.poly.entities;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,9 +22,12 @@ public class Product {
     private String description;
 
     @NotNull(message = "NotNull.product.price")
+    @Min(value = 1000, message = "Min.product.price")
     private Double price;
 
+
     @NotNull(message = "NotNull.product.quantity")
+    @Min(value = 1, message = "Min.product.quantity")
     private Integer quantity;
 
     @NotNull(message = "NotNull.product.file")

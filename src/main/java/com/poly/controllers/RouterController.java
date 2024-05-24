@@ -87,10 +87,10 @@ public class RouterController {
 //    public String productManagement(Model model) {
 //        return setPageAdmin(model, "productManagement.jsp");
 //    }
-    @GetMapping("/admin/customer-management")
-    public String customerManagement(Model model) {
-        return setPageAdmin(model, "customerManagement.jsp");
-    }
+//    @GetMapping("/admin/customer-management")
+//    public String customerManagement(Model model) {
+//        return setPageAdmin(model, "customerManagement.jsp");
+//    }
 //    @GetMapping("/supplier-management")
 //    public String supplierManagement(Model model) {
 //        return setPageAdmin(model, "supplierManagement.jsp");
