@@ -1,5 +1,5 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
     input[type="file"]::file-selector-button {
         background: linear-gradient(to left, whitesmoke, skyblue);
@@ -20,7 +20,7 @@
                 <h3 class="page-title">Products management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Admin</a></li>
                         <li class="breadcrumb-item active" aria-current="page"> Products management</li>
                     </ol>
                 </nav>
@@ -34,46 +34,50 @@
                             <%--@elvariable id="product" type="com.poly.entities.Product"--%>
                             <form:form class="forms-sample row" method="post" action="/admin/product-management/create"
                                        modelAttribute="product" enctype="multipart/form-data">
+
                                 <div class="form-group col-md-6">
                                     <label for="name">Name</label>
                                     <form:input path="name" type="text" class="form-control" id="name"
                                                 placeholder="Product name"/>
-                                    <form:errors path="name" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:errors path="name" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="description">Description</label>
                                     <form:input path="description" type="text" class="form-control" id="description"
                                                 placeholder="Description"/>
-                                    <form:errors path="description" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:errors path="description" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="price">Price</label>
                                     <form:input path="price" type="text" class="form-control" id="price"
                                                 placeholder="Price"/>
-                                    <form:errors path="price" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:errors path="price" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="quantity">Quantity</label>
                                     <form:input path="quantity" type="text" class="form-control" id="quantity"
                                                 placeholder="Quantity"/>
-                                    <form:errors path="quantity" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:errors path="quantity" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="image">Image</label>
-                                    <form:input path="file" type="file" class="form-control" id="image"
+                                    <form:input path="file" type="file" class="form-control" id="image" disabled="${disabled}"
                                                 placeholder="Image"/>
-
                                     <div class="border d-block mt-2" style="height: 200px;">
-                                        <img src="${image}" alt="image" id="imagePreview" width="50%" height="100%"
+                                        <img src="../../../uploads/" alt="image" id="imagePreview" width="50%" height="100%"
                                              style="display: none; margin: auto">
                                     </div>
-                                    <form:errors path="fileName" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:errors path="file" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <script>
                                     document.addEventListener('DOMContentLoaded', () => {
                                         const imagePreview = document.getElementById('imagePreview');
-                                        if (imagePreview.src !== 'http://localhost:8080/admin/product-management' &&
-                                            imagePreview.src !== 'http://localhost:8080/admin/product-management/create' ) {
+                                        if (imagePreview.src !== 'http://localhost:8080/uploads/') {
                                             imagePreview.style.display = 'block';
                                         }
                                     });
@@ -99,30 +103,36 @@
                                         <label for="brand">Brand</label>
                                         <form:select path="brand" class="form-control" id="brand">
                                             <form:option value="">-- Select Brand --</form:option>
-                                            <form:option value="brand 1">Brand 1</form:option>
+                                            <jsp:useBean id="brands" scope="request" type="java.util.List"/>
+                                            <form:options items="${brands}"/>
                                             <!-- Add more options as necessary -->
                                         </form:select>
-                                        <form:errors path="brand" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                        <form:errors path="brand" cssClass="text-danger"
+                                                     cssStyle="font-size: 14px; margin: 4px"/>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="category">Category</label>
                                             <form:select path="category" class="form-control" id="category">
                                                 <form:option value="">-- Select Category --</form:option>
-                                                <form:option value="category 1">Category 1</form:option>
+                                                <jsp:useBean id="categories" scope="request" type="java.util.List"/>
+                                                <form:options items="${categories}"/>
                                                 <!-- Add more options as necessary -->
                                             </form:select>
-                                            <form:errors path="category" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                            <form:errors path="category" cssClass="text-danger"
+                                                         cssStyle="font-size: 14px; margin: 4px"/>
                                         </div>
 
                                         <div class="form-group col-md-6">
                                             <label for="supplier">Supplier</label>
                                             <form:select path="supplier" class="form-control" id="supplier">
                                                 <form:option value="">-- Select Supplier --</form:option>
-                                                <form:option value="supplier 1">Supplier 1</form:option>
+                                                <jsp:useBean id="suppliers" scope="request" type="java.util.List"/>
+                                                <form:options items="${suppliers}"/>
                                                 <!-- Add more options as necessary -->
                                             </form:select>
-                                            <form:errors path="supplier" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                            <form:errors path="supplier" cssClass="text-danger"
+                                                         cssStyle="font-size: 14px; margin: 4px"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -130,55 +140,34 @@
                                             <div class="form-group col-md-6">
                                                 <label>Color</label>
                                                 <div style="user-select: none;" class="row">
-                                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
-                                                        <form:checkbox path="color" value="red" id="red"
-                                                                       cssStyle="accent-color: red; transform: scale(1.5);"/>
-                                                        <label for="red" style="cursor: pointer" class="m-2">Red</label>
-                                                    </div>
-                                                    <div class="col-md-3 d-flex align-content-center justify-content-between">
-                                                        <form:checkbox path="color" value="blue" id="blue"
-                                                                       cssStyle="accent-color: blue; transform: scale(1.5);"/>
-                                                        <label for="blue" style="cursor: pointer"
-                                                               class="m-2">Blue</label>
-                                                    </div>
-                                                    <div class="col-md-3 d-flex align-content-center justify-content-between">
-                                                        <form:checkbox path="color" value="white" id="white"
-                                                                       cssStyle="accent-color: white; transform: scale(1.5);"/>
-                                                        <label for="white" style="cursor: pointer"
-                                                               class="m-2">White</label>
-                                                    </div>
-                                                    <form:errors path="color" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                                    <jsp:useBean id="colors" scope="request" type="java.util.List"/>
+                                                    <c:forEach var="color" items="${colors}">
+                                                        <div class="col-md-4 my-1">
+                                                            <form:checkbox path="color" value="${color}" id="${color}"
+                                                                           cssStyle="accent-color: ${color}; transform: scale(1.5);"/>
+                                                            <label for="${color}" class="m-1"
+                                                                   style="cursor: pointer">${color}</label>
+                                                        </div>
+                                                    </c:forEach>
+                                                    <form:errors path="color" cssClass="text-danger"
+                                                                 cssStyle="font-size: 14px; margin: 4px 12px"/>
                                                 </div>
 
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Size</label>
                                                 <div style="user-select: none;" class="row">
-                                                    <div class="col-md-3 d-flex align-content-center justify-content-around">
-                                                        <form:checkbox path="size" value="s" id="s"
-                                                                       cssStyle="accent-color: white; transform: scale(1.5);"/>
-                                                        <label for="s" style="cursor: pointer"
-                                                               class="m-2">S</label>
-                                                    </div>
-                                                    <div class="col-md-3 d-flex align-content-center justify-content-around">
-                                                        <form:checkbox path="size" value="m" id="m"
-                                                                       cssStyle="accent-color: white; transform: scale(1.5);"/>
-                                                        <label for="m" style="cursor: pointer"
-                                                               class="m-2">M</label>
-                                                    </div>
-                                                    <div class="col-md-3 d-flex align-content-center justify-content-around">
-                                                        <form:checkbox path="size" value="l" id="l"
-                                                                       cssStyle="accent-color: white; transform: scale(1.5);"/>
-                                                        <label for="l" style="cursor: pointer"
-                                                               class="m-2">L</label>
-                                                    </div>
-                                                    <div class="col-md-3 d-flex align-content-center justify-content-around">
-                                                        <form:checkbox path="size" value="xl" id="xl"
-                                                                       cssStyle="accent-color: white; transform: scale(1.5);"/>
-                                                        <label for="xl" style="cursor: pointer"
-                                                               class="m-2">XL</label>
-                                                    </div>
-                                                    <form:errors path="size" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                                    <jsp:useBean id="sizes" scope="request" type="java.util.List"/>
+                                                    <c:forEach var="size" items="${sizes}">
+                                                        <div class="col-md-4 my-1">
+                                                            <form:checkbox path="size" value="${size}" id="${size}"
+                                                                           cssStyle="accent-color: whitesmoke; transform: scale(1.5);"/>
+                                                            <label for="${size}" class="m-1"
+                                                                   style="cursor: pointer">${size}</label>
+                                                        </div>
+                                                    </c:forEach>
+                                                    <form:errors path="color" cssClass="text-danger"
+                                                                 cssStyle="font-size: 14px; margin: 4px 12px"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -186,9 +175,9 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary mr-2">Create</button>
+                                    <button type="submit" class="btn btn-primary mr-2">Save</button>
                                     <button type="button" class="btn btn-light"
-                                            onclick="window.location.href='product-management'">Cancel
+                                            onclick="window.location.href='/admin/product-management'">Cancel
                                     </button>
                                 </div>
                             </form:form>
@@ -222,52 +211,35 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td><img src="../../../uploads/s7-1497188_lifestyle.webp" alt=""></td>
-                                        <td>Classic Fit Cotton-Linen Polo Shirt</td>
-                                        <td>$125.00</td>
-                                        <td>
-                                            <label class="badge" style="background:white;">
-                                                White
-                                            </label>
-                                        </td>
-                                        <td>120</td>
-                                        <td>Polo Ralph Lauren</td>
-                                        <td>
-                                            <%-- Description --%>
-                                        </td>
-                                        <td>T-shirt</td>
-                                        <td>M</td>
-                                        <td>New House</td>
-                                        <td><i class="mdi mdi-table-edit"
-                                               style="font-size: 1.5rem; color: darkgreen"></i></td>
-                                        <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
-                                                                             style="font-size: 1.5rem; color: red"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="../../../uploads/s7-AI710944762001_lifestyle.webp" alt=""></td>
-                                        <td>Classic Fit Striped Mesh Polo Shirt</td>
-                                        <td>$115.00</td>
-                                        <td>
-                                            <label class="badge" style="background: black; color: white">
-                                                Black
-                                            </label>
-                                        </td>
-                                        <td>110</td>
-                                        <td>Polo Ralph Lauren</td>
-                                        <td>
-                                            <%-- Description --%>
-                                        </td>
-                                        <td>T-shirt</td>
-                                        <td>L</td>
-                                        <td>New House</td>
-                                        <td><i class="mdi mdi-table-edit"
-                                               style="font-size: 1.5rem; color: darkgreen"></i></td>
-                                        <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
-                                                                             style="font-size: 1.5rem; color: red"></i>
-                                        </td>
-                                    </tr>
+                                    <c:forEach var="product" items="${products}">
+                                        <tr>
+                                            <td><img src="../../../uploads/${product.fileName}" alt=""></td>
+                                            <td>${product.name}</td>
+                                            <td>${product.price}</td>
+                                            <td>
+                                                <label class="badge" style="background:white;">
+                                                        ${product.color}
+                                                </label>
+                                            </td>
+                                            <td>${product.quantity}</td>
+                                            <td>${product.brand}</td>
+                                            <td>
+                                                    ${product.description}
+                                            </td>
+                                            <td>${product.category}</td>
+                                            <td>${product.size}</td>
+                                            <td>${product.supplier}</td>
+                                            <td>
+                                                <a href="/admin/product-management/${product.id}">
+                                                    <i class="mdi mdi-table-edit"
+                                                       style="font-size: 1.5rem; color: darkgreen"></i>
+                                                </a>
+                                            </td>
+                                            <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
+                                                                                 style="font-size: 1.5rem; color: red"></i>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -284,7 +256,23 @@
         </footer>
     </div>
 </div>
+<%----%>
+<c:if test="${createSuccess}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            Swal.fire({
+                icon: "success",
+                title: "Create product successfully.",
+                // showConfirmButton: false,
+                timer: 1500
+            });
+        });
+    </script>
+</c:if>
 <script>
+    const fillData = (e) => {
+        console.log(e)
+    }
     const confirmDelete = (e) => {
         console.log(e)
         Swal.fire({

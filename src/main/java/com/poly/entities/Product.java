@@ -15,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 public class Product {
 
+    private Long id;
+
     @NotBlank(message = "NotBlank.product.name")
     private String name;
 
@@ -30,7 +32,7 @@ public class Product {
     @NotNull(message = "NotNull.product.file")
     private MultipartFile file;
 
-    @NotBlank(message = "NotBlank.product.fileName")
+//    @NotBlank(message = "NotBlank.product.fileName")
     private String fileName;
 
     @NotBlank(message = "NotBlank.product.category")
@@ -62,6 +64,12 @@ public class Product {
         System.out.println("color: " + color);
         System.out.println("size: " + size);
 
+    }
+    public boolean isEmpty() {
+        return name == null || description == null || price == null || quantity == null ||
+                file == null || fileName == null || category == null || brand == null ||
+                supplier == null || (color == null || color.isEmpty()) ||
+                (size == null || size.isEmpty());
     }
 }
 
