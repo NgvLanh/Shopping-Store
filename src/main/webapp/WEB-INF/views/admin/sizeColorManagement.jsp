@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="content-wrapper">
     <div class="main-panel">
         <div class="content-wrapper">
@@ -24,22 +26,28 @@
                         <div class="card-body">
 
                             <p class="card-description"></p>
-                            <form class="forms-sample">
-                                <div class="form-group">
-                                    <label for="exampleInputUsername1">Color Name</label>
-                                    <input type="text" class="form-control" id="exampleInputUsername1"
-                                           placeholder="Username">
+                            <%--@elvariable id="color" type=""--%>
+                            <form:form class="forms-sample row" method="post" action="/admin/size-color-management/create-color"
+                                       modelAttribute="color">
+                                <div class="form-group col-md-12">
+                                    <label for="color">Color</label>
+                                    <form:input path="color" type="text" class="form-control" id="color"
+                                                placeholder="Color name"/>
+                                    <form:errors path="color" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputUsername1">Description</label>
-                                    <input type="text" class="form-control" id=""
-                                           placeholder="Description">
+                                <div class="form-group col-md-12">
+                                    <label for="colorDescription">Description</label>
+                                    <form:input path="colorDescription" type="text" class="form-control" id="colorDescription"
+                                                placeholder="Description"/>
+                                    <form:errors path="colorDescription" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
 
 
                                 <button type="submit" class="btn btn-primary mr-2"> Submit</button>
-                                <button class="btn btn-light">Cancel</button>
-                            </form>
+                                <button type="button" class="btn btn-light"
+                                        onclick="window.location.href='/admin/size-color-management'">Cancel
+                                </button>
+                            </form:form>
                         </div>
                     </div>
                 </div>
@@ -103,21 +111,29 @@
                         <div class="card-body">
                             <h4 class="card-title"></h4>
                             <p class="card-description"></p>
-                            <form class="forms-sample">
-                                <div class="form-group">
-                                    <label for="exampleInputUsername1">Size</label>
-                                    <input type="text" class="form-control" id=""
-                                           placeholder="Size">
+                            <%--@elvariable id="size" type=""--%>
+                            <form:form class="forms-sample row" method="post" action="/admin/size-color-management/create-size"
+                                       modelAttribute="size">
+                                <div class="form-group col-md-12">
+                                    <label for="size">Size</label>
+                                    <form:input path="size" type="text" class="form-control" id="size"
+                                                placeholder="Size"/>
+                                    <form:errors path="size" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputUsername1">Description</label>
-                                    <input type="text" class="form-control" id=""
-                                           placeholder="Description">
+                                <div class="form-group col-md-12">
+                                    <label for="sizeDescription">Description</label>
+                                    <form:input path="sizeDescription" type="text" class="form-control" id="sizeDescription"
+                                                placeholder="Size"/>
+                                    <form:errors path="sizeDescription" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                <button type="button" class="btn btn-light">Cancel</button>
-                            </form>
+                                <button type="button" class="btn btn-light"
+                                        onclick="window.location.href='/admin/size-color-management'">Cancel
+                                </button>
+                            </form:form>
                         </div>
                     </div>
                 </div>

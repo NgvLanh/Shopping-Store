@@ -113,10 +113,10 @@ public class RouterController {
     public String categoriesManagement(Model model) {
         return setPageAdmin(model, "categoriesManagement.jsp");
     }
-    @GetMapping("/admin/size-color-management")
-    public String sizeColorManagement(Model model) {
-        return setPageAdmin(model, "sizeColorManagement.jsp");
-    }
+//    @GetMapping("/admin/size-color-management")
+//    public String sizeColorManagement(Model model) {
+//        return setPageAdmin(model, "sizeColorManagement.jsp");
+//    }
 
     @GetMapping("/admin/notification-management")
     public String notificationManagement(Model model) {

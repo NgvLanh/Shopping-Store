@@ -1,6 +1,5 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
     input[type="file"]::file-selector-button {
         background: linear-gradient(to left, whitesmoke, skyblue);
@@ -33,7 +32,7 @@
                             <h4 class="card-title">Product form</h4>
                             <p class="card-description">Create - Update</p>
                             <%--@elvariable id="product" type="com.poly.entities.Product"--%>
-                            <form:form class="forms-sample row" method="post"
+                            <form:form class="forms-sample row" method="post" action="/admin/product-management/create"
                                        modelAttribute="product" enctype="multipart/form-data">
 
                                 <div class="form-group col-md-6">
@@ -52,26 +51,24 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="price">Price</label>
-                                    <form:input path="price" type="number" class="form-control" id="price"
+                                    <form:input path="price" type="text" class="form-control" id="price"
                                                 placeholder="Price"/>
                                     <form:errors path="price" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="quantity">Quantity</label>
-                                    <form:input path="quantity" type="number" class="form-control" id="quantity"
+                                    <form:input path="quantity" type="text" class="form-control" id="quantity"
                                                 placeholder="Quantity"/>
                                     <form:errors path="quantity" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="image">Image</label>
-                                    <form:input path="file" type="file" class="form-control" id="image"
-                                                disabled="${disabled}"
+                                    <form:input path="file" type="file" class="form-control" id="image" disabled="${disabled}"
                                                 placeholder="Image"/>
                                     <div class="border d-block mt-2" style="height: 200px;">
-                                        <img src="../../../uploads/" alt="image" id="imagePreview" width="50%"
-                                             height="100%"
+                                        <img src="../../../uploads/" alt="image" id="imagePreview" width="50%" height="100%"
                                              style="display: none; margin: auto">
                                     </div>
                                     <form:errors path="file" cssClass="text-danger"
@@ -169,7 +166,7 @@
                                                                    style="cursor: pointer">${size}</label>
                                                         </div>
                                                     </c:forEach>
-                                                    <form:errors path="size" cssClass="text-danger"
+                                                    <form:errors path="color" cssClass="text-danger"
                                                                  cssStyle="font-size: 14px; margin: 4px 12px"/>
                                                 </div>
                                             </div>
@@ -178,7 +175,7 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary mr-2" id="save" formaction="${formAction}">Save</button>
+                                    <button type="submit" class="btn btn-primary mr-2">Save</button>
                                     <button type="button" class="btn btn-light"
                                             onclick="window.location.href='/admin/product-management'">Cancel
                                     </button>
@@ -199,7 +196,6 @@
                                 <table class="table table-hover" style="cursor: pointer">
                                     <thead>
                                     <tr>
-                                        <th>Id</th>
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Price</th>
@@ -217,12 +213,9 @@
                                     <tbody>
                                     <c:forEach var="product" items="${products}">
                                         <tr>
-                                            <td>${product.id}</td>
                                             <td><img src="../../../uploads/${product.fileName}" alt=""></td>
                                             <td>${product.name}</td>
-                                            <td>
-                                                <fmt:formatNumber value="${product.price}" pattern="#,###"/>
-                                            </td>
+                                            <td>${product.price}</td>
                                             <td>
                                                 <label class="badge" style="background:white;">
                                                         ${product.color}
@@ -237,16 +230,13 @@
                                             <td>${product.size}</td>
                                             <td>${product.supplier}</td>
                                             <td>
-                                                <a href="/admin/product-management/edit/${product.id}">
+                                                <a href="/admin/product-management/${product.id}">
                                                     <i class="mdi mdi-table-edit"
                                                        style="font-size: 1.5rem; color: darkgreen"></i>
                                                 </a>
                                             </td>
-                                            <td>
-                                                <a onclick="confirmDelete(${product.id})">
-                                                    <i class="mdi mdi-delete"
-                                                       style="font-size: 1.5rem; color: red"></i>
-                                                </a>
+                                            <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
+                                                                                 style="font-size: 1.5rem; color: red"></i>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -269,14 +259,22 @@
 <%----%>
 <c:if test="${createSuccess}">
     <script>
-    Swal.fire({
-            icon: "success",
-            title: "${status} product successfully.",
+        document.addEventListener("DOMContentLoaded", function () {
+            Swal.fire({
+                icon: "success",
+                title: "Create product successfully.",
+                // showConfirmButton: false,
+                timer: 1500
+            });
         });
     </script>
 </c:if>
 <script>
-    const confirmDelete = (id) => {
+    const fillData = (e) => {
+        console.log(e)
+    }
+    const confirmDelete = (e) => {
+        console.log(e)
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -291,12 +289,8 @@
                     title: "Deleted!",
                     text: "Your file has been deleted.",
                     icon: "success"
-                }).then(() => {
-                    // Redirect to the delete URL after showing the success message
-                    window.location.href = `/admin/product-management/delete/` + id;
                 });
             }
         });
     }
-
 </script>
