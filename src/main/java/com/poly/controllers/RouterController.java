@@ -13,10 +13,10 @@ public class RouterController {
         return "client/index";
     }
 
-    @GetMapping("/home")
-    public String home(Model model) {
-        return setPageClient(model, "home.jsp");
-    }
+//    @GetMapping("/home")
+//    public String home(Model model) {
+//        return setPageClient(model, "home.jsp");
+//    }
 
     @GetMapping("/contact")
     public String contact(Model model) {
