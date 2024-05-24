@@ -185,7 +185,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/faces/face1.jpg" alt="image"/>
+                                            <img src="/assets/images/faces/face1.jpg" alt="image"/>
                                             <div class="table-user-name ml-3">
                                                 <p class="mb-0 font-weight-medium"> Cecelia Cooper </p>
                                                 <small> Payment on hold</small>
@@ -201,7 +201,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/faces/face10.jpg" alt="image"/>
+                                            <img src="/assets/images/faces/face10.jpg" alt="image"/>
                                             <div class="table-user-name ml-3">
                                                 <p class="mb-0 font-weight-medium"> Victor Watkins </p>
                                                 <small>Email verified</small>
@@ -217,7 +217,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/faces/face11.jpg" alt="image"/>
+                                            <img src="/assets/images/faces/face11.jpg" alt="image"/>
                                             <div class="table-user-name ml-3">
                                                 <p class="mb-0 font-weight-medium"> Ada Burgess </p>
                                                 <small>Email verified</small>
@@ -233,7 +233,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/faces/face13.jpg" alt="image"/>
+                                            <img src="/assets/images/faces/face13.jpg" alt="image"/>
                                             <div class="table-user-name ml-3">
                                                 <p class="mb-0 font-weight-medium"> Dollie Lynch </p>
                                                 <small>Email verified</small>
@@ -249,7 +249,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/faces/face16.jpg" alt="image"/>
+                                            <img src="/assets/images/faces/face16.jpg" alt="image"/>
                                             <div class="table-user-name ml-3">
                                                 <p class="mb-0 font-weight-medium"> Harry Holloway </p>
                                                 <small>Payment on process</small>
@@ -278,7 +278,7 @@
                         <p class="text-muted"> Lorem ipsum dolor sitadipiscing elit, sed amet do eiusmod tempor
                             we find a new solution </p>
                         <div class="d-flex flex-wrap border-bottom py-2 border-top justify-content-between">
-                            <img class="survey-img mb-lg-3" src="assets/images/dashboard/img_3.jpg" alt=""/>
+                            <img class="survey-img mb-lg-3" src="/assets/images/dashboard/img_3.jpg" alt=""/>
                             <div class="pt-2">
                                 <h5 class="mb-0">Villa called Archagel</h5>
                                 <p class="mb-0 text-muted">St, San Diego, CA</p>
@@ -286,7 +286,7 @@
                             </div>
                         </div>
                         <div class="d-flex flex-wrap border-bottom py-2 justify-content-between">
-                            <img class="survey-img mb-lg-3" src="assets/images/dashboard/img_1.jpg" alt=""/>
+                            <img class="survey-img mb-lg-3" src="/assets/images/dashboard/img_1.jpg" alt=""/>
                             <div class="pt-2">
                                 <h5 class="mb-0">Luxury villa in Hermo</h5>
                                 <p class="mb-0 text-muted">Glendale, CA</p>
@@ -294,7 +294,7 @@
                             </div>
                         </div>
                         <div class="d-flex flex-wrap border-bottom py-2 justify-content-between">
-                            <img class="survey-img mb-lg-3" src="assets/images/dashboard/img_2.jpg" alt=""/>
+                            <img class="survey-img mb-lg-3" src="/assets/images/dashboard/img_2.jpg" alt=""/>
                             <div class="pt-2">
                                 <h5 class="mb-0">House on the Clarita</h5>
                                 <p class="mb-0 text-muted">Business Survey</p>
@@ -367,7 +367,7 @@
                             <div class="col-12 col-sm-7">
                                 <div class="row">
                                     <div class="col-4 col-md-4">
-                                        <img class="customer-img" src="assets/images/faces/face22.jpg" alt=""/>
+                                        <img class="customer-img" src="/assets/images/faces/face22.jpg" alt=""/>
                                     </div>
                                     <div class="col-8 col-md-8 p-sm-0">
                                         <h6 class="mb-0">Cecelia Cooper</h6>
@@ -383,7 +383,7 @@
                             <div class="col-sm-7">
                                 <div class="row">
                                     <div class="col-4 col-sm-4">
-                                        <img class="customer-img" src="assets/images/faces/face25.jpg" alt=""/>
+                                        <img class="customer-img" src="/assets/images/faces/face25.jpg" alt=""/>
                                     </div>
                                     <div class="col-8 col-sm-8 p-sm-0">
                                         <h6 class="mb-0">Victor Watkins</h6>
@@ -399,7 +399,7 @@
                             <div class="col-sm-7">
                                 <div class="row">
                                     <div class="col-4 col-sm-4">
-                                        <img class="customer-img" src="assets/images/faces/face15.jpg" alt=""/>
+                                        <img class="customer-img" src="/assets/images/faces/face15.jpg" alt=""/>
                                     </div>
                                     <div class="col-8 col-sm-8 p-sm-0">
                                         <h6 class="mb-0">Ada Burgess</h6>
@@ -415,7 +415,7 @@
                             <div class="col-sm-7">
                                 <div class="row">
                                     <div class="col-4 col-sm-4">
-                                        <img class="customer-img" src="assets/images/faces/face5.jpg" alt=""/>
+                                        <img class="customer-img" src="/assets/images/faces/face5.jpg" alt=""/>
                                     </div>
                                     <div class="col-8 col-sm-8 p-sm-0">
                                         <h6 class="mb-0">Dollie Lynch</h6>
@@ -431,7 +431,7 @@
                             <div class="col-sm-7">
                                 <div class="row">
                                     <div class="col-4 col-sm-4">
-                                        <img class="customer-img" src="assets/images/faces/face2.jpg" alt=""/>
+                                        <img class="customer-img" src="/assets/images/faces/face2.jpg" alt=""/>
                                     </div>
                                     <div class="col-8 col-sm-8 p-sm-0">
                                         <h6 class="mb-0">Harry Holloway</h6>
@@ -455,7 +455,7 @@
                         <div class="row border-bottom pb-3 pt-4 align-items-center mx-0">
                             <div class="col-sm-9 pl-0">
                                 <div class="d-flex">
-                                    <img src="assets/images/dashboard/img_4.jpg" alt=""/>
+                                    <img src="/assets/images/dashboard/img_4.jpg" alt=""/>
                                     <div class="pl-2">
                                         <h6 class="m-0">Red Chair</h6>
                                         <p class="m-0">Home Decoration</p>
@@ -469,7 +469,7 @@
                         <div class="row py-3 align-items-center mx-0">
                             <div class="col-sm-9 pl-0">
                                 <div class="d-flex">
-                                    <img src="assets/images/dashboard/img_5.jpg" alt=""/>
+                                    <img src="/assets/images/dashboard/img_5.jpg" alt=""/>
                                     <div class="pl-2">
                                         <h6 class="m-0">Gray Sofa</h6>
                                         <p class="m-0">Home Decoration</p>
@@ -582,9 +582,9 @@
                                     <span>2h ago</span>
                                     <span class="d-inline-block">
                             <span class="d-flex d-inline-block">
-                              <img class="ml-1" src="assets/images/faces/face1.jpg" alt=""/>
-                              <img class="ml-1" src="assets/images/faces/face10.jpg" alt=""/>
-                              <img class="ml-1" src="assets/images/faces/face14.jpg" alt=""/>
+                              <img class="ml-1" src="/assets/images/faces/face1.jpg" alt=""/>
+                              <img class="ml-1" src="/assets/images/faces/face10.jpg" alt=""/>
+                              <img class="ml-1" src="/assets/images/faces/face14.jpg" alt=""/>
                             </span>
                           </span>
                                 </p>
@@ -615,7 +615,7 @@
                                 <div class="col-7 col-sm-8">
                                     <div class="row align-items-center">
                                         <div class="col-sm-4">
-                                            <img src="assets/images/faces/face2.jpg" alt=""/>
+                                            <img src="/assets/images/faces/face2.jpg" alt=""/>
                                         </div>
                                         <div class="col-sm-8 pr-0 pl-sm-0">
                                             <span>06 Jan 2019</span>
@@ -648,7 +648,7 @@
                                 <div class="col-7 col-sm-8">
                                     <div class="row align-items-center">
                                         <div class="col-sm-4">
-                                            <img src="assets/images/faces/face3.jpg" alt=""/>
+                                            <img src="/assets/images/faces/face3.jpg" alt=""/>
                                         </div>
                                         <div class="col-sm-8 pr-0 pl-sm-0">
                                             <span>18 Mar 2019</span>
@@ -681,7 +681,7 @@
                                 <div class="col-7 col-sm-8">
                                     <div class="row align-items-center">
                                         <div class="col-sm-4">
-                                            <img src="assets/images/faces/face11.jpg" alt=""/>
+                                            <img src="/assets/images/faces/face11.jpg" alt=""/>
                                         </div>
                                         <div class="col-sm-8 pr-0 pl-sm-0">
                                             <span>10 Apr 2019</span>
@@ -714,7 +714,7 @@
                                 <div class="col-7 col-sm-8">
                                     <div class="row align-items-center">
                                         <div class="col-sm-4">
-                                            <img src="assets/images/faces/face3.jpg" alt=""/>
+                                            <img src="/assets/images/faces/face3.jpg" alt=""/>
                                         </div>
                                         <div class="col-sm-8 pr-0 pl-sm-0">
                                             <span>18 Mar 2019</span>
@@ -763,7 +763,7 @@
                             <div class="col-sm-12">
                                 <div class="d-flex justify-content-between pb-3 border-bottom">
                                     <div>
-                                        <img class="mr-2" src="assets/images/browser-logo/opera-logo.png"
+                                        <img class="mr-2" src="/assets/images/browser-logo/opera-logo.png"
                                              alt=""/>
                                         <span class="p">opera mini</span>
                                     </div>
@@ -775,7 +775,7 @@
                             <div class="col-sm-12">
                                 <div class="d-flex justify-content-between pb-3 border-bottom">
                                     <div>
-                                        <img class="mr-2" src="assets/images/browser-logo/safari-logo.png"
+                                        <img class="mr-2" src="/assets/images/browser-logo/safari-logo.png"
                                              alt=""/>
                                         <span class="p">Safari</span>
                                     </div>
@@ -787,7 +787,7 @@
                             <div class="col-sm-12">
                                 <div class="d-flex justify-content-between pb-3 border-bottom">
                                     <div>
-                                        <img class="mr-2" src="assets/images/browser-logo/chrome-logo.png"
+                                        <img class="mr-2" src="/assets/images/browser-logo/chrome-logo.png"
                                              alt=""/>
                                         <span class="p">Chrome</span>
                                     </div>
@@ -799,7 +799,7 @@
                             <div class="col-sm-12">
                                 <div class="d-flex justify-content-between pb-3 border-bottom">
                                     <div>
-                                        <img class="mr-2" src="assets/images/browser-logo/firefox-logo.png"
+                                        <img class="mr-2" src="/assets/images/browser-logo/firefox-logo.png"
                                              alt=""/>
                                         <span class="p">Firefox</span>
                                     </div>
@@ -811,7 +811,7 @@
                             <div class="col-sm-12">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <img class="mr-2" src="assets/images/browser-logo/explorer-logo.png"
+                                        <img class="mr-2" src="/assets/images/browser-logo/explorer-logo.png"
                                              alt=""/>
                                         <span class="p">Explorer</span>
                                     </div>
