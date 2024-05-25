@@ -99,10 +99,10 @@ public class RouterController {
     public String reviewManagement(Model model) {
         return setPageAdmin(model, "reviewManagement.jsp");
     }
-    @GetMapping("/admin/order-management")
-    public String orderManagement(Model model) {
-        return setPageAdmin(model, "orderManagement.jsp");
-    }
+//    @GetMapping("/admin/order-management")
+//    public String orderManagement(Model model) {
+//        return setPageAdmin(model, "orderManagement.jsp");
+//    }
 
     @GetMapping("/admin/brands-management")
     public String bandsManagement(Model model) {

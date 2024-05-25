@@ -9,7 +9,7 @@
                 <h3 class="page-title">Suppliers Management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<spring:url value='/admin' />">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">>Admin</a></li>
                         <li class="breadcrumb-item active" aria-current="page"> Suppliers management</li>
                     </ol>
                 </nav>
@@ -19,7 +19,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Suppliers management</h4>
-                            <form:form method="post" action="/admin/supplier-management/create"
+                            <%--@elvariable id="supplier" type="com.poly.entities.Supplier"--%>
+                            <form:form method="post"
                                        modelAttribute="supplier">
                                 <div class="form-group">
                                     <label for="supplierName">Supplier name</label>
@@ -63,7 +64,9 @@
                                     <form:errors path="city" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr-2"> Save</button>
+                                <button type="submit" class="btn btn-primary mr-2" id="save" formaction="${formAction}">
+                                    Save
+                                </button>
                                 <button type="reset" class="btn btn-light"
                                         onclick="window.location.href='/admin/supplier-management'">Cancel
                                 </button>
@@ -101,7 +104,7 @@
                                             <td>${supplier.address}</td>
                                             <td>${supplier.city}</td>
                                             <td>
-                                                <a href="/admin/supplier-management/${supplier.id}">
+                                                <a href="/admin/supplier-management/edit/${supplier.id}">
                                                     <i class="mdi mdi-table-edit"
                                                        style="font-size: 1.5rem; color: darkgreen"></i>
                                                 </a>
@@ -119,18 +122,14 @@
                 </div>
             </div>
         </div>
-<%--                <c:if test="${createSuccess}">--%>
-<%--                    <script>--%>
-<%--                        document.addEventListener("DOMContentLoaded", function () {--%>
-<%--                            Swal.fire({--%>
-<%--                                icon: "success",--%>
-<%--                                title: "Create supplier successfully.",--%>
-<%--                                // showConfirmButton: false,--%>
-<%--                                timer: 1500--%>
-<%--                            });--%>
-<%--                        });--%>
-<%--                    </script>--%>
-<%--                </c:if>--%>
+        <c:if test="${createSuccess}">
+            <script>
+                Swal.fire({
+                    icon: "success",
+                    title: "${status} product successfully.",
+                });
+            </script>
+        </c:if>
         <script>
             const fillData = (e) => {
                 console.log(e)
