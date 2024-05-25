@@ -104,15 +104,15 @@ public class RouterController {
 //        return setPageAdmin(model, "orderManagement.jsp");
 //    }
 
-    @GetMapping("/admin/brands-management")
-    public String bandsManagement(Model model) {
-        return setPageAdmin(model, "brandsManagement.jsp");
-    }
-
-    @GetMapping("/admin/categories-management")
-    public String categoriesManagement(Model model) {
-        return setPageAdmin(model, "categoriesManagement.jsp");
-    }
+//    @GetMapping("/admin/brands-management")
+//    public String bandsManagement(Model model) {
+//        return setPageAdmin(model, "brandsManagement.jsp");
+//    }
+//
+//    @GetMapping("/admin/categories-management")
+//    public String categoriesManagement(Model model) {
+//        return setPageAdmin(model, "categoriesManagement.jsp");
+//    }
 //    @GetMapping("/admin/size-color-management")
 //    public String sizeColorManagement(Model model) {
 //        return setPageAdmin(model, "sizeColorManagement.jsp");
