@@ -1,20 +1,23 @@
 package com.poly.entities;
 
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity(name = "sizes")
 public class Size {
 
-    @NotBlank(message = "NotBlank.size.size")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long sizeId;
+
     private String size;
 
-    @NotBlank(message = "NotBlank.size.sizeDescription")
     private String sizeDescription;
+
+    @ManyToOne
+    @JoinColumn(name = "productItemId")
+    private ProductItem productItem;
 
     // Getters and setters
     public void print() {

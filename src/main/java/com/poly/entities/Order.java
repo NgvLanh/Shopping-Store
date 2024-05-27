@@ -1,18 +1,25 @@
 package com.poly.entities;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity(name = "Orders")
 public class Order {
-    private Long id;
-    private Long idProduct;
-    private String date;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderId;
+    private Timestamp date;
+    private Timestamp shippingDate;
     private String status;
-    private double total;
+    private Integer total;
+
+    @ManyToOne
+    @JoinColumn(name = "customerId")
+    private Customer customer;
+
+    @ManyToOne
+    private Payment payment;
 }

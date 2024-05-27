@@ -8,7 +8,7 @@
                 <h3 class="page-title">Brands Management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Admin</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Brands Management</li>
                     </ol>
                 </nav>
@@ -19,21 +19,32 @@
                         <div class="card-body">
                             <h4 class="card-title card-description"></h4>
 
+                            <%--@elvariable id="brand" type="com.poly.entities.Brand"--%>
                             <form:form class="forms-sample" method="post" action="/admin/brands-management/create"
                                        modelAttribute="brand" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="brandName">Brand Name</label>
-                                    <form:input path="name" class="form-control" id="brandName" placeholder="Brand Name"/>
-                                    <form:errors path="name" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:input path="name" class="form-control" id="brandName"
+                                                placeholder="Brand Name"/>
+                                    <form:errors path="name" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="brandDescription">Description</label>
-                                    <form:input path="description" class="form-control" id="brandDescription" placeholder="Description"/>
-                                    <form:errors path="description" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:input path="description" class="form-control" id="brandDescription"
+                                                placeholder="Description"/>
+                                    <form:errors path="description" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                <button type="reset" class="btn btn-light">Cancel</button>
+                                <button type="submit" class="btn btn-primary mr-2" ${disabledSave}>Save</button>
+                                <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
+                                        formaction="/admin/brands-management/update/${brand.brandId}">Update
+                                </button>
+                                <button type="button" class="btn btn-light"
+                                        onclick="window.location.href='/admin/brands-management'"
+                                >Cancel
+                                </button>
                             </form:form>
                         </div>
                     </div>
@@ -57,8 +68,10 @@
                                             <td>${brand.name}</td>
                                             <td>${brand.description}</td>
                                             <td>
-                                                <a href="/admin/brands-management/edit/${brand.brandId}" class="btn btn-warning btn-sm">Edit</a>
-                                                <a href="/admin/brands-management/delete/${brand.brandId}" class="btn btn-danger btn-sm">Delete</a>
+                                                <a href="/admin/brands-management/edit/${brand.brandId}"
+                                                   class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="/admin/brands-management/delete/${brand.brandId}"
+                                                   class="btn btn-danger btn-sm">Delete</a>
                                             </td>
                                         </tr>
                                     </c:forEach>

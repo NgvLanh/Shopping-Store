@@ -18,12 +18,12 @@ public class CategoryController {
 
     public CategoryController() {
         // Initialize some categories
-        categoryList.add(new Category(1L, "T-Shirt1", "description"));
-        categoryList.add(new Category(2L, "T-Shirt2", "description"));
-        categoryList.add(new Category(3L, "T-Shirt3", "description"));
-        categoryList.add(new Category(4L, "T-Shirt4", "description"));
-        categoryList.add(new Category(5L, "T-Shirt5", "description"));
-        categoryList.add(new Category(6L, "T-Shirt6", "description"));
+//        categoryList.add(new Category(1L, "T-Shirt1", "description"));
+//        categoryList.add(new Category(2L, "T-Shirt2", "description"));
+//        categoryList.add(new Category(3L, "T-Shirt3", "description"));
+//        categoryList.add(new Category(4L, "T-Shirt4", "description"));
+//        categoryList.add(new Category(5L, "T-Shirt5", "description"));
+//        categoryList.add(new Category(6L, "T-Shirt6", "description"));
     }
 
     @GetMapping("")

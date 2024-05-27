@@ -19,8 +19,7 @@ public class CustomerController {
     @ModelAttribute("customers")
     public List<Customer> getAllCustomers() {
         return Arrays.asList(
-                new Customer(1L, "John", "Doe", null, "john.png", "john.doe@example.com", "password", "1234567890", "123 Street", "City", new Timestamp(System.currentTimeMillis()), false),
-                new Customer(2L, "Jane", "Doe", null, "jane.png", "jane.doe@example.com", "password", "0987654321", "456 Avenue", "City", new Timestamp(System.currentTimeMillis()), false)
+
         );
     }
 

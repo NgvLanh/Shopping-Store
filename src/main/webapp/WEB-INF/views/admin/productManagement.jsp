@@ -32,22 +32,22 @@
                         <div class="card-body">
                             <h4 class="card-title">Product form</h4>
                             <p class="card-description">Create - Update</p>
-                            <%--@elvariable id="product" type="com.poly.entities.Product"--%>
+                            <%--@elvariable id="productItem" type="com.poly.entities.ProductItem"--%>
                             <form:form class="forms-sample row" method="post"
-                                       modelAttribute="product" enctype="multipart/form-data">
+                                       modelAttribute="productItem" enctype="multipart/form-data">
 
                                 <div class="form-group col-md-6">
                                     <label for="name">Name</label>
-                                    <form:input path="name" type="text" class="form-control" id="name"
+                                    <form:input path="product.name" type="text" class="form-control" id="name"
                                                 placeholder="Product name"/>
-                                    <form:errors path="name" cssClass="text-danger"
+                                    <form:errors path="product.name" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="description">Description</label>
-                                    <form:input path="description" type="text" class="form-control" id="description"
+                                    <form:input path="product.description" type="text" class="form-control" id="description"
                                                 placeholder="Description"/>
-                                    <form:errors path="description" cssClass="text-danger"
+                                    <form:errors path="product.description" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -66,75 +66,50 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="image">Image</label>
-                                    <form:input path="file" type="file" class="form-control" id="image"
-                                                disabled="${disabled}"
-                                                placeholder="Image"/>
+                                    <input name="image" type="file" class="form-control" id="image"
+                                           placeholder="Image"/>
                                     <div class="border d-block mt-2" style="height: 200px;">
                                         <img src="../../../uploads/" alt="image" id="imagePreview" width="50%"
                                              height="100%"
                                              style="display: none; margin: auto">
                                     </div>
-                                    <form:errors path="file" cssClass="text-danger"
+                                    <form:errors path="product.image" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', () => {
-                                        const imagePreview = document.getElementById('imagePreview');
-                                        if (imagePreview.src !== 'http://localhost:8080/uploads/') {
-                                            imagePreview.style.display = 'block';
-                                        }
-                                    });
-                                    document.getElementById('image').addEventListener('change', function (event) {
-                                        const file = event.target.files[0];
-                                        if (file) {
-                                            const reader = new FileReader();
-                                            reader.onload = function (e) {
-                                                const imagePreview = document.getElementById('imagePreview');
-                                                imagePreview.src = e.target.result;
-                                                imagePreview.style.display = 'block';
-                                            };
-                                            reader.readAsDataURL(file);
-                                        } else {
-                                            const imagePreview = document.getElementById('imagePreview');
-                                            imagePreview.style.display = 'none';
-                                            imagePreview.src = '';
-                                        }
-                                    });
-                                </script>
                                 <div class="form-group col-md-6">
                                     <div class="form-group">
                                         <label for="brand">Brand</label>
-                                        <form:select path="brand" class="form-control" id="brand">
+                                        <form:select path="product.brand" class="form-control" id="brand">
                                             <form:option value="">-- Select Brand --</form:option>
                                             <jsp:useBean id="brands" scope="request" type="java.util.List"/>
                                             <form:options items="${brands}"/>
                                             <!-- Add more options as necessary -->
                                         </form:select>
-                                        <form:errors path="brand" cssClass="text-danger"
+                                        <form:errors path="product.brand" cssClass="text-danger"
                                                      cssStyle="font-size: 14px; margin: 4px"/>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="category">Category</label>
-                                            <form:select path="category" class="form-control" id="category">
+                                            <form:select path="product.category" class="form-control" id="category">
                                                 <form:option value="">-- Select Category --</form:option>
                                                 <jsp:useBean id="categories" scope="request" type="java.util.List"/>
                                                 <form:options items="${categories}"/>
                                                 <!-- Add more options as necessary -->
                                             </form:select>
-                                            <form:errors path="category" cssClass="text-danger"
+                                            <form:errors path="product.category" cssClass="text-danger"
                                                          cssStyle="font-size: 14px; margin: 4px"/>
                                         </div>
 
                                         <div class="form-group col-md-6">
                                             <label for="supplier">Supplier</label>
-                                            <form:select path="supplier" class="form-control" id="supplier">
+                                            <form:select path="product.supplier" class="form-control" id="supplier">
                                                 <form:option value="">-- Select Supplier --</form:option>
                                                 <jsp:useBean id="suppliers" scope="request" type="java.util.List"/>
                                                 <form:options items="${suppliers}"/>
                                                 <!-- Add more options as necessary -->
                                             </form:select>
-                                            <form:errors path="supplier" cssClass="text-danger"
+                                            <form:errors path="product.supplier" cssClass="text-danger"
                                                          cssStyle="font-size: 14px; margin: 4px"/>
                                         </div>
                                     </div>
@@ -178,7 +153,9 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary mr-2" id="save" formaction="${formAction}">Save</button>
+                                    <button type="submit" class="btn btn-primary mr-2" id="save"
+                                            formaction="${formAction}">Save
+                                    </button>
                                     <button type="button" class="btn btn-light"
                                             onclick="window.location.href='/admin/product-management'">Cancel
                                     </button>
@@ -269,7 +246,7 @@
 <%----%>
 <c:if test="${createSuccess}">
     <script>
-    Swal.fire({
+        Swal.fire({
             icon: "success",
             title: "${status} product successfully.",
         });
@@ -299,4 +276,27 @@
         });
     }
 
+    // file review
+    document.addEventListener('DOMContentLoaded', () => {
+        const imagePreview = document.getElementById('imagePreview');
+        if (imagePreview.src !== 'http://localhost:8080/uploads/') {
+            imagePreview.style.display = 'block';
+        }
+    });
+    document.getElementById('image').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.style.display = 'none';
+            imagePreview.src = '';
+        }
+    });
 </script>

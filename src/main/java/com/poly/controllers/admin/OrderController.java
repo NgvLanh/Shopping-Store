@@ -28,10 +28,10 @@ public class OrderController {
 
         Order orderEdit = new Order();
         for (Order order : list) {
-            if (order.getId() == id) {
-                orderEdit = order;
-                break;
-            }
+//            if (order.getId() == id) {
+//                orderEdit = order;
+//                break;
+//            }
         }
         model.addAttribute("order", orderEdit);
         model.addAttribute("page", "orderManagement.jsp");
@@ -39,10 +39,11 @@ public class OrderController {
         return "admin/index";
     }
 
-    List<Order> list = new ArrayList<>(List.of(new Order(1L,1L,"18/05/2023","Cho xac nhan",5000000),
-            new Order(2L,2L,"18/05/2023","Cho xac nhan",5000000),
-            new Order(3L,3L,"05/05/2023","Cho xac nhan",425000),
-            new Order(4L,4L,"18/08/2023","Xac nhan",502000)
+    List<Order> list = new ArrayList<>(List.of(
+//            new Order(1L,1L,"18/05/2023","Cho xac nhan",5000000),
+//            new Order(2L,2L,"18/05/2023","Cho xac nhan",5000000),
+//            new Order(3L,3L,"05/05/2023","Cho xac nhan",425000),
+//            new Order(4L,4L,"18/08/2023","Xac nhan",502000)
             ));
 
     @ModelAttribute("orders")

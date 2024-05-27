@@ -1,19 +1,21 @@
 package com.poly.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity(name = "brands")
 public class Brand {
-    private Long brandId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+    private Long brandId;
     @NotBlank(message = "NotBlank.brand.name")
     private String name;
-
     @NotBlank(message = "NotBlank.brand.description")
     private String description;
 }

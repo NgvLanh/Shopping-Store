@@ -1,26 +1,31 @@
 package com.poly.entities;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity(name = "customers")
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
-    private String firstName;
-    private String lastName;
-    private MultipartFile file;
-    private String fileName;
+    private String name;
+    private String image;
     private String email;
     private String password;
+    private Boolean role;
+    private Boolean activated;
     private String phone;
     private String address;
     private String city;
-    private Timestamp createdDate;
-    private Boolean role = false;
+    private Timestamp createdTime;
+
+    // customer - cart
+
+
 }
