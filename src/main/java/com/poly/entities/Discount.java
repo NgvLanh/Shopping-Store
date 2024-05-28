@@ -16,9 +16,12 @@ public class Discount {
     @JoinColumn(name = "productItemId")
     private ProductItem productItem;
 
+    @Column(unique = true, updatable = false)
     private String code;
 
-    private String sale;
+    private Integer percentNumber;
 
     private Timestamp createTime;
+
+    private Timestamp endTime;
 }

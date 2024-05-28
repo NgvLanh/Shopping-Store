@@ -112,7 +112,7 @@
                 <div class="nav-link">
                     <div class="mt-4">
                         <div class="border-none">
-                            <a href="/admin/notification-management" class="text-black">Notification</a>
+                            <a href="/admin/discounts-management" class="text-black">Discounts</a>
                         </div>
                         <ul class="mt-4 pl-0">
                             <li>Sign Out</li>

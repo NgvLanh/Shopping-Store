@@ -118,8 +118,8 @@ public class RouterController {
 //        return setPageAdmin(model, "sizeColorManagement.jsp");
 //    }
 
-    @GetMapping("/admin/notification-management")
-    public String notificationManagement(Model model) {
-        return setPageAdmin(model, "notificationManagement.jsp");
-    }
+//    @GetMapping("/admin/discounts-management")
+//    public String discountsManagement(Model model) {
+//        return setPageAdmin(model, "discountsManagement.jsp");
+//    }
 }
