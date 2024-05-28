@@ -2,8 +2,12 @@ package com.poly.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
+@NoArgsConstructor
 @Entity(name = "sizes")
 public class Size {
 
@@ -15,9 +19,18 @@ public class Size {
 
     private String sizeDescription;
 
-    @ManyToOne
-    @JoinColumn(name = "productItemId")
-    private ProductItem productItem;
+    @ManyToMany(mappedBy = "sizes")
+    private List<ProductItem> productItems;
+
+//    @ManyToOne
+//    @JoinColumn(name = "productItemId")
+//    private ProductItem productItem;
+
+    public Size(Long sizeId, String size, String sizeDescription) {
+        this.sizeId = sizeId;
+        this.size = size;
+        this.sizeDescription = sizeDescription;
+    }
 
     // Getters and setters
     public void print() {

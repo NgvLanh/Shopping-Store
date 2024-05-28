@@ -21,5 +21,6 @@ public class Order {
     private Customer customer;
 
     @ManyToOne
+    @JoinColumn(name = "paymentId")
     private Payment payment;
 }

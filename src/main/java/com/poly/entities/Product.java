@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity(name = "products")
 public class Product {
     @Id
@@ -23,7 +21,7 @@ public class Product {
     @NotBlank(message = "NotBlank.product.description")
     private String description;
 
-    @NotBlank(message = "NotBlank.product.image")
+//    @NotBlank(message = "NotBlank.product.image")
     private String image;
 
     @NotNull(message = "NotNull.product.quantity")
@@ -31,11 +29,11 @@ public class Product {
     private Integer quantity;
 
     @NotNull(message = "NotNull.product.price")
-    @Min(value = 1000, message = "Min.product.price")
-    private Double price;
+    @Min(value = 5, message = "Min.product.price")
+    private Integer price;
 
     @ManyToOne
-    @JoinColumn(name = "categotyId")
+    @JoinColumn(name = "categoryId")
     @NotNull(message = "NotNull.product.category")
     private Category category;
 
@@ -48,6 +46,21 @@ public class Product {
     @JoinColumn(name = "supplierId")
     @NotNull(message = "NotNull.product.supplier")
     private Supplier supplier;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", category=" + (category != null ? category.getCategoryId() : "null") +
+                ", brand=" + (brand != null ? brand.getBrandId() : "null") +
+                ", supplier=" + (supplier != null ? supplier.getSupplierId() : "null") +
+                '}';
+    }
 }
 
 
