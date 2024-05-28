@@ -41,12 +41,12 @@ public class BrandController {
         return "admin/index";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/update")
     public String update(@Validated @ModelAttribute("brand") Brand brand,
-                         BindingResult result,
-                         @PathVariable Long id, Model model) {
+                         BindingResult result, Model model) {
+        model.addAttribute("disabledSave", "disabled");
         if (!result.hasErrors()) {
-            Brand brandUpdate = brandRepository.findById(id).orElse(null);
+            Brand brandUpdate = brandRepository.findById(brand.getBrandId()).orElse(null);
             brand.setBrandId(brandUpdate.getBrandId());
             brandRepository.save(brand);
             return "redirect:/admin/brands-management";
@@ -64,7 +64,7 @@ public class BrandController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id, Model model) {
         brandRepository.deleteById(id);
         return "redirect:/admin/brands-management";
     }

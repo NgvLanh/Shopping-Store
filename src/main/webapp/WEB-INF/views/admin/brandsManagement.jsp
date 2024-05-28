@@ -22,6 +22,7 @@
                             <%--@elvariable id="brand" type="com.poly.entities.Brand"--%>
                             <form:form class="forms-sample" method="post" action="/admin/brands-management/create"
                                        modelAttribute="brand" enctype="multipart/form-data">
+                                <form:hidden path="brandId"/>
                                 <div class="form-group">
                                     <label for="brandName">Brand Name</label>
                                     <form:input path="name" class="form-control" id="brandName"
@@ -39,7 +40,7 @@
 
                                 <button type="submit" class="btn btn-primary mr-2" ${disabledSave}>Save</button>
                                 <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
-                                        formaction="/admin/brands-management/update/${brand.brandId}">Update
+                                        formaction="/admin/brands-management/update">Update
                                 </button>
                                 <button type="button" class="btn btn-light"
                                         onclick="window.location.href='/admin/brands-management'"
