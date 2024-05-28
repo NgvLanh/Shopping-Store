@@ -17,21 +17,24 @@ public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long supplierId;
 
+    @NotBlank(message = "NotBlank.supplier.supplierName")
     private String supplierName;
 
+    @NotBlank(message = "NotBlank.supplier.contactName")
     private String contactName;
 
+    @NotBlank(message = "NotBlank.supplier.contactPhone")
     private String contactPhone;
 
+    @Email(message = "Email.supplier.contactEmail")
+    @NotBlank(message = "NotBlank.supplier.contactEmail")
     private String contactEmail;
 
+    @NotBlank(message = "NotBlank.supplier.address")
     private String address;
 
+    @NotBlank(message = "NotBlank.supplier.city")
     private String city;
-
-    public boolean isEmpty() {
-        return supplierName == null || contactName == null || contactPhone == null || contactEmail == null || address == null || city == null;
-    }
 
 }
 
