@@ -20,8 +20,9 @@
                         <div class="card-body">
                             <h4 class="card-title">Suppliers management</h4>
                             <%--@elvariable id="supplier" type="com.poly.entities.Supplier"--%>
-                            <form:form method="post"
+                            <form:form method="post" action="/admin/supplier-management/create"
                                        modelAttribute="supplier">
+                                <form:hidden path="supplierId"/>
                                 <div class="form-group">
                                     <label for="supplierName">Supplier name</label>
                                     <form:input path="supplierName" class="form-control" id="supplierName"
@@ -64,11 +65,13 @@
                                     <form:errors path="city" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr-2" id="save" formaction="${formAction}">
-                                    Save
+                                <button type="submit" class="btn btn-primary mr-2" ${disabledSave}>Save</button>
+                                <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
+                                        formaction="/admin/supplier-management/update">Update
                                 </button>
-                                <button type="reset" class="btn btn-light"
-                                        onclick="window.location.href='/admin/supplier-management'">Cancel
+                                <button type="button" class="btn btn-light"
+                                        onclick="window.location.href='/admin/supplier-management'"
+                                >Cancel
                                 </button>
                             </form:form>
                         </div>
@@ -104,13 +107,11 @@
                                             <td>${supplier.address}</td>
                                             <td>${supplier.city}</td>
                                             <td>
-                                                <a href="/admin/supplier-management/edit/${supplier.id}">
-                                                    <i class="mdi mdi-table-edit"
-                                                       style="font-size: 1.5rem; color: darkgreen"></i>
-                                                </a>
-                                            </td>
-                                            <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
-                                                                                 style="font-size: 1.5rem; color: red"></i>
+                                                <a href="/admin/supplier-management/edit/${supplier.supplierId}"
+                                                   class="btn btn-warning btn-sm">Edit</a>
+                                            </td><td>
+                                                <a href="/admin/supplier-management/delete/${supplier.supplierId}"
+                                                   class="btn btn-danger btn-sm">Delete</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -122,39 +123,6 @@
                 </div>
             </div>
         </div>
-        <c:if test="${createSuccess}">
-            <script>
-                Swal.fire({
-                    icon: "success",
-                    title: "${status} product successfully.",
-                });
-            </script>
-        </c:if>
-        <script>
-            const fillData = (e) => {
-                console.log(e)
-            }
-            const confirmDelete = (e) => {
-                console.log(e)
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, delete it!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        });
-                    }
-                });
-            }
-        </script>
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
                 <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Bản quyền © createby@tiennvpc06608@fpt.edu.vn</span>

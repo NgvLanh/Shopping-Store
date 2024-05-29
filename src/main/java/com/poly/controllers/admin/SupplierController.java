@@ -1,8 +1,11 @@
 package com.poly.controllers.admin;
 
 
+import com.poly.entities.Brand;
 import com.poly.entities.Product;
 import com.poly.entities.Supplier;
+import com.poly.repositories.SupplierRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,90 +18,60 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/supplier-management")
 public class SupplierController {
+    @Autowired
+    private SupplierRepository supplierRepository;
 
+    @ModelAttribute("suppliers")
+    public List<Supplier> getAllSupplier() {
+        return supplierRepository.findAll();
+    }
 
     @GetMapping("")
-    public String ShowSupplierManagement(@ModelAttribute("supplier") Supplier supplier, Model model) {
-
-        model.addAttribute("formAction", "/admin/supplier-management/create");
+    public String supplierManagement(@ModelAttribute("supplier") Supplier supplier, Model model) {
+        model.addAttribute("disabledUpdate", "disabled");
         model.addAttribute("page", "supplierManagement.jsp");
         return "admin/index";
     }
 
     @PostMapping("/create")
-    public String createSupplier(@Validated @ModelAttribute("supplier") Supplier supplier, BindingResult result,
-                                 Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("page", "supplierManagement.jsp");
-            return "admin/index";
-        }
-//        assert supplier != null;
-        if (!supplier.isEmpty()) {
-            model.addAttribute("status", "Create");
-            model.addAttribute("createSuccess", true);
-//            supplier.setId(list.get(list.size() - 1).getId() + 1);
-            list.add(supplier);
+    public String createBrand(@Validated @ModelAttribute("supplier") Supplier supplier,
+                              BindingResult result, Model model) {
+        model.addAttribute("disabledUpdate", "disabled");
+        if (!result.hasErrors()) {
+            supplierRepository.save(supplier);
+            return "redirect:/admin/supplier-management";
         }
         model.addAttribute("page", "supplierManagement.jsp");
         return "admin/index";
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Long id,
-                       Model model) {
-
-        Supplier supplierEdit = new Supplier();
-        for (Supplier supplier : list) {
-//            if (supplier.getId() == id) {
-//                supplierEdit = supplier;
-//                break;
-//            }
-        }
-        model.addAttribute("supplier", supplierEdit);
-        model.addAttribute("page", "supplierManagement.jsp");
-        model.addAttribute("formAction", "/admin/supplier-management/update/" + id);
-        return "admin/index";
-    }
-        @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id,
-                         @Validated @ModelAttribute("supplier") Supplier supplier,
-                         BindingResult result,
-                         Model model) {
-
-
-            if (!result.hasErrors()) {
-//                list.removeIf(product1 -> product1.getId() == id);
-            }
-
-        if (!supplier.isEmpty()) {
-            model.addAttribute("status", "Update");
-            model.addAttribute("createSuccess", true);
-//            supplier.setId(id);
-            list.add(supplier);
-
-        }
-
+    public String edit(@PathVariable Long id, Model model) {
+        model.addAttribute("disabledSave", "disabled");
+        model.addAttribute("supplier", supplierRepository.findById(id).orElse(null));
         model.addAttribute("page", "supplierManagement.jsp");
         return "admin/index";
     }
+
+    @PostMapping("/update")
+    public String update(@Validated @ModelAttribute("brand") Supplier supplier,
+                         BindingResult result, Model model) {
+        model.addAttribute("disabledSave", "disabled");
+        if (!result.hasErrors()) {
+            Supplier supplierUpdate = supplierRepository.findById(supplier.getSupplierId()).orElse(null);
+            supplierUpdate.setSupplierId(supplierUpdate.getSupplierId());
+            supplierRepository.save(supplier);
+            return "redirect:/admin/supplier-management";
+        }
+        model.addAttribute("page", "supplierManagement.jsp");
+        return "admin/index";
+    }
+
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id,
-                         @ModelAttribute("supplier") Supplier supplier) {
-//        list.removeIf(supplier1 -> supplier1.getId() == id);
+    public String delete(@PathVariable Long id, Model model) {
+        supplierRepository.deleteById(id);
         return "redirect:/admin/supplier-management";
     }
 
-    List<Supplier> list = new ArrayList<>(List.of(
-//            new Supplier(1L, "Jacob", "NgVanTien", "0834619802", "tiennvpc06608@gmail.com", "Xóm Chài", "Cần Thơ"),
-//            new Supplier(2L, "Ronaldo", "NgVanTien", "0834619802", "tiennvpc06608@gmail.com", "Xóm Chài", "Cần Thơ"),
-//            new Supplier(3L, "John", "NgVanTien", "0834619802", "tiennvpc06608@gmail.com", "Xóm Chài", "Cần Thơ"),
-//            new Supplier(4L, "Peter", "NgVanTien", "0834619802", "tiennvpc06608@gmail.com", "Xóm Chài", "Cần Thơ"),
-//            new Supplier(5L, "Dave", "NgVanTien", "0834619802", "tiennvpc06608@gmail.com", "Xóm Chài", "Cần Thơ")
-    ));
-
-    @ModelAttribute("suppliers")
-    public List<Supplier> getAllSuppliers() {
-        return list;
-    }
 
 }
