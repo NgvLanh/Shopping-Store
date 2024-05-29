@@ -1,90 +1,75 @@
 package com.poly.controllers.admin;
 
 import com.poly.entities.Category;
+import com.poly.repositories.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin/categories-management")
 public class CategoryController {
-    private List<Category> categoryList = new ArrayList<>();
+    @Autowired
+    private CategoryRepository categoryRepository;
 
-    public CategoryController() {
-        // Initialize some categories
-//        categoryList.add(new Category(1L, "T-Shirt1", "description"));
-//        categoryList.add(new Category(2L, "T-Shirt2", "description"));
-//        categoryList.add(new Category(3L, "T-Shirt3", "description"));
-//        categoryList.add(new Category(4L, "T-Shirt4", "description"));
-//        categoryList.add(new Category(5L, "T-Shirt5", "description"));
-//        categoryList.add(new Category(6L, "T-Shirt6", "description"));
+    @ModelAttribute("categories")
+    public List<Category> getACategories() {
+        return categoryRepository.findAll();
     }
 
     @GetMapping("")
     public String categoriesManagement(@ModelAttribute("category") Category category, Model model) {
-        model.addAttribute("categories", categoryList);
+        model.addAttribute("disabledUpdate", "disabled");
         model.addAttribute("page", "categoriesManagement.jsp");
         return "admin/index";
     }
 
     @PostMapping("/create")
     public String createOrUpdateCategory(@Validated @ModelAttribute("category") Category category,
-                                         BindingResult result,
-                                         Model model,
-                                         RedirectAttributes redirectAttributes) {
-
+                                         BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("disabledUpdate", "disabled");
             model.addAttribute("page", "categoriesManagement.jsp");
             return "admin/index";
         }
-
-        // Check if category exists, if so, update it, otherwise add new
-        boolean categoryExists = false;
-        for (int i = 0; i < categoryList.size(); i++) {
-            if (categoryList.get(i).getCategoryId().equals(category.getCategoryId())) {
-                categoryList.set(i, category);
-                categoryExists = true;
-                break;
-            }
-        }
-
-        if (!categoryExists) {
-            category.setCategoryId((long) (categoryList.size() + 1));
-            categoryList.add(category);
-        }
-
-        redirectAttributes.addFlashAttribute("message", "Category saved successfully!");
+        categoryRepository.save(category);
         return "redirect:/admin/categories-management";
     }
 
-    @GetMapping("/{id}")
-    public String update(@PathVariable Long id,
-                         RedirectAttributes redirectAttributes) {
-        Category category = categoryList.stream()
-                .filter(c -> c.getCategoryId().equals(id))
-                .findFirst()
-                .orElse(null);
+    @PostMapping("/update/{id}")
+    public String update(@Validated @ModelAttribute("category") Category category,
+                         BindingResult result,
+                         @PathVariable Long id, Model model) {
+        if (!result.hasErrors()) {
+            Category categoryUpdate = categoryRepository.findById(id).orElse(null);
+            if (categoryUpdate != null) {
+                category.setCategoryId(categoryUpdate.getCategoryId());
+                categoryRepository.save(category);
+                return "redirect:/admin/categories-management";
+            }
+        }
+        model.addAttribute("page", "categoriesManagement.jsp");
+        return "admin/index";
+    }
 
-        redirectAttributes.addFlashAttribute("category", category);
-        return "redirect:/admin/categories-management";
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model model) {
+        model.addAttribute("disabledSave", "disabled");
+        Category category = categoryRepository.findById(id).orElse(null);
+        if (category != null) {
+            model.addAttribute("category", category);
+        }
+        model.addAttribute("page", "categoriesManagement.jsp");
+        return "admin/index";
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id,
-                         RedirectAttributes redirectAttributes) {
-        categoryList.removeIf(category -> category.getCategoryId().equals(id));
-        redirectAttributes.addFlashAttribute("message", "Category deleted successfully!");
+    public String delete(@PathVariable Long id) {
+        categoryRepository.deleteById(id);
         return "redirect:/admin/categories-management";
-    }
-
-    @ModelAttribute("categories")
-    public List<Category> getAllCategory() {
-        return categoryList;
     }
 }

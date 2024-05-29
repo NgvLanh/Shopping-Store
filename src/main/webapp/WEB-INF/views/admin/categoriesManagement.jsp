@@ -8,7 +8,7 @@
                 <h3 class="page-title">Categories Management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Admin</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Categories Management</li>
                     </ol>
                 </nav>
@@ -31,8 +31,11 @@
                                     <form:input path="description" class="form-control" id="categoryDescription" placeholder="Description"/>
                                     <form:errors path="description" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                <button type="reset" class="btn btn-light">Cancel</button>
+
+                                <button type="submit" class="btn btn-primary mr-2"${disabledSave}>Save</button>
+                                <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
+                                        formaction="/admin/categories-management/update/${category.categoryId}">Update</button>
+                                <button type="button" class="btn btn-light" onclick="window.location.href='/admin/categories-management'">Cancel</button>
                             </form:form>
                         </div>
                     </div>
@@ -56,8 +59,10 @@
                                             <td>${category.name}</td>
                                             <td>${category.description}</td>
                                             <td>
-                                                <a href="/admin/categories-management/${category.categoryId}" class="btn btn-warning btn-sm">Edit</a>
-                                                <a href="/admin/categories-management/delete/${category.categoryId}" class="btn btn-danger btn-sm">Delete</a>
+                                                <a href="/admin/categories-management/edit/${category.categoryId}"
+                                                   class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="/admin/categories-management/delete/${category.categoryId}"
+                                                   class="btn btn-danger btn-sm">Delete</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
