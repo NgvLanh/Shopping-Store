@@ -1,6 +1,7 @@
 package com.poly.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,8 +16,10 @@ public class Size {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sizeId;
 
-    private String size;
+    @NotBlank(message = "NotBlank.size.sizeName")
+    private String sizeName;
 
+    @NotBlank(message = "NotBlank.size.sizeDescription")
     private String sizeDescription;
 
     @ManyToMany(mappedBy = "sizes")
@@ -26,21 +29,10 @@ public class Size {
 //    @JoinColumn(name = "productItemId")
 //    private ProductItem productItem;
 
-    public Size(Long sizeId, String size, String sizeDescription) {
+    public Size(Long sizeId, String sizeName, String sizeDescription) {
         this.sizeId = sizeId;
-        this.size = size;
+        this.sizeName = sizeName;
         this.sizeDescription = sizeDescription;
     }
 
-    // Getters and setters
-    public void print() {
-        System.out.println("size: " + size);
-        System.out.println("description: " + sizeDescription);
-
-
-    }
-
-    public boolean isEmpty() {
-        return size == null || sizeDescription == null;
-    }
 }

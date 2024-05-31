@@ -15,7 +15,7 @@
                 <h3 class="page-title">Size & color management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Admin</a></li>
                         <li class="breadcrumb-item active" aria-current="page"> Size & color management</li>
                     </ol>
                 </nav>
@@ -24,16 +24,17 @@
                 <div class="col-md-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
+                            <h4 class="card-title card-description"></h4>
 
-                            <p class="card-description"></p>
                             <%--@elvariable id="color" type=""--%>
                             <form:form class="forms-sample row" method="post" action="/admin/size-color-management/create-color"
-                                       modelAttribute="color">
+                                       modelAttribute="color" enctype="multipart/form-data">
+                                <form:hidden path="colorId"></form:hidden>
                                 <div class="form-group col-md-12">
                                     <label for="color">Color</label>
-                                    <form:input path="color" type="text" class="form-control" id="color"
+                                    <form:input path="colorName" type="text" class="form-control" id="color"
                                                 placeholder="Color name"/>
-                                    <form:errors path="color" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:errors path="colorName" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="colorDescription">Description</label>
@@ -43,7 +44,10 @@
                                 </div>
 
 
-                                <button type="submit" class="btn btn-primary mr-2"> Submit</button>
+                                <button type="submit" class="btn btn-primary mr-2" ${disabledSaveColor}>Save</button>
+                                <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
+                                        formaction="/admin/size-color-management/update-color">Update
+                                </button>
                                 <button type="button" class="btn btn-light"
                                         onclick="window.location.href='/admin/size-color-management'">Cancel
                                 </button>
@@ -56,49 +60,27 @@
                         <div class="card-body">
                             <h4 class="card-title card-description ">Color Table</h4>
                             <div class="table-responsive">
-                                <table class="table table-hover text-center">
+                                <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>Color</th>
                                         <th>Description</th>
+                                        <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>
-                                            <span class="badge badge-dark p-2">Dark</span>
-                                        </td>
-                                        <td>
-                                            #52575D
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="badge badge-danger p-2">Pink</span>
-                                        </td>
-                                        <td>
-                                            #FF70AB
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="badge badge-light p-2 text-dark">White</span>
-                                        </td>
-                                        <td>
-                                            #FEFDED
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="badge badge-warning p-2">Yellow</span>
-                                        </td>
-                                        <td>
-                                            #F5D97E
-                                        </td>
-
-                                    </tr>
-
+                                    <c:forEach var="color" items="${colors}">
+                                        <tr>
+                                            <td>${color.colorName}</td>
+                                            <td>${color.colorDescription}</td>
+                                            <td>
+                                                <a href="/admin/size-color-management/edit-color/${color.colorId}"
+                                                   class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="/admin/size-color-management/delete-color/${color.colorId}"
+                                                   class="btn btn-danger btn-sm">Delete</a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -114,11 +96,12 @@
                             <%--@elvariable id="size" type=""--%>
                             <form:form class="forms-sample row" method="post" action="/admin/size-color-management/create-size"
                                        modelAttribute="size">
+                                <form:hidden path="sizeId"/>
                                 <div class="form-group col-md-12">
                                     <label for="size">Size</label>
-                                    <form:input path="size" type="text" class="form-control" id="size"
+                                    <form:input path="sizeName" type="text" class="form-control" id="size"
                                                 placeholder="Size"/>
-                                    <form:errors path="size" cssClass="text-danger"
+                                    <form:errors path="sizeName" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -129,7 +112,10 @@
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                <button type="submit" class="btn btn-primary mr-2" ${disabledSaveSize}>Save</button>
+                                <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
+                                        formaction="/admin/size-color-management/update-size">Update
+                                </button>
                                 <button type="button" class="btn btn-light"
                                         onclick="window.location.href='/admin/size-color-management'">Cancel
                                 </button>
@@ -148,35 +134,22 @@
                                     <tr>
                                         <th>Size</th>
                                         <th>Description</th>
+                                        <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>XS</td>
-                                        <td>Very small- For people weighing under 45kg.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>S</td>
-                                        <td>Small- For people weighing from 45-55kg.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>M</td>
-                                        <td>Medium size- For people weighing from 55-65kg.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>L</td>
-                                        <td>Large size- For people weighing from 65-75kg.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>XL</td>
-                                        <td>Very large size- For people weighing from 75-85kg.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>XXL</td>
-                                        <td>Extra Extra Large: For people weighing from 85-95kg.</td>
-                                    </tr>
-
-
+                                    <c:forEach var="size" items="${sizes}">
+                                        <tr>
+                                            <td>${size.sizeName}</td>
+                                            <td>${size.sizeDescription}</td>
+                                            <td>
+                                                <a href="/admin/size-color-management/edit-size/${size.sizeId}"
+                                                   class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="/admin/size-color-management/delete-size/${size.sizeId}"
+                                                   class="btn btn-danger btn-sm">Delete</a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

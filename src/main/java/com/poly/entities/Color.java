@@ -16,8 +16,8 @@ public class Color {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long colorId;
 
-    @NotBlank(message = "NotBlank.color.color")
-    private String color;
+    @NotBlank(message = "NotBlank.color.colorName")
+    private String colorName;
 
     @NotBlank(message = "NotBlank.color.colorDescription")
     private String colorDescription;
@@ -29,21 +29,10 @@ public class Color {
 //        @JoinColumn(name = "productItemId")
 //        private ProductItem productItem;
 
-    public Color(Long colorId, String color, String colorDescription) {
+    public Color(Long colorId, String colorName, String colorDescription) {
         this.colorId = colorId;
-        this.color = color;
+        this.colorName = colorName;
         this.colorDescription = colorDescription;
     }
 
-    // ko cần dùng nữa thì xoá ko để hàm ko dùng
-    public void print() {
-        System.out.println("color: " + color);
-        System.out.println("description: " + colorDescription);
-
-
-    }
-
-    public boolean isEmpty() {
-        return color == null || colorDescription == null;
-    }
 }
