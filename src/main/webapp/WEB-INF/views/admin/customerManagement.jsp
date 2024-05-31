@@ -32,31 +32,34 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>User</th>
-                                        <th>First name</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Address</th>
                                         <th>City</th>
                                         <th>Created at</th>
-<%--                                        <th>Update</th>--%>
-                                        <th>Delete</th>
+                                        <th>Activated</th>
+                                        <th>Un/lock</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <jsp:useBean id="customers" scope="request" type="java.util.List"/>
                                     <c:forEach var="customer" items="${customers}">
                                         <tr>
                                             <td class="py-1">
-                                                <img src="../../assets/images/faces-clipart/${customer.fileName}" alt="image">
+                                                <img src="../../../uploads/${customer.image}" alt="${customer.image}">
                                             </td>
-                                            <td>${customer.firstName}</td>
+                                            <td>${customer.name}</td>
                                             <td>${customer.email}</td>
                                             <td>${customer.phone}</td>
-                                            <td>${customer.address}</td>
+                                            <td title="${customer.address}">${customer.address}</td>
                                             <td>${customer.city}</td>
-                                            <td><fmt:formatDate value="${customer.createdDate}" pattern="dd/MM/yyyy"/></td>
-<%--                                            <td><i class="mdi mdi-table-edit" style="font-size: 1.5rem; color: darkgreen; cursor: pointer"></i></td>--%>
-                                            <td onclick="confirmDelete(this)"><i class="mdi mdi-delete" style="font-size: 1.5rem; color: red; cursor: pointer"></i></td>
+                                            <td>
+                                                <fmt:formatDate value="${customer.createdTime}"/>
+                                            </td>
+                                            <td>${customer.activated ? "Yes" : "No"}</td>
+                                            <td onclick="confirmDelete(this)"><i class="mdi mdi-lock text-black" style="font-size: 1.5rem; cursor: pointer"></i></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

@@ -23,8 +23,7 @@ public class ProductItem {
 
     private Integer quantity;
 
-
-        @ManyToMany
+    @ManyToMany
     @JoinTable(
             name = "product_item_color",
             joinColumns = @JoinColumn(name = "productItemId"),

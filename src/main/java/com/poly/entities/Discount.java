@@ -1,6 +1,10 @@
 package com.poly.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -14,11 +18,14 @@ public class Discount {
 
     @ManyToOne
     @JoinColumn(name = "productItemId")
+    @NotNull(message = "Please select product.")
     private ProductItem productItem;
 
+    @NotBlank(message = "Please enter code.")
     @Column(unique = true, updatable = false)
     private String code;
 
+    @NotNull(message = "Please enter percent number.")
     private Integer percentNumber;
 
     private Timestamp createTime;

@@ -46,7 +46,8 @@
                             <%--@elvariable id="productItem" type="com.poly.entities.ProductItem"--%>
                             <form:form class="forms-sample row" method="post"
                                        modelAttribute="productItem" enctype="multipart/form-data">
-
+                                <form:hidden path="product.productId"/>
+                                <form:hidden path="productItemId"/>
                                 <div class="form-group col-md-6">
                                     <label for="name">Name</label>
                                     <form:input path="product.name" type="text" class="form-control" id="name"
@@ -76,12 +77,13 @@
                                     <form:errors path="product.quantity" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
+                                <form:hidden path="product.image"/>
                                 <div class="form-group col-md-6">
                                     <label for="image">Image</label>
                                     <input name="image" type="file" class="form-control" id="image"
                                            placeholder="Image"/>
                                     <div class="border d-block mt-2" style="height: 200px;">
-                                        <img src="../../../uploads/" alt="image" id="imagePreview" width="50%"
+                                        <img src="../../../uploads/${srcImage}" alt="image" id="imagePreview" width="50%"
                                              height="100%"
                                              style="display: none; margin: auto">
                                     </div>
@@ -128,7 +130,7 @@
                                             <label>Color</label>
                                             <div style="user-select: none;" class="row">
                                                 <jsp:useBean id="colors" scope="request" type="java.util.List"/>
-                                                <form:checkboxes path="colors" items="${colors}" itemLabel="color"
+                                                <form:checkboxes path="colors" items="${colors}" itemLabel="colorName"
                                                                  cssClass="m-0"
                                                                  cssStyle="transform: scale(1.5); accent-color: whitesmoke;"/>
                                                 <form:errors path="colors" cssClass="text-danger col-12 p-0"
@@ -139,7 +141,7 @@
                                             <label>Size</label>
                                             <div style="user-select: none;" class="row">
                                                 <jsp:useBean id="sizes" scope="request" type="java.util.List"/>
-                                                <form:checkboxes path="sizes" items="${sizes}" itemLabel="size"
+                                                <form:checkboxes path="sizes" items="${sizes}" itemLabel="sizeName"
                                                                  cssClass="m-0"
                                                                  cssStyle="transform: scale(1.5); accent-color: whitesmoke;"/>
                                                 <form:errors path="sizes" cssClass="text-danger col-12 p-0"
@@ -153,7 +155,7 @@
                                     formaction="/admin/product-management/create">Save
                                     </button>
                                     <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
-                                            formaction="/admin/product-management/update/${productItem.productItemId}">
+                                            formaction="/admin/product-management/update">
                                         Update
                                     </button>
                                     <button type="button" class="btn btn-light"
@@ -203,7 +205,7 @@
                                             <td>
                                                 <label class="badge" style="background:white;">
                                                     <c:forEach var="color" items="${productItem.colors}">
-                                                        [ ${color.color} ]
+                                                        [ ${color.colorName} ]
                                                     </c:forEach>
                                                 </label>
                                             </td>
@@ -221,7 +223,7 @@
                                             </td>
                                             <td>
                                                 <c:forEach var="size" items="${productItem.sizes}">
-                                                    [ ${size.size} ]
+                                                    [ ${size.sizeName} ]
                                                 </c:forEach>
                                             </td>
                                             <td>
@@ -258,14 +260,7 @@
     </div>
 </div>
 <%----%>
-<c:if test="${createSuccess}">
-    <script>
-        Swal.fire({
-            icon: "success",
-            title: "${status} product successfully.",
-        });
-    </script>
-</c:if>
+
 <c:if test="${deleteError}">
     <script>
         Swal.fire({

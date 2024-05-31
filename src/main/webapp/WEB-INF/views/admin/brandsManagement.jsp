@@ -18,7 +18,6 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title card-description"></h4>
-
                             <%--@elvariable id="brand" type="com.poly.entities.Brand"--%>
                             <form:form class="forms-sample" method="post" action="/admin/brands-management/create"
                                        modelAttribute="brand" enctype="multipart/form-data">
@@ -43,8 +42,7 @@
                                         formaction="/admin/brands-management/update">Update
                                 </button>
                                 <button type="button" class="btn btn-light"
-                                        onclick="window.location.href='/admin/brands-management'"
-                                >Cancel
+                                        onclick="window.location.href='/admin/brands-management'">Cancel
                                 </button>
                             </form:form>
                         </div>

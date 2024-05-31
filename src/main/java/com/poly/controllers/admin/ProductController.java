@@ -78,38 +78,50 @@ public class ProductController {
         } else {
             model.addAttribute("msgImage", "Please upload a product image.");
         }
-
         model.addAttribute("page", "productManagement.jsp");
         return "admin/index";
     }
 
-    Product productEdit = new Product();
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id,
                        Model model) {
         ProductItem productItem = productItemRepository.findById(id).orElse(null);
-        productEdit = productItem.getProduct();
         model.addAttribute("disabledSave", "disabled");
         model.addAttribute("productItem", productItemRepository.findById(id).orElse(null));
+        model.addAttribute("srcImage", productItem.getProduct().getImage());
         model.addAttribute("page", "productManagement.jsp");
         return "admin/index";
     }
 
-    @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id,
-                         @Validated @ModelAttribute("productItem") ProductItem productItem,
+    @PostMapping("/update")
+    public String update(@Validated @ModelAttribute("productItem") ProductItem productItem,
                          BindingResult result,
                          @RequestPart("image") MultipartFile file,
                          Model model) {
         model.addAttribute("disabledSave", "disabled");
+        if (file.getOriginalFilename().isEmpty() && !productItem.getProduct().getImage().isEmpty()) {
+            if (!result.hasErrors()) {
+                Product productUpdate = productItem.getProduct();
+
+                productUpdate.setProductId(productItem.getProduct().getProductId());
+                productItem.setProductItemId(productItem.getProductItemId());
+
+                productItem.setQuantity(productUpdate.getQuantity());
+                productItem.setPrice(productUpdate.getPrice());
+
+                productRepository.save(productUpdate);
+                productItem.setProduct(productUpdate);
+                productItemRepository.save(productItem);
+
+                return "redirect:/admin/product-management";
+            }
+        }
         if (!file.getOriginalFilename().isEmpty()) {
             if (!result.hasErrors()) {
                 Product productUpdate = productItem.getProduct();
 
-                productUpdate.setProductId(productEdit.getProductId());
                 productUpdate.setProductId(productItem.getProduct().getProductId());
-
-                productItem.setProductItemId(id);
+                productItem.setProductItemId(productItem.getProductItemId());
 
                 paramService.save(file, "/uploads/");
 
