@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <h4 class="card-title">Suppliers management</h4>
                             <%--@elvariable id="supplier" type="com.poly.entities.Supplier"--%>
-                            <form:form method="post" action="/admin/supplier-management/create"
+                            <form:form method="post"
                                        modelAttribute="supplier">
                                 <form:hidden path="supplierId"/>
                                 <div class="form-group">
@@ -65,9 +65,9 @@
                                     <form:errors path="city" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr-2" ${disabledSave}>Save</button>
+                                <button type="submit" class="btn btn-primary mr-2" ${disabledSave} formaction="/admin/supplier-management/create"> Save</button>
                                 <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
-                                        formaction="/admin/supplier-management/update">Update
+                                        formaction="/admin/supplier-management/update/${supplier.supplierId}">Update
                                 </button>
                                 <button type="button" class="btn btn-light"
                                         onclick="window.location.href='/admin/supplier-management'"

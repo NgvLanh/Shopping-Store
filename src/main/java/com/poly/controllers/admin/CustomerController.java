@@ -2,6 +2,8 @@ package com.poly.controllers.admin;
 
 import com.poly.entities.Customer;
 import com.poly.entities.Product;
+import com.poly.repositories.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +18,12 @@ import java.util.List;
 @RequestMapping("/admin/customer-management")
 public class CustomerController {
 
+    @Autowired
+    CustomerRepository customerRepository;
+
     @ModelAttribute("customers")
     public List<Customer> getAllCustomers() {
-        return Arrays.asList(
-
-        );
+        return customerRepository.findAll();
     }
 
     @GetMapping("")

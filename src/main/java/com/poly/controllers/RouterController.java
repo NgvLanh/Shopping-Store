@@ -63,10 +63,10 @@ public class RouterController {
         return setPageClient(model, "login.jsp");
     }
 
-    @GetMapping("/register")
-    public String register(Model model) {
-        return setPageClient(model, "register.jsp");
-    }
+//    @GetMapping("/register")
+//    public String register(Model model) {
+//        return setPageClient(model, "register.jsp");
+//    }
 
     @GetMapping("/tracking-order")
     public String trackingOrder(Model model) {
@@ -95,10 +95,10 @@ public class RouterController {
 //    public String supplierManagement(Model model) {
 //        return setPageAdmin(model, "supplierManagement.jsp");
 //    }
-    @GetMapping("/admin/review-management")
-    public String reviewManagement(Model model) {
-        return setPageAdmin(model, "reviewManagement.jsp");
-    }
+//    @GetMapping("/admin/review-management")
+//    public String reviewManagement(Model model) {
+//        return setPageAdmin(model, "reviewManagement.jsp");
+//    }
 //    @GetMapping("/admin/order-management")
 //    public String orderManagement(Model model) {
 //        return setPageAdmin(model, "orderManagement.jsp");

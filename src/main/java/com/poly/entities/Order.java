@@ -1,6 +1,7 @@
 package com.poly.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -13,6 +14,7 @@ public class Order {
     private Long orderId;
     private Timestamp date;
     private Timestamp shippingDate;
+    @NotBlank(message = "NotBlank.order.status")
     private String status;
     private Integer total;
 

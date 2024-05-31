@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -13,7 +15,7 @@
                 <h3 class="page-title text-primary">Reviews management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Admin</a></li>
                         <li class="breadcrumb-item active " aria-current="page"> Reviews management</li>
                     </ol>
                 </nav>
@@ -23,8 +25,6 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Review Table</h4>
-
-                            </p>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
@@ -34,72 +34,41 @@
                                         <th>Rating</th>
                                         <th>Comment</th>
                                         <th>Reviews Date</th>
-                                        <th></th>
-
+                                        <th>Delete</th>
+                                        <th>View details</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td class="py-1">
-                                            <img src="../../assets/images/faces-clipart/pic-1.png" alt="image">
-                                        </td>
-                                        <td>John</td>
-                                        <td>
-
-                                            <i class="mdi mdi-star text-warning">
-                                                <i class="mdi mdi-star ">
-                                                    <i class="mdi mdi-star ">
-                                                        <i class="mdi mdi-star">
-                                                            <i class="mdi mdi-star">
-
-
-                                        </td>
-                                        <td>Very good</td>
-                                        <td>2024-05-19</td>
-                                        <td>
-                                            <button class="btn btn-danger">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-1">
-                                            <img src="../../assets/images/faces-clipart/pic-1.png" alt="image">
-                                        </td>
-                                        <td>Tony</td>
-                                        <td>
-
-                                            <i class="mdi mdi-star text-warning">
-                                                <i class="mdi mdi-star ">
-                                                    <i class="mdi mdi-star ">
-
-
-                                        </td>
-                                        <td>Medium</td>
-                                        <td>2024-05-19</td>
-                                        <td>
-                                            <button class="btn btn-danger">Delete</button>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td class="py-1">
-                                            <img src="../../assets/images/faces-clipart/pic-1.png" alt="image">
-                                        </td>
-                                        <td>Alice</td>
-                                        <td>
-
-                                            <i class="mdi mdi-star text-warning">
-                                                <i class="mdi mdi-star ">
-                                                    <i class="mdi mdi-star ">
-                                                        <i class="mdi mdi-star">
-
-
-                                        </td>
-                                        <td>Good</td>
-                                        <td>2024-05-19</td>
-                                        <td>
-                                            <button class="btn btn-danger">Delete</button>
-                                        </td>
-                                    </tr>
+                                    <jsp:useBean id="reviews" scope="request" type="java.util.List"/>
+                                    <c:forEach var="review" items="${reviews}">
+                                        <tr>
+                                            <td class="py-1">
+                                                <img src="../../../uploads/${review.customer.image}" alt="image">
+                                            </td>
+                                            <td>
+                                                    ${review.customer.name}
+                                            </td>
+                                            <td>
+                                                    ${review.rating}
+                                            </td>
+                                            <td>
+                                                    ${review.comment}
+                                            </td>
+                                            <td>
+                                                <fmt:formatDate value="${review.reviewDate}"/>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-danger" href="/admin/review-management/delete/${review.reviewId}">
+                                                    Delete
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-warning"
+                                                        onclick="window.location.href='/single-product'">View details
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

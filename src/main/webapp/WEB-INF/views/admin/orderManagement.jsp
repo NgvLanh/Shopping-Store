@@ -9,6 +9,7 @@ To change this template use File | Settings | File Templates.
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="content-wrapper">
     <div class="main-panel">
         <div class="content-wrapper">
@@ -26,42 +27,57 @@ To change this template use File | Settings | File Templates.
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Order form</h4>
-                            <p class="card-description">Basic form layout</p>
+                            <p class="card-description">Update order</p>
                             <%--@elvariable id="order" type="com.poly.entities.Order"--%>
-                            <form:form class="forms-sample" method="post" modelAttribute="order">
+                            <form:form class="forms-sample" method="post" action="/admin/order-management"
+                                       modelAttribute="order">
+                                <form:hidden path="customer.customerId"/>
+                                <form:hidden path="payment.paymentId"/>
+                                <form:hidden path="shippingDate"/>
+                                <form:hidden path="date"/>
                                 <div class="form-group">
-                                    <label for="exampleInputOrderid">Order Id</label>
-                                    <form:input type="text" class="form-control" id="exampleInputOrderid"
-                                                disabled="true"
-                                                path="id" placeholder="orderid"/>
+                                    <label for="orderId">Order Id</label>
+                                    <form:input type="text" class="form-control" id="orderId"
+                                                readonly="true"
+                                                path="orderId" placeholder="Order id"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputProductid">Product Id</label>
-                                    <form:input type="text" class="form-control" id="exampleInputProductid"
-                                                disabled="true"
-                                                path="idProduct" placeholder="productid"/>
+                                    <label for="customer-name">Customer name</label>
+                                    <form:input type="text" class="form-control" id="customer-name"
+                                                readonly="true"
+                                                path="customer.name" placeholder="Customer name"/>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputDate">Date</label>
-                                    <form:input type="date" class="form-control" id="exampleInputDate" disabled="true"
-                                                path="date" placeholder="date"/>
-                                </div>
+                                <%--                                <div class="form-group">--%>
+                                <%--                                    <label for="date">Date</label>--%>
+                                <%--                                    <form:input type="datetime-local" class="form-control" id="date"--%>
+                                <%--                                                path="date" placeholder="date"/>--%>
+                                <%--                                </div>--%>
+                                <%--                                <div class="form-group">--%>
+                                <%--                                    <label for="shipping-date">Shipping date</label>--%>
+                                <%--                                    <form:input type="datetime-local" class="form-control" id="shipping-date"--%>
+                                <%--                                                path="shippingDate" placeholder="Shippping date"/>--%>
+                                <%--                                </div>--%>
                                 <div class="form-group">
                                     <label>Status</label>
                                     <form:select path="status" class="form-control">
                                         <form:option value="">Awaiting Confirmation</form:option>
-                                        <form:option value="">Confirmed</form:option>
-                                        <form:option value="">Cancelled</form:option>
+                                        <form:options items="${status}"/>
                                     </form:select>
+                                    <form:errors path="status" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputTotal">Total</label>
-                                    <form:input type="text" class="form-control" disabled="true" id="exampleInputTotal"
+                                    <label for="total">Total</label>
+                                    <form:input type="number" class="form-control" readonly="true" id="total"
                                                 path="total" placeholder="total"/>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary mr-2"> Submit</button>
-                                <button class="btn btn-light">Cancel</button>
+                                <button type="submit" class="btn btn-primary mr-2"
+                                        formaction="/admin/order-management/update" ${disabledSave}>Save
+                                </button>
+                                <button type="button" class="btn btn-light"
+                                        onclick="window.location.href='/admin/order-management'">Cancel
+                                </button>
                             </form:form>
                         </div>
                     </div>
@@ -71,16 +87,17 @@ To change this template use File | Settings | File Templates.
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Hoverable Table</h4>
-                        <p class="card-description"> Add class <code>.table-hover</code>
+                        <h4 class="card-title">Order Table</h4>
+                        <p class="card-description">All of orders
                         </p>
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th>Order Id</th>
-                                    <th>Customer Id</th>
+                                    <th>Customer Name</th>
                                     <th>Order Date</th>
+                                    <th>Date Shipping (Expected to)</th>
                                     <th>Status</th>
                                     <th>Total</th>
                                     <th>Update</th>
@@ -89,21 +106,26 @@ To change this template use File | Settings | File Templates.
                                 </thead>
                                 <tbody>
                                 <c:forEach var="order" items="${orders}">
-                                <tr>
-                                    <td>${order.id}</td>
-                                    <td>${order.idProduct}</td>
-                                    <td>${order.date}</td>
-                                    <td>${order.status}</td>
-                                    <td>${order.total}</td>
-                                    <td>
-                                        <a href="/admin/order-management/edit/${order.id}">
-                                            <i class="mdi mdi-table-edit"
-                                               style="font-size: 1.5rem; color: darkgreen"></i>
-                                        </a>
-                                    </td>
-                                    <td><i class="mdi mdi-eye-outline"
-                                           style="font-size: 1.5rem; color: sandybrown"></i></td>
-                                </tr>
+                                    <tr>
+                                        <td>${order.orderId}</td>
+                                        <td>${order.customer.name}</td>
+                                        <td>
+                                            <fmt:formatDate value="${order.date}"/>
+                                        </td>
+                                        <td>
+                                            <fmt:formatDate value="${order.shippingDate}"/>
+                                        </td>
+                                        <td class="status">${order.status}</td>
+                                        <td>${order.total}</td>
+                                        <td>
+                                            <a class="edit" href="/admin/order-management/edit/${order.orderId}">
+                                                <i class="mdi mdi-table-edit"
+                                                   style="font-size: 1.5rem; color: darkgreen"></i>
+                                            </a>
+                                        </td>
+                                        <td><i class="mdi mdi-eye-outline" type="button" data-toggle="modal" data-target="#exampleModal"
+                                               style="font-size: 1.5rem; color: sandybrown; cursor: pointer"></i></td>
+                                    </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
@@ -114,10 +136,37 @@ To change this template use File | Settings | File Templates.
         </div>
     </div>
     <footer class="footer">
-        <%--            <div class="d-sm-flex justify-content-center justify-content-sm-between">--%>
-        <%--                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>--%>
-        <%--                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>--%>
-        <%--            </div>--%>
     </footer>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const status = document.getElementsByClassName("status");
+        const edits = document.getElementsByClassName("edit");
+        for (let i = 0; i < status.length; i++) {
+            if (status[i].textContent === 'Confirmed' || status[i].textContent === 'Cancellation') {
+                edits[i].style.display = 'none';
+            }
+        }
+    })
+</script>

@@ -32,7 +32,7 @@
 <div class="container-scroller">
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="text-center sidebar-brand-wrapper d-block">
-            <a class="sidebar-brand brand-logo d-flex justify-content-center" href="dashboard">
+            <a class="sidebar-brand brand-logo d-flex justify-content-center" href="/admin/dashboard">
                 <img src="/assets/images/logo.png" alt="logo" class="m-auto"/>
             </a>
         </div>

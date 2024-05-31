@@ -1,4 +1,7 @@
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- ================ start banner area ================= -->
 <section class="blog-banner-area" id="category">
     <div class="container h-100">
@@ -7,7 +10,7 @@
                 <h1>Register</h1>
                 <nav aria-label="breadcrumb" class="banner-breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Register</li>
                     </ol>
                 </nav>
@@ -15,9 +18,6 @@
         </div>
     </div>
 </section>
-<!-- ================ end banner area ================= -->
-
-<!--================Login Box Area =================-->
 <section class="login_box_area section-margin">
     <div class="container">
         <div class="row">
@@ -33,24 +33,69 @@
             </div>
             <div class="col-lg-6">
                 <div class="login_form_inner register_form_inner">
-                    <h3>Create an account</h3>
-                    <form class="row login_form" action="#/" id="register_form">
+                    <%--@elvariable id="customer" type="com.poly.entities.Customer"--%>
+                    <form:form class="row login_form" method="post"
+                               modelAttribute="customer" enctype="multipart/form-data">
+                        <form:hidden path="customerId"/>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Username"
-                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                            <form:input path="name" type="text" class="form-control" id="name" name="name" placeholder="Username"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" />
+                            <form:errors path="name"
+                                         cssClass="text-danger"
+                                         cssStyle="font-size: 14px; display: flex; justify-content: start"/>
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Email Address"
-                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+                            <form:input path="email" type="text" class="form-control" id="email" name="email" placeholder="Email Address"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" />
+                            <form:errors path="email"
+                                         cssClass="text-danger"
+                                         cssStyle="font-size: 14px; display: flex; justify-content: start"/>
                         </div>
+
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="password" name="password" placeholder="Password"
-                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <form:input path="password" type="password" class="form-control" id="password" name="password"
+                                        placeholder="Password"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" />
+                            <form:errors path="password"
+                                         cssClass="text-danger"
+                                         cssStyle="font-size: 14px;  display: flex; justify-content: start"/>
                         </div>
+
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="confirmPassword" name="confirmPassword"
-                                   placeholder="Confirm Password" onfocus="this.placeholder = ''"
-                                   onblur="this.placeholder = 'Confirm Password'">
+                            <form:input path="phone" type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'" />
+                            <form:errors path="phone"
+                                         cssClass="text-danger"
+                                         cssStyle="font-size: 14px; display: flex; justify-content: start"/>
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <form:input path="address" type="text" class="form-control" id="address" name="address" placeholder="Address"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'" />
+                            <form:errors path="address"
+                                         cssClass="text-danger"
+                                         cssStyle="font-size: 14px; display: flex; justify-content: start"/>
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <form:input path="city" type="text" class="form-control" id="city" name="city" placeholder="City"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'" />
+                            <form:errors path="city"
+                                         cssClass="text-danger"
+                                         cssStyle="font-size: 14px; display: flex; justify-content: start"/>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <input name="image" type="file" class="form-control" id="image"
+                                   placeholder="Image"/>
+                            <div class="border d-block mt-2" style="height: 200px;">
+                                <img src="../../../uploads/" alt="image" id="imagePreview" width="50%"
+                                     height="100%"
+                                     style="display: none; margin: auto">
+                            </div>
+                            <span class="text-danger"
+                                  style="font-size: 14px; display: flex; justify-content: start">${msgImage}</span>
+
                         </div>
                         <div class="col-md-12 form-group">
                             <div class="creat_account">
@@ -59,9 +104,10 @@
                             </div>
                         </div>
                         <div class="col-md-12 form-group">
-                            <button type="submit" value="submit" class="button button-register w-100">Register</button>
+                            <button type="submit" value="submit" class="button button-register w-100" formaction="/register/create">Register</button>
                         </div>
-                    </form>
+                    </form:form>
+
                 </div>
             </div>
         </div>
@@ -70,4 +116,4 @@
 <!--================End Login Box Area =================-->
 
 
-<!--================ Start footer Area  =================-->
+<!--================ Start footer Area =================-->

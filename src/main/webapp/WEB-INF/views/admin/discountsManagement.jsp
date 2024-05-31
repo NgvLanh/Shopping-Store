@@ -20,42 +20,57 @@
                         <div class="card-body">
                             <h4 class="card-title">Discount Form</h4>
                             <p class="card-description">Create - Update</p>
-                            <form:form class="forms-sample row" method="post" action="/admin/discounts-management/create"
+                            <%--@elvariable id="discount" type="com.poly.entities.Discount"--%>
+                            <form:form class="forms-sample row" method="post"
+                                       action="/admin/discounts-management/create"
                                        modelAttribute="discount" enctype="multipart/form-data">
-
-
-
+                                <form:hidden path="discountId"/>
                                 <div class="form-group col-md-6">
                                     <label for="productItem">Product Item</label>
                                     <form:select path="productItem" class="form-control" id="productItem">
-                                        <form:option value="">-- Select Product Item --</form:option>
+                                        <form:option value="">-- Select Product --</form:option>
+                                        <form:options items="${productItemList}" itemLabel="product.name"/>
                                     </form:select>
-                                    <form:errors path="productItem" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:errors path="productItem" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="code">Code</label>
-                                    <form:input path="code" type="text" class="form-control" id="code" placeholder="Code"/>
-                                    <form:errors path="code" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <div class="d-flex">
+                                        <form:input path="code" type="text" class="form-control" id="code"
+                                                    placeholder="Code" readonly="true"/>
+                                        <button type="button" class="btn btn-inverse-danger" onclick="generateCode(8)">Generate
+                                        </button>
+                                    </div>
+                                    <form:errors path="code" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="percentNumber">Percent</label>
-                                    <form:input path="percentNumber" type="number" class="form-control" id="percentNumber" placeholder="PercentNumber"/>
-                                    <form:errors path="percentNumber" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:input path="percentNumber" type="number" class="form-control"
+                                                id="percentNumber" placeholder="PercentNumber"/>
+                                    <form:errors path="percentNumber" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
-
-
-
+                                <form:input path="createTime" type="text" class="form-control" id="endTime"
+                                            placeholder="End Time" cssStyle="display: none"/>
                                 <div class="form-group col-md-6">
                                     <label for="endTime">End Time</label>
-                                    <form:input path="endTime" type="datetime-local" class="form-control" id="endTime" placeholder="End Time"/>
-                                    <form:errors path="endTime" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:input path="endTime" type="text" class="form-control" id="endTime"
+                                                placeholder="End Time"/>
+                                    <span class="text-danger" style="font-size: 14px; margin: 4px"></span>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary mr-2">Save</button>
-                                    <button type="button" class="btn btn-light" >Cancel</button>
+                                    <button type="submit" class="btn btn-primary mr-2" ${disabledSave}>Save</button>
+                                    <button type="submit" class="btn btn-primary mr-2" ${disabledUpdate}
+                                            formaction="/admin/discounts-management/update">Update
+                                    </button>
+                                    <button type="button" class="btn btn-light"
+                                            onclick="window.location.href='/admin/discounts-management'">Cancel
+                                    </button>
                                 </div>
                             </form:form>
                         </div>
@@ -82,66 +97,29 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Product A</td>
-                                        <td>DISC2023</td>
-                                        <td>10</td>
-                                        <td>2023-01-01 12:00:00</td>
-                                        <td>2023-12-31 23:59:59</td>
-                                        <td>
-                                            <button class="btn btn-warning">Update</button>
-
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-danger">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Product B</td>
-                                        <td>DISC2024</td>
-                                        <td>15</td>
-                                        <td>2023-01-02 14:00:00</td>
-                                        <td>2024-01-01 23:59:59</td>
-                                        <td>
-                                            <button class="btn btn-warning">Update</button>
-
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-danger">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Product C</td>
-                                        <td>DISC2025</td>
-                                        <td>20</td>
-                                        <td>2023-02-01 10:00:00</td>
-                                        <td>2024-02-01 10:00:00</td>
-                                        <td>
-                                            <button class="btn btn-warning">Update</button>
-
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-danger">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Product D</td>
-                                        <td>DISC2026</td>
-                                        <td>25</td>
-                                        <td>2023-03-01 09:00:00</td>
-                                        <td>2024-03-01 09:00:00</td>
-                                        <td>
-                                            <button class="btn btn-warning">Update</button>
-
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-danger">Delete</button>
-                                        </td>
-                                    </tr>
+                                    <c:forEach var="discount" items="${discounts}">
+                                        <tr>
+                                            <td>${discount.discountId}</td>
+                                            <td>${discount.productItem.product.name}</td>
+                                            <td>${discount.code}</td>
+                                            <td>${discount.percentNumber}</td>
+                                            <td>
+                                                <fmt:formatDate value="${discount.createTime}" type="both"
+                                                                timeStyle="short"/>
+                                            </td>
+                                            <td>
+                                                <fmt:formatDate value="${discount.endTime}" type="both"
+                                                                timeStyle="short"/>
+                                            </td>
+                                            <td>
+                                                <a href="/admin/discounts-management/edit/${discount.discountId}"
+                                                   class="btn btn-warning">Edit</a>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger">Delete</button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
 
                                     </tbody>
                                 </table>
@@ -158,3 +136,14 @@
         </footer>
     </div>
 </div>
+<script>
+    function generateCode(length) {
+        const code = document.getElementById('code');
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        code.value = result;
+    }
+</script>

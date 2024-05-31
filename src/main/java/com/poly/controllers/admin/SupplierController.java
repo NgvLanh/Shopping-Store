@@ -53,8 +53,8 @@ public class SupplierController {
         return "admin/index";
     }
 
-    @PostMapping("/update")
-    public String update(@Validated @ModelAttribute("brand") Supplier supplier,
+    @PostMapping("/update/{id}")
+    public String update(@Validated @ModelAttribute("supplier") Supplier supplier,
                          BindingResult result, Model model) {
         model.addAttribute("disabledSave", "disabled");
         if (!result.hasErrors()) {
