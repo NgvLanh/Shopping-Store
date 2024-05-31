@@ -63,10 +63,10 @@ public class RouterController {
         return setPageClient(model, "login.jsp");
     }
 
-    @GetMapping("/register")
-    public String register(Model model) {
-        return setPageClient(model, "register.jsp");
-    }
+//    @GetMapping("/register")
+//    public String register(Model model) {
+//        return setPageClient(model, "register.jsp");
+//    }
 
     @GetMapping("/tracking-order")
     public String trackingOrder(Model model) {
