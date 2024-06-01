@@ -27,7 +27,7 @@
                         <h4>Already have an account?</h4>
                         <p>There are advances being made in science and technology everyday, and a good example of this
                             is the</p>
-                        <a class="button button-account" href="login">Login Now</a>
+                        <a class="button button-account" href="/login">Login Now</a>
                     </div>
                 </div>
             </div>
@@ -37,56 +37,63 @@
                     <form:form class="row login_form" method="post"
                                modelAttribute="customer" enctype="multipart/form-data">
                         <form:hidden path="customerId"/>
+
                         <div class="col-md-12 form-group">
-                            <form:input path="name" type="text" class="form-control" id="name" name="name" placeholder="Username"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" />
+                            <form:input path="name" type="text" class="form-control" id="name" name="name"
+                                        placeholder="Username"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"/>
                             <form:errors path="name"
                                          cssClass="text-danger"
                                          cssStyle="font-size: 14px; display: flex; justify-content: start"/>
                         </div>
                         <div class="col-md-12 form-group">
-                            <form:input path="email" type="text" class="form-control" id="email" name="email" placeholder="Email Address"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" />
+                            <form:input path="email" type="text" class="form-control" id="email" name="email"
+                                        placeholder="Email Address"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'"/>
                             <form:errors path="email"
                                          cssClass="text-danger"
                                          cssStyle="font-size: 14px; display: flex; justify-content: start"/>
                         </div>
 
                         <div class="col-md-12 form-group">
-                            <form:input path="password" type="password" class="form-control" id="password" name="password"
+                            <form:input path="password" type="password" class="form-control" id="password"
+                                        name="password"
                                         placeholder="Password"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" />
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
                             <form:errors path="password"
                                          cssClass="text-danger"
                                          cssStyle="font-size: 14px;  display: flex; justify-content: start"/>
                         </div>
 
                         <div class="col-md-12 form-group">
-                            <form:input path="phone" type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'" />
+                            <form:input path="phone" type="tel" class="form-control" id="phone" name="phone"
+                                        placeholder="Phone Number"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'"/>
                             <form:errors path="phone"
                                          cssClass="text-danger"
                                          cssStyle="font-size: 14px; display: flex; justify-content: start"/>
                         </div>
 
                         <div class="col-md-12 form-group">
-                            <form:input path="address" type="text" class="form-control" id="address" name="address" placeholder="Address"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'" />
+                            <form:input path="address" type="text" class="form-control" id="address" name="address"
+                                        placeholder="Address"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'"/>
                             <form:errors path="address"
                                          cssClass="text-danger"
                                          cssStyle="font-size: 14px; display: flex; justify-content: start"/>
                         </div>
 
                         <div class="col-md-12 form-group">
-                            <form:input path="city" type="text" class="form-control" id="city" name="city" placeholder="City"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'" />
+                            <form:input path="city" type="text" class="form-control" id="city" name="city"
+                                        placeholder="City"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'"/>
                             <form:errors path="city"
                                          cssClass="text-danger"
                                          cssStyle="font-size: 14px; display: flex; justify-content: start"/>
                         </div>
 
                         <div class="form-group col-md-12">
-                            <input name="image" type="file" class="form-control" id="image"
+                            <input name="photo" type="file" class="form-control" id="photo"
                                    placeholder="Image"/>
                             <div class="border d-block mt-2" style="height: 200px;">
                                 <img src="../../../uploads/" alt="image" id="imagePreview" width="50%"
@@ -104,8 +111,11 @@
                             </div>
                         </div>
                         <div class="col-md-12 form-group">
-                            <button type="submit" value="submit" class="button button-register w-100" formaction="/register/create">Register</button>
+                            <button type="submit" value="submit" class="button button-register w-100"
+                                    formaction="/register/create">Register
+                            </button>
                         </div>
+                        <%--                        <form:errors path="*" element="li" delimiter=";"/>--%>
                     </form:form>
 
                 </div>
@@ -113,7 +123,23 @@
         </div>
     </div>
 </section>
-<!--================End Login Box Area =================-->
+<script>
+    document.getElementById('photo').addEventListener('change', () => {
+        const photo = document.getElementById('photo');
+        const file = photo.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.style.display = 'none';
+            imagePreview.src = '';
+        }
+    })
+</script>
 
-
-<!--================ Start footer Area =================-->
