@@ -72,7 +72,6 @@ public class RouterController {
     public String trackingOrder(Model model) {
         return setPageClient(model, "tracking-order.jsp");
     }
-
     // admin
     private String setPageAdmin(Model model, String pageName) {
         model.addAttribute("page", pageName);

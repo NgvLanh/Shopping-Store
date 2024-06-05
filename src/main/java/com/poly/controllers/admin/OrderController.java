@@ -1,27 +1,25 @@
 package com.poly.controllers.admin;
 
 import com.poly.entities.Order;
-import com.poly.entities.Supplier;
 import com.poly.repositories.OrderRepository;
-import org.eclipse.tags.shaded.org.apache.xpath.operations.Or;
+import com.poly.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/order-management")
 public class OrderController {
-
+    @Autowired
+    SessionService session;
     @Autowired
     OrderRepository orderRepository;
 
@@ -52,7 +50,6 @@ public class OrderController {
         model.addAttribute("page", "orderManagement.jsp");
         return "admin/index";
     }
-
 
     @ModelAttribute("orders")
     public List<Order> getAllOrders() {
