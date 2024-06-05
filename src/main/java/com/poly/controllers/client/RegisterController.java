@@ -11,6 +11,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
+
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
@@ -28,12 +30,14 @@ public class RegisterController {
     @PostMapping("/create")
     public String createCustomer(@Validated @ModelAttribute("customer")Customer customer,
                                  BindingResult result,
-                                 @RequestPart("image") MultipartFile file,
+                                 @RequestParam("photo") MultipartFile file,
                                  Model model) {
-        if (!file.getOriginalFilename().isEmpty()) {
+        System.out.println((file.getOriginalFilename()));
+        if (!file.isEmpty()) {
             if (!result.hasErrors()) {
                 customer.setImage(file.getOriginalFilename());
                 paramService.save(file, "/uploads/");
+                customer.setCreateDate(new Date());
                 customerRepository.save(customer);
                 return "redirect:/register";
             }

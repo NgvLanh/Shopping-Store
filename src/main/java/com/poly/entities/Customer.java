@@ -1,14 +1,12 @@
 package com.poly.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Entity(name = "customers")
@@ -20,7 +18,7 @@ public class Customer {
     @NotBlank(message = "NotBlank.customer.name")
     private String name;
 
-    private String image;
+    private String image ;
 
     @NotBlank(message = "NotBlank.customer.email")
     @Email(message = "Email.customer.email")
@@ -42,7 +40,9 @@ public class Customer {
     private String city;
 
 
-    private Timestamp createdTime;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "created_time")
+    Date createDate = new Date();
 
     // customer - cart
 

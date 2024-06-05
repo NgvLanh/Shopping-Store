@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @Entity(name = "sizes")
 public class Size {
 
@@ -22,17 +21,11 @@ public class Size {
     @NotBlank(message = "NotBlank.size.sizeDescription")
     private String sizeDescription;
 
-    @ManyToMany(mappedBy = "sizes")
-    private List<ProductItem> productItems;
+    @OneToMany(mappedBy = "size")
+    private List<ProductItem> productItemList;
 
-//    @ManyToOne
-//    @JoinColumn(name = "productItemId")
-//    private ProductItem productItem;
-
-    public Size(Long sizeId, String sizeName, String sizeDescription) {
-        this.sizeId = sizeId;
-        this.sizeName = sizeName;
-        this.sizeDescription = sizeDescription;
+    @Override
+    public String toString() {
+        return String.valueOf(sizeId);
     }
-
 }
