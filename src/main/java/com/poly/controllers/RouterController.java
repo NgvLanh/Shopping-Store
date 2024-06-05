@@ -23,10 +23,10 @@ public class RouterController {
         return setPageClient(model, "contact.jsp");
     }
 
-    @GetMapping("/category")
-    public String category(Model model) {
-        return setPageClient(model, "category.jsp");
-    }
+//    @GetMapping("/category")
+//    public String category(Model model) {
+//        return setPageClient(model, "category.jsp");
+//    }
 
 //    @GetMapping("/single-product")
 //    public String singleProduct(Model model) {
