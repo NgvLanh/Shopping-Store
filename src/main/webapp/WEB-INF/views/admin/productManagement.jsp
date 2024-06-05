@@ -43,116 +43,80 @@
                         <div class="card-body">
                             <h4 class="card-title">Product form</h4>
                             <p class="card-description">Create - Update</p>
-                            <%--@elvariable id="productItem" type="com.poly.entities.ProductItem"--%>
+                            <%--@elvariable id="product" type="com.poly.entities.Product"--%>
                             <form:form class="forms-sample row" method="post"
-                                       modelAttribute="productItem" enctype="multipart/form-data">
-                                <form:hidden path="product.productId"/>
-                                <form:hidden path="productItemId"/>
+                                       modelAttribute="product" enctype="multipart/form-data">
+                                <form:hidden path="productId"/>
                                 <div class="form-group col-md-6">
                                     <label for="name">Name</label>
-                                    <form:input path="product.name" type="text" class="form-control" id="name"
+                                    <form:input path="name" type="text" class="form-control" id="name"
                                                 placeholder="Product name"/>
-                                    <form:errors path="product.name" cssClass="text-danger"
+                                    <form:errors path="name" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="description">Description</label>
-                                    <form:input path="product.description" type="text" class="form-control"
+                                    <form:input path="description" type="text" class="form-control"
                                                 id="description"
                                                 placeholder="Description"/>
-                                    <form:errors path="product.description" cssClass="text-danger"
+                                    <form:errors path="description" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="price">Price</label>
-                                    <form:input path="product.price" type="number" class="form-control" id="price"
-                                                placeholder="Price"/>
-                                    <form:errors path="product.price" cssClass="text-danger"
-                                                 cssStyle="font-size: 14px; margin: 4px"/>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="quantity">Quantity</label>
-                                    <form:input path="product.quantity" type="number" class="form-control" id="quantity"
-                                                placeholder="Quantity"/>
-                                    <form:errors path="product.quantity" cssClass="text-danger"
-                                                 cssStyle="font-size: 14px; margin: 4px"/>
-                                </div>
-                                <form:hidden path="product.image"/>
+                                <form:hidden path="image"/>
                                 <div class="form-group col-md-6">
                                     <label for="image">Image</label>
-                                    <input name="image" type="file" class="form-control" id="image"
+                                    <input name="photo" type="file" class="form-control" id="photo"
                                            placeholder="Image"/>
                                     <div class="border d-block mt-2" style="height: 200px;">
-                                        <img src="../../../uploads/${srcImage}" alt="image" id="imagePreview" width="50%"
+                                        <img src="../../../uploads/${srcImage}" alt="image" id="imagePreview"
+                                             width="50%"
                                              height="100%"
                                              style="display: none; margin: auto">
                                     </div>
                                     <span class="text-danger"
                                           style="font-size: 14px; margin: 4px">${msgImage}</span>
-
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <div class="form-group col-md-12 p-0">
-                                        <label for="brand">Brand</label>
-                                        <form:select path="product.brand" class="form-control" id="brand">
-                                            <form:option value="">-- Select Brand --</form:option>
-                                            <jsp:useBean id="brands" scope="request" type="java.util.List"/>
-                                            <form:options items="${brands}" itemLabel="name"/>
-                                        </form:select>
-                                        <form:errors path="product.brand" cssClass="text-danger"
-                                                     cssStyle="font-size: 14px; margin: 4px"/>
-                                    </div>
                                     <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="brand">Brand</label>
+                                            <form:select path="brand" class="form-control" id="brand">
+                                                <form:option value="">-- Select Brand --</form:option>
+                                                <jsp:useBean id="brands" scope="request" type="java.util.List"/>
+                                                <form:options items="${brands}" itemLabel="name"/>
+                                            </form:select>
+                                            <form:errors path="brand" cssClass="text-danger"
+                                                         cssStyle="font-size: 14px; margin: 4px"/>
+                                        </div>
                                         <div class="form-group col-md-6">
                                             <label for="category">Category</label>
-                                            <form:select path="product.category" class="form-control" id="category">
+                                            <form:select path="category" class="form-control" id="category">
                                                 <form:option value="">-- Select Category --</form:option>
                                                 <jsp:useBean id="categories" scope="request" type="java.util.List"/>
                                                 <form:options items="${categories}" itemLabel="name"/>
                                             </form:select>
-                                            <form:errors path="product.category" cssClass="text-danger"
+                                            <form:errors path="category" cssClass="text-danger"
                                                          cssStyle="font-size: 14px; margin: 4px"/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="supplier">Supplier</label>
-                                            <form:select path="product.supplier" class="form-control" id="supplier">
+                                            <form:select path="supplier" class="form-control" id="supplier">
                                                 <form:option value="">-- Select Supplier --</form:option>
                                                 <jsp:useBean id="suppliers" scope="request" type="java.util.List"/>
                                                 <form:options items="${suppliers}" itemLabel="supplierName"/>
                                                 <!-- Add more options as necessary -->
                                             </form:select>
-                                            <form:errors path="product.supplier" cssClass="text-danger"
+                                            <form:errors path="supplier" cssClass="text-danger"
                                                          cssStyle="font-size: 14px; margin: 4px"/>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label>Color</label>
-                                            <div style="user-select: none;" class="row">
-                                                <jsp:useBean id="colors" scope="request" type="java.util.List"/>
-                                                <form:checkboxes path="colors" items="${colors}" itemLabel="colorName"
-                                                                 cssClass="m-0"
-                                                                 cssStyle="transform: scale(1.5); accent-color: whitesmoke;"/>
-                                                <form:errors path="colors" cssClass="text-danger col-12 p-0"
-                                                             cssStyle="font-size: 14px; margin: 4px 12px"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Size</label>
-                                            <div style="user-select: none;" class="row">
-                                                <jsp:useBean id="sizes" scope="request" type="java.util.List"/>
-                                                <form:checkboxes path="sizes" items="${sizes}" itemLabel="sizeName"
-                                                                 cssClass="m-0"
-                                                                 cssStyle="transform: scale(1.5); accent-color: whitesmoke;"/>
-                                                <form:errors path="sizes" cssClass="text-danger col-12 p-0"
-                                                             cssStyle="font-size: 14px; margin: 4px 12px"/>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
+
+
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary mr-2" ${disabledSave}
-                                    formaction="/admin/product-management/create">Save
+                                            formaction="/admin/product-management/create">Save
                                     </button>
                                     <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
                                             formaction="/admin/product-management/update">
@@ -181,62 +145,40 @@
                                         <th>Id</th>
                                         <th>Image</th>
                                         <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Color</th>
-                                        <th>Quantity</th>
                                         <th>Brand</th>
                                         <th>Description</th>
                                         <th>Category</th>
-                                        <th>Size</th>
                                         <th>Supplier</th>
                                         <th>Update</th>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach var="productItem" items="${productItemList}">
+                                    <c:forEach var="product" items="${products}">
                                         <tr>
-                                            <td>${productItem.productItemId}</td>
-                                            <td><img src="../../../uploads/${productItem.product.image}" alt=""></td>
-                                            <td>${productItem.product.name}</td>
+                                            <td>${product.productId}</td>
+                                            <td><img src="../../../uploads/${product.image}" alt=""></td>
+                                            <td>${product.name}</td>
                                             <td>
-                                                <fmt:formatNumber value="${productItem.product.price}"/>
+                                                    ${product.brand.name}
                                             </td>
                                             <td>
-                                                <label class="badge" style="background:white;">
-                                                    <c:forEach var="color" items="${productItem.colors}">
-                                                        [ ${color.colorName} ]
-                                                    </c:forEach>
-                                                </label>
+                                                    ${product.description}
                                             </td>
                                             <td>
-                                                    ${productItem.product.quantity}
+                                                    ${product.category.name}
                                             </td>
                                             <td>
-                                                    ${productItem.product.brand.name}
+                                                    ${product.supplier.supplierName}
                                             </td>
                                             <td>
-                                                    ${productItem.product.description}
-                                            </td>
-                                            <td>
-                                                    ${productItem.product.category.name}
-                                            </td>
-                                            <td>
-                                                <c:forEach var="size" items="${productItem.sizes}">
-                                                    [ ${size.sizeName} ]
-                                                </c:forEach>
-                                            </td>
-                                            <td>
-                                                    ${productItem.product.supplier.supplierName}
-                                            </td>
-                                            <td>
-                                                <a href="/admin/product-management/edit/${productItem.productItemId}">
+                                                <a href="/admin/product-management/edit/${product.productId}">
                                                     <i class="mdi mdi-table-edit"
                                                        style="font-size: 1.5rem; color: darkgreen"></i>
                                                 </a>
                                             </td>
                                             <td>
-                                                <a onclick="confirmDelete(${productItem.productItemId})">
+                                                <a onclick="confirmDelete(${product.productId})">
                                                     <i class="mdi mdi-delete"
                                                        style="font-size: 1.5rem; color: red"></i>
                                                 </a>
@@ -260,16 +202,8 @@
     </div>
 </div>
 <%----%>
-
-<c:if test="${deleteError}">
-    <script>
-        Swal.fire({
-            icon: "error",
-            title: "Delete product error.",
-        });
-    </script>
-</c:if>
 <script>
+    // confirm delete
     const confirmDelete = (id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -292,15 +226,10 @@
         });
     }
 
-    // file review
-    document.addEventListener('DOMContentLoaded', () => {
-        const imagePreview = document.getElementById('imagePreview');
-        if (imagePreview.src !== 'http://localhost:8080/uploads/') {
-            imagePreview.style.display = 'block';
-        }
-    });
-    document.getElementById('image').addEventListener('change', function (event) {
-        const file = event.target.files[0];
+    // photo review
+    const photo = document.getElementById('photo');
+    photo.addEventListener('change', () => {
+        const file = photo.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {

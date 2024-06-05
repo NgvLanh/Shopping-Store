@@ -2,7 +2,10 @@ package com.poly.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.List;
@@ -14,44 +17,30 @@ public class ProductItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productItemId;
 
+    @NotNull(message = "Please select the product.")
     @ManyToOne
     @JoinColumn(name = "productId")
-    @Valid
     private Product product;
 
+    @NotNull(message = "Please enter product price.")
+    @Min(value = 1, message = "Price must be greater than 1.")
     private Integer price;
 
+    @NotNull(message = "Please enter product quantity.")
+    @Min(value = 1, message = "Quantity must be greater than 1.")
     private Integer quantity;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_item_color",
-            joinColumns = @JoinColumn(name = "productItemId"),
-            inverseJoinColumns = @JoinColumn(name = "colorId")
-    )
-    @NotEmpty(message = "NotEmpty.productItem.colors")
-    private List<Color> colors;
+    @ManyToOne
+    @JoinColumn(name = "colorId")
+    @NotNull(message = "Please select the color.")
+    private Color color;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_item_size",
-            joinColumns = @JoinColumn(name = "productItemId"),
-            inverseJoinColumns = @JoinColumn(name = "sizeId")
-    )
-    @NotEmpty(message = "NotEmpty.productItem.sizes")
-    private List<Size> sizes;
-
+    @ManyToOne
+    @JoinColumn(name = "sizeId")
+    @NotNull(message = "Please select the size.")
+    private Size size;
 
     @OneToMany(mappedBy = "productItem")
     private List<Discount> discounts;
 
-    @Override
-    public String toString() {
-        return "ProductItem{" +
-                "productItemId=" + productItemId +
-                ", product=" + (product != null ? product.getProductId() : "null") +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                '}';
-    }
 }

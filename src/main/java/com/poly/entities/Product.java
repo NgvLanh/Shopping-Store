@@ -21,16 +21,11 @@ public class Product {
     @NotBlank(message = "NotBlank.product.description")
     private String description;
 
-//    @NotBlank(message = "NotBlank.product.image")
     private String image;
 
-    @NotNull(message = "NotNull.product.quantity")
-    @Min(value = 1, message = "Min.product.quantity")
-    private Integer quantity;
-
-    @NotNull(message = "NotNull.product.price")
-    @Min(value = 5, message = "Min.product.price")
-    private Integer price;
+//    @NotNull(message = "NotNull.product.price")
+//    @Min(value = 5, message = "Min.product.price")
+//    private Integer price;
 
     @ManyToOne
     @JoinColumn(name = "categoryId")
@@ -47,20 +42,6 @@ public class Product {
     @NotNull(message = "NotNull.product.supplier")
     private Supplier supplier;
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", image='" + image + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", category=" + (category != null ? category.getCategoryId() : "null") +
-                ", brand=" + (brand != null ? brand.getBrandId() : "null") +
-                ", supplier=" + (supplier != null ? supplier.getSupplierId() : "null") +
-                '}';
-    }
 }
 
 

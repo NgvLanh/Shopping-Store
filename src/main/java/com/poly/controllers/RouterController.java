@@ -28,10 +28,10 @@ public class RouterController {
         return setPageClient(model, "category.jsp");
     }
 
-    @GetMapping("/single-product")
-    public String singleProduct(Model model) {
-        return setPageClient(model, "single-product.jsp");
-    }
+//    @GetMapping("/single-product")
+//    public String singleProduct(Model model) {
+//        return setPageClient(model, "single-product.jsp");
+//    }
 
     @GetMapping("/checkout")
     public String checkout(Model model) {

@@ -64,6 +64,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/admin/product-variation-management">
+                    <i class="mdi mdi-desktop-classic menu-icon"></i>
+                    <span class="menu-title">Product variation</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/admin/customer-management">
                     <i class="mdi mdi-account-search menu-icon"></i>
                     <span class="menu-title">Customer</span>

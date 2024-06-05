@@ -58,7 +58,7 @@
                                             placeholder="End Time" cssStyle="display: none"/>
                                 <div class="form-group col-md-6">
                                     <label for="endTime">End Time</label>
-                                    <form:input path="endTime" type="text" class="form-control" id="endTime"
+                                    <form:input path="endTime" type="datetime-local" class="form-control" id="endTime"
                                                 placeholder="End Time"/>
                                     <span class="text-danger" style="font-size: 14px; margin: 4px"></span>
                                 </div>

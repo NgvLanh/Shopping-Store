@@ -9,7 +9,7 @@ import lombok.Data;
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cardItemId;
+    private Long cartItemId;
 
     @ManyToOne
     @JoinColumn(name = "cardId")
