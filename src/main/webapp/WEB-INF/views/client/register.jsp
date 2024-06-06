@@ -3,6 +3,30 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- ================ start banner area ================= -->
+<style>
+    input[type="file"]::file-selector-button {
+
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .form-control:not(input[type="file"]) {
+        padding: 12px !important;
+    }
+
+    .row > span {
+        padding: 10px;
+        display: flex;
+        gap: 12px;
+    }
+
+    .row > span > label {
+        margin: 0;
+        cursor: pointer;
+    }
+</style>
 <section class="blog-banner-area" id="category">
     <div class="container h-100">
         <div class="blog-banner">
@@ -53,6 +77,8 @@
                             <form:errors path="email"
                                          cssClass="text-danger"
                                          cssStyle="font-size: 14px; display: flex; justify-content: start"/>
+                            <span class="text-danger"
+                                  style="font-size: 14px; display: flex; justify-content: start">${emailExist}</span>
                         </div>
 
                         <div class="col-md-12 form-group">
@@ -63,6 +89,7 @@
                             <form:errors path="password"
                                          cssClass="text-danger"
                                          cssStyle="font-size: 14px;  display: flex; justify-content: start"/>
+
                         </div>
 
                         <div class="col-md-12 form-group">
@@ -72,6 +99,8 @@
                             <form:errors path="phone"
                                          cssClass="text-danger"
                                          cssStyle="font-size: 14px; display: flex; justify-content: start"/>
+                            <span class="text-danger"
+                                  style="font-size: 14px; display: flex; justify-content: start">${phoneExist}</span>
                         </div>
 
                         <div class="col-md-12 form-group">

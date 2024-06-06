@@ -22,28 +22,43 @@ public class RegisterController {
     CustomerRepository customerRepository;
 
     @GetMapping("")
-    public String showRegister( @ModelAttribute("customer")Customer customer, Model model) {
-            model.addAttribute("page", "register.jsp");
-            return "client/index";
-        }
+    public String showRegister(@ModelAttribute("customer") Customer customer, Model model) {
+        model.addAttribute("page", "register.jsp");
+        return "client/index";
+    }
 
     @PostMapping("/create")
-    public String createCustomer(@Validated @ModelAttribute("customer")Customer customer,
+    public String createCustomer(@Validated @ModelAttribute("customer") Customer customer,
                                  BindingResult result,
                                  @RequestParam("photo") MultipartFile file,
                                  Model model) {
-        System.out.println((file.getOriginalFilename()));
+
         if (!file.isEmpty()) {
+
             if (!result.hasErrors()) {
-                customer.setImage(file.getOriginalFilename());
-                paramService.save(file, "/uploads/");
-                customer.setCreateDate(new Date());
-                customerRepository.save(customer);
-                return "redirect:/register";
+                Customer emailExist = customerRepository.findByEmailLike(customer.getEmail());
+                Customer phoneExist = customerRepository.findByPhoneLike(customer.getPhone());
+               if (emailExist == null){
+                   if(phoneExist == null){
+                       customer.setImage(file.getOriginalFilename());
+                       paramService.save(file, "/uploads/");
+                       customer.setCreateDate(new Date());
+                       customerRepository.save(customer);
+                       return "redirect:/register";
+                   }else{
+                       model.addAttribute("phoneExist", "Phone is exist");
+                   }
+
+               }else{
+                   model.addAttribute("emailExist", "Email is exist");
+               }
+
             }
+
         } else {
             model.addAttribute("msgImage", "Please upload a product image.");
         }
+
 
         model.addAttribute("page", "register.jsp");
         return "client/index";
