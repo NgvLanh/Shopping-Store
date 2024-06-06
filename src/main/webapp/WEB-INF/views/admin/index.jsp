@@ -121,11 +121,12 @@
                             <a href="/admin/discounts-management" class="text-black">Discounts</a>
                         </div>
                         <ul class="mt-4 pl-0">
-                            <li>Sign Out</li>
+                            <li><a href="/logout" class="text-black">Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
             </li>
+
         </ul>
     </nav>
     <div class="container-fluid page-body-wrapper">
@@ -244,12 +245,13 @@
                 <ul class="navbar-nav navbar-nav-right ml-lg-auto">
                     <li class="nav-item dropdown d-none d-xl-flex border-0">
                         <a class="nav-link dropdown-toggle" id="languageDropdown" href="#" data-toggle="dropdown">
-                            <i class="mdi mdi-earth"></i> English </a>
+                            <i class="mdi mdi-earth"></i> English
+                        </a>
                         <div class="dropdown-menu navbar-dropdown" aria-labelledby="languageDropdown">
-                            <a class="dropdown-item" href="#"> Vietnamese </a>
-<%--                            <a class="dropdown-item" href="#"> Spain </a>--%>
-<%--                            <a class="dropdown-item" href="#"> Latin </a>--%>
-<%--                            <a class="dropdown-item" href="#"> Japanese </a>--%>
+                            <a class="dropdown-item" href="#">Vietnamese</a>
+                            <%--<a class="dropdown-item" href="#">Spain</a>--%>
+                            <%--<a class="dropdown-item" href="#">Latin</a>--%>
+                            <%--<a class="dropdown-item" href="#">Japanese</a>--%>
                         </div>
                     </li>
                     <li class="nav-item nav-profile dropdown border-0">
@@ -258,15 +260,17 @@
                             <span class="profile-name">Admin</span>
                         </a>
                         <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
-<%--                            <a class="dropdown-item" href="#">--%>
-<%--                                <i class="mdi mdi-cached mr-2 text-success">--%>
-<%--                                </i> Activity Log </a>--%>
+                            <%--<a class="dropdown-item" href="#">--%>
+                            <%--    <i class="mdi mdi-cached mr-2 text-success">--%>
+                            <%--    </i> Activity Log </a>--%>
                             <a class="dropdown-item" href="/home">
-                                <i class="mdi mdi-logout mr-2 text-primary">
-                                </i> Sign out </a>
+                                <i class="mdi mdi-logout mr-2 text-primary"></i>
+                                Sign Out
+                            </a>
                         </div>
                     </li>
                 </ul>
+
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
                         data-toggle="offcanvas">
                     <span class="mdi mdi-menu"></span>
