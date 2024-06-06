@@ -32,7 +32,7 @@ public class LoginController {
                          @RequestParam("password") String password){
         boolean remember = paramService.getBoolean("remember",false);
         try {
-            Customer user =  customerRepository.findByEmail(email);
+            Customer user =  customerRepository.findByEmailLike(email);
             if(!user.getPassword().equals(password) || !user.getEmail().equals((email))){
                 model.addAttribute("message","Login failed");
             }else {
