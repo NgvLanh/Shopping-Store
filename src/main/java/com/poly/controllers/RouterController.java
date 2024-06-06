@@ -58,10 +58,10 @@ public class RouterController {
         return setPageClient(model, "single-blog.jsp");
     }
 
-    @GetMapping("/login")
-    public String login(Model model) {
-        return setPageClient(model, "login.jsp");
-    }
+//    @GetMapping("/login")
+//    public String login(Model model) {
+//        return setPageClient(model, "login.jsp");
+//    }
 
 //    @GetMapping("/register")
 //    public String register(Model model) {

@@ -1,39 +1,74 @@
 package com.poly.controllers.client;
+
 import com.poly.entities.Customer;
+import com.poly.repositories.CustomerRepository;
+import com.poly.services.CookieService;
 import com.poly.services.ParamService;
-import com.poly.services.UserService;
-import jakarta.servlet.http.HttpSession;
+import com.poly.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("account")
+
 public class LoginController {
 
     @Autowired
-    private CookieService cookieService;
+    ParamService paramService;
 
     @Autowired
-    private ParamService paramService;
+    CookieService cookieService;
 
     @Autowired
-    private SessionService sessionService;
+    CustomerRepository customerRepository;
 
     @Autowired
-    private UserService userService;
-
+    SessionService sessionService;
 
     @PostMapping("/login")
-    public String login(Customer customer, HttpSession session) {
-        String email = "lanhnvpc06581@fpt.edu.vn";
-        String password = "admin";
-        if (customer.getPassword().equals(password) && customer.getEmail().equals(email)) {
-            session.setAttribute("role", true);
-            return "redirect:/admin";
-        } else {
-            return "redirect:/login";
+    public  String login(Model model, @RequestParam("email") String email,
+                         @RequestParam("password") String password){
+        boolean remember = paramService.getBoolean("remember",false);
+        try {
+            Customer user =  customerRepository.findByEmail(email);
+            if(!user.getPassword().equals(password) || !user.getEmail().equals((email))){
+                model.addAttribute("message","Login failed");
+            }else {
+                sessionService.set("email",email);
+                //cookie chx lay dc email
+                if (remember){
+                    cookieService.add("email",email,10);
+                }else {
+                    cookieService.remove("email");
+                }
+                if (user.getRole()){
+                    return "redirect:/admin/dashboard";
+                }else {
+                    return "redirect:/home";
+                }
+            }
+        }catch (Exception e){
+            model.addAttribute("message","Login failed");
+
         }
+        model.addAttribute("page", "login.jsp");
+        return "client/index";
+
+    }
+
+    @GetMapping("/login")
+    public String getLogin(@ModelAttribute("login") Customer customer, Model model) {
+        String email = cookieService.getValue("email");
+        if (email != null){
+            model.addAttribute("email" , email);
+        }
+        model.addAttribute("page", "login.jsp");
+        return "client/index";
+    }
+    @GetMapping("/logout")
+    public String logout() {
+        return "redirect:/home";
     }
 }

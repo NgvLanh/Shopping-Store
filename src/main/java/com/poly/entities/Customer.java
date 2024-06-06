@@ -30,7 +30,7 @@ public class Customer {
     private String password;
 
     private Boolean role = false;
-    private Boolean activated =true;
+    private Boolean activated = true;
 
     @NotBlank(message = "NotBlank.customer.phone")
     private String phone;
@@ -41,10 +41,5 @@ public class Customer {
     @NotBlank(message = "NotBlank.customer.city")
     private String city;
 
-
     private Timestamp createdTime;
-
-    // customer - cart
-
-
 }
