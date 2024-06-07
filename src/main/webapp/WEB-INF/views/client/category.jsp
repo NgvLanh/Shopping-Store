@@ -116,12 +116,16 @@
                         </select>
                     </div>
                     <div>
-                        <div class="input-group filter-bar-search">
-                            <input type="text" placeholder="Search">
-                            <div class="input-group-append">
-                                <button type="button"><i class="ti-search"></i></button>
+                        <form action="/category" method="post" class="mb-3">
+                            <div class="input-group filter-bar-search">
+                                <input onchange="searchProduct()" type="text" placeholder="Search" id="keywords"
+                                       name="keywords" value="${keywords}">
+                                <div class="input-group-append">
+                                    <button type="submit"><i class="ti-search"></i></button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
+
                     </div>
                 </div>
                 <!-- End Filter Bar -->
@@ -132,7 +136,8 @@
                             <div class="col-md-6 col-lg-4">
                                 <div class="card text-center card-product">
                                     <div class="card-product__img">
-                                        <img style="height: 280px; width: 260px" src="../../../uploads/${shopC[3]}" alt="">
+                                        <img style="height: 280px; width: 260px" src="../../../uploads/${shopC[3]}"
+                                             alt="">
                                         <ul class="card-product__imgOverlay">
                                             <li>
                                                 <button><i class="ti-search"></i></button>
@@ -304,6 +309,16 @@
         </div>
     </div>
 </section>
+<script>
+    function searchProduct() {
+        const inputKeywords = document.getElementById("keywords");
+        const keywords = inputKeywords.value;
+        console.log(keywords);
+        window.location.href = "/category?keywords="+keywords;
+    }
+
+
+</script>
 <!-- ================ Subscribe section end ================= -->
 
 
