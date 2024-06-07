@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!--================ End Header Menu Area =================-->
 <style>
     select {
@@ -31,7 +32,6 @@
         <%--@elvariable id="productItem" type="com.poly.entities.ProductItem"--%>
         <form:form class="row s_product_inner"
                    modelAttribute="productItem" method="post">
-            <form:hidden path="product.productId"/>
             <div class="col-lg-6">
                 <div class="owl-carousel owl-theme s_Product_carousel">
                     <div class="single-prd-item">
@@ -42,18 +42,14 @@
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
                     <h3>${productItem.product.name}</h3>
-                    <h2>$${productItem.price}</h2>
+                    <h2>$
+                        <fmt:formatNumber value="${productItem.price}"/>
+                    </h2>
                     <ul class="list">
                         <li>
                             <a class="active" href="#">
                                 <span>Category</span>
                                     ${productItem.product.category.name}</a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span>Availability</span>
-                                    ${productItem.quantity} In Stock
-                            </a>
                         </li>
                     </ul>
                     <p>
@@ -62,47 +58,51 @@
                     <div class="product_count d-flex">
                         <label for="qty">Quantity:</label>
                         <div class="position-relative">
-                            <button onclick="
-                        const result = document.getElementById('qty');
-                        const sst = result.value;
-                        if( !isNaN( sst ))
-                            result.value++;
-                        " class="increase items-count" type="button" style="right: -15px;">
+                            <button class="increase items-count" type="button" style="right: -25px;">
                                 <i class="ti-angle-up"></i>
                             </button>
-                            <form:input type="text" path="quantity" id="qty" size="2" maxlength="12" value="1"
-                                        title="quantity"
-                                        class="input-text qty text-center w-75 px-1"
-                                        oninput="const result = document.getElementById('qty');
-                                            const value = result.value;
-                                            if (isNaN(value)) result.value = 1;"/>
-                            <button onclick="const result = document.getElementById('qty');
-                            const sst = result.value;
-                            if( !isNaN( sst ) && sst > 1 )
-                                result.value--;"
-                                    class="reduced items-count" type="button" style="right: -15px;">
+                            <input type="text" name="quantity" id="qty" size="2" maxlength="3" value="1"
+                                   title="quantity"
+                                   class="input-text qty text-center w-100 px-1"/>
+                            <button class="reduced items-count" type="button" style="right: -25px;">
                                 <i class="ti-angle-down"></i>
                             </button>
                         </div>
                     </div>
                     <div class="card_area row">
                         <div class="col-md-8">
-                            <span>Color</span>
+                            <label>Color</label>
                             <div class="row">
                                 <jsp:useBean id="colors" scope="request" type="java.util.Set"/>
-                                <form:radiobuttons path="color" items="${colors}" itemLabel="colorName" cssStyle="transform: scale(1.5); margin: 0 8px"/>
-                                <form:errors path="color"/>
+                                <c:forEach var="color" items="${colors}">
+                                    <div class="col-md-3 d-flex" style="gap: 4px;">
+                                        <input type="radio" name="color" id="${color.colorName}"
+                                               value="${color.colorId}"
+                                               style="transform: scale(1.5); margin: 0 8px; accent-color: ${color.colorName}">
+                                        <label for="${color.colorName}" class="m-0"
+                                               style="cursor: pointer">${color.colorName}</label>
+                                    </div>
+                                </c:forEach>
+                                <span class="text-danger w-100 ml-3">${msgColor}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <span>Size</span>
+                            <label for="size">Size</label>
                             <div class="row">
                                 <jsp:useBean id="sizes" scope="request" type="java.util.Set"/>
+                                <select name="size" id="size" class="form-control w-50">
+                                    <option value="">Size</option>
+                                    <c:forEach var="size" items="${sizes}">
+                                        <option value="${size.sizeId}">${size.sizeName}</option>
+                                    </c:forEach>
+                                </select>
+                                <span class="text-danger">${msgSize}</span>
                             </div>
                         </div>
                     </div>
                     <div class="add_to_cart mt-4 d-flex flex-column">
-                        <button type="submit" class="button primary-btn" formaction="/add-to-cart">Add
+                        <button type="submit" class="button primary-btn"
+                                formaction="/add-to-cart?product_id=${productItem.product.productId}">Add
                             to Cart
                         </button>
                         <span class="w-100 text-danger font-weight-medium mt-2"
@@ -380,5 +380,25 @@
     </div>
 </section>
 <!--================ end related Product area =================-->
+<script>
+    const quantity = document.getElementById('qty');
+    const increase = document.querySelector('.increase');
+    const reduced = document.querySelector('.reduced');
 
+    quantity.addEventListener('input', () => {
+        if (isNaN(quantity.value)) {
+            quantity.value = 1;
+        } else if (quantity.value === '') {
+            quantity.value = 1;
+        }
+    });
+    increase.addEventListener('click', () => {
+        quantity.value = parseInt(quantity.value) + 1;
+    });
+    reduced.addEventListener('click', () => {
+        if (quantity.value > 1) {
+            quantity.value = parseInt(quantity.value) - 1;
+        }
+    });
+</script>
 <!--================ Start footer Area =================-->

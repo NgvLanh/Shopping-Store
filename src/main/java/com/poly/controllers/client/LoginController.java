@@ -28,29 +28,29 @@ public class LoginController {
     SessionService sessionService;
 
     @PostMapping("/login")
-    public  String login(Model model, @RequestParam("email") String email,
-                         @RequestParam("password") String password){
-        boolean remember = paramService.getBoolean("remember",false);
+    public String login(Model model, @RequestParam("email") String email,
+                        @RequestParam("password") String password) {
+        boolean remember = paramService.getBoolean("remember", false);
         try {
-            Customer user =  customerRepository.findByEmailLike(email);
-            if(!user.getPassword().equals(password) || !user.getEmail().equals((email))){
-                model.addAttribute("message","Login failed");
-            }else {
-                sessionService.set("email",email);
+            Customer user = customerRepository.findByEmailLike(email);
+            if (!user.getPassword().equals(password) || !user.getEmail().equals((email))) {
+                model.addAttribute("message", "Login failed");
+            } else {
+                sessionService.set("email", email);
                 //cookie chx lay dc email
-                if (remember){
-                    cookieService.add("email",email,10);
-                }else {
+                if (remember) {
+                    cookieService.add("email", email, 10);
+                } else {
                     cookieService.remove("email");
                 }
-                if (user.getRole()){
+                if (user.getRole()) {
                     return "redirect:/admin/dashboard";
-                }else {
+                } else {
                     return "redirect:/home";
                 }
             }
-        }catch (Exception e){
-            model.addAttribute("message","Login failed");
+        } catch (Exception e) {
+            model.addAttribute("message", "Login failed");
 
         }
         model.addAttribute("page", "login.jsp");
@@ -61,12 +61,13 @@ public class LoginController {
     @GetMapping("/login")
     public String getLogin(@ModelAttribute("login") Customer customer, Model model) {
         String email = cookieService.getValue("email");
-        if (email != null){
-            model.addAttribute("email" , email);
+        if (email != null) {
+            model.addAttribute("email", email);
         }
         model.addAttribute("page", "login.jsp");
         return "client/index";
     }
+
     @GetMapping("/logout")
     public String logout() {
         return "redirect:/home";
