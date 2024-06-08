@@ -32,10 +32,12 @@ public class ShopCategoryController {
     SizeRepository sizeRepository;
     @Autowired
     SessionService session;
+    @Autowired
+    ProductItemRepository productItemRepository;
 
-    @ModelAttribute("categoriesAndProducts")
-    public List<Object[]> getCategoriesAndProducts() {
-        return categoryRepository.findCategoriesAndProductsAndPrices();
+
+    @ModelAttribute("productItems")
+    public List<ProductItem> getAllProductItems(){ return productItemRepository.findAll();
     }
     @ModelAttribute("sizes")
     public List<Size> getAllSize() {
@@ -51,18 +53,18 @@ public class ShopCategoryController {
         return brandRepository.findAll();
     }
 
-//    @ModelAttribute("categories")
-//    public List<Category> getAllCategory() {
-//        return categoryRepository.findAll();
-//    }
+    @ModelAttribute("categories")
+    public List<Category> getAllCategory() {
+        return categoryRepository.findAll();
+    }
 
     @GetMapping("")
-    public String category(Model model, @RequestParam("keywords") Optional<String> keywords) {
-        String kwords = keywords.orElse("");
-        System.out.println(kwords);
-        List<Product> productList = productRepository.findAllByNameLike("%" + kwords + "%");
-        model.addAttribute("categoriesAndProducts",productList);
-        System.out.println(productList);
+    public String category(Model model) {
+//        String kwords = keywords.orElse("");
+//        System.out.println(kwords);
+//        List<Product> productList = productRepository.findAllByNameLike("%" + kwords + "%");
+//        model.addAttribute("categoriesAndProducts",productList);
+//        System.out.println(productList);
         model.addAttribute("page", "category.jsp");
         return "client/index";
     }

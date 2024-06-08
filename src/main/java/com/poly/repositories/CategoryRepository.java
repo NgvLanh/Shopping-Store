@@ -12,11 +12,11 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
 
-    @Query("SELECT c.name, p.name, pi.price, p.image " +
-            "FROM categories c " +
-            "INNER JOIN products p ON c.categoryId = p.category.categoryId " +
-            "INNER JOIN productItems pi ON p.productId = pi.product.productId")
-    List<Object[]> findCategoriesAndProductsAndPrices();
+//    @Query("SELECT c.name, p.name, pi.price, p.image " +
+//            "FROM categories c " +
+//            "INNER JOIN products p ON c.categoryId = p.category.categoryId " +
+//            "INNER JOIN productItems pi ON p.productId = pi.product.productId")
+//    List<Object[]> findCategoriesAndProductsAndPrices();
 
 
 

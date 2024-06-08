@@ -33,7 +33,7 @@
                                 <ul>
                                     <c:forEach items="${categories}" var="category">
                                         <li class="filter-list"><input class="pixel-radio" type="radio" name="_"
-                                                                       value="${category.name}"
+
                                         ><label
                                         >${category.name}<span></span></label>
                                         </li>
@@ -60,10 +60,10 @@
                         <div class="head">Color</div>
                         <form action="#">
                             <ul>
-                                <c:forEach items="${brands}" var="brand">
+                                <c:forEach items="${colors}" var="color">
                                     <li class="filter-list"><input class="pixel-radio" type="radio" id="apple1"
                                                                    name="_"><label
-                                            for="apple">${brand.name}</label></li>
+                                            for="apple">${color.colorName}</label></li>
                                 </c:forEach>
                             </ul>
                         </form>
@@ -132,11 +132,13 @@
                 <!-- Start Best Seller -->
                 <section class="lattest-product-area pb-40 category-list">
                     <div class="row">
-                        <c:forEach items="${categoriesAndProducts}" var="shopC">
+                        <c:forEach items="${productItems}" var="productItem">
+
                             <div class="col-md-6 col-lg-4">
                                 <div class="card text-center card-product">
+<%--                                    <a href="/single-product?product_id=${productItem.product.productId}">--%>
                                     <div class="card-product__img">
-                                        <img style="height: 280px; width: 260px" src="../../../uploads/${shopC[3]}"
+                                        <img style="height: 280px; width: 260px" src="../../../uploads/${productItem.product.image}"
                                              alt="">
                                         <ul class="card-product__imgOverlay">
                                             <li>
@@ -151,10 +153,11 @@
                                         </ul>
                                     </div>
                                     <div class="card-body">
-                                        <p>${shopC[0]}</p>
-                                        <h4 class="card-product__title"><a href="#">${shopC[1]}</a></h4>
-                                        <p class="card-product__price">${shopC[2]}</p>
+                                        <p>${productItem.product.brand.name}</p>
+                                        <h4 class="card-product__title">${productItem.product.name}</h4>
+                                        <p class="card-product__price">${productItem.price}</p>
                                     </div>
+<%--                                    </a>--%>
                                 </div>
                             </div>
                         </c:forEach>
