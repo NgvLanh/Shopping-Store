@@ -43,10 +43,10 @@ public class RouterController {
         return setPageClient(model, "confirmation.jsp");
     }
 
-    @GetMapping("/cart")
-    public String cart(Model model) {
-        return setPageClient(model, "cart.jsp");
-    }
+//    @GetMapping("/cart")
+//    public String cart(Model model) {
+//        return setPageClient(model, "cart.jsp");
+//    }
 
     @GetMapping("/blog")
     public String blog(Model model) {

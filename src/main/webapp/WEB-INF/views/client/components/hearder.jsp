@@ -8,7 +8,7 @@
     <div class="main_menu">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <a class="navbar-brand logo_h" href="home">
+                <a class="navbar-brand logo_h" href="/home">
                     <img src="/assets/images/logo.png" alt="" width="120px" style="margin-top: -10px">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -20,17 +20,17 @@
                 </button>
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-                        <li class="nav-item active"><a class="nav-link" href="home">Home</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="/home">Home</a></li>
                         <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true"
                                aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="category">Shop Category</a></li>
-                                <li class="nav-item"><a class="nav-link" href="single-product">Product Details</a></li>
-                                <li class="nav-item"><a class="nav-link" href="checkout">Product Checkout</a></li>
-                                <li class="nav-item"><a class="nav-link" href="confirmation">Confirmation</a></li>
-                                <li class="nav-item"><a class="nav-link" href="cart">Shopping Cart</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/category">Shop Category</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/single-product">Product Details</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/checkout">Product Checkout</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/confirmation">Confirmation</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/cart">Shopping Cart</a></li>
                             </ul>
                         </li>
                         <li class="nav-item submenu dropdown">
@@ -38,8 +38,8 @@
                                aria-haspopup="true"
                                aria-expanded="false">Blog</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="blog">Blog</a></li>
-                                <li class="nav-item"><a class="nav-link" href="single-blog">Blog Details</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/single-blog">Blog Details</a></li>
                             </ul>
                         </li>
                         <li class="nav-item submenu dropdown">
