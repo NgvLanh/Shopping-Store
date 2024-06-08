@@ -4,6 +4,14 @@
 <!--================ End Header Menu Area =================-->
 
 <!-- ================ start banner area ================= -->
+<style>
+    .error-message {
+        color: #ff4d4d; /* Màu đỏ đậm */
+        font-size: 14px;
+        margin: 4px;
+        padding: 5px;
+    }
+</style>
 <section class="blog-banner-area" id="category">
     <div class="container h-100">
         <div class="blog-banner">
@@ -42,10 +50,12 @@
                         <div class="col-md-12 form-group">
                             <input type="text" class="form-control" id="email" name="email" placeholder="Email"
                                         onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+                            <p  class="error-message" style="font-size: 14px; margin: 4px">${emailError}</p>
                         </div>
                         <div class="col-md-12 form-group">
                             <input  type="password" class="form-control" id="password" name="password" placeholder="Password"
                                         onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <p class="error-message" style="font-size: 14px; margin: 4px">${passwordError}</p>
                         </div>
                          <div class="col-md-12 form-group">
                             <div class="creat_account">
@@ -53,7 +63,7 @@
                                 <label for="remember">Keep me logged in</label>
                             </div>
                          </div>
-                        <h3 class="m-lg-3 text-danger">${message}</h3>
+                        <p class="error-message" style="font-size: 14px; margin: 4px">${allError}</p>
                         <div class="col-md-12 form-group">
                             <button type="submit" value="submit" class="button button-login w-100">Log In</button>
                             <a href="#">Forgot Password?</a>

@@ -31,12 +31,32 @@ public class LoginController {
     public String login(Model model, @RequestParam("email") String email,
                         @RequestParam("password") String password) {
         boolean remember = paramService.getBoolean("remember", false);
+        if(email.isEmpty() && password.isEmpty()){
+            model.addAttribute("emailError","Invalid email");
+            model.addAttribute("passwordError","Invalid password");
+            model.addAttribute("page", "login.jsp");
+            return "client/index";
+        }
+        if (email.isEmpty()){
+            model.addAttribute("emailError","Invalid email");
+            model.addAttribute("page", "login.jsp");
+            return "client/index";
+        }
+        if (password.isEmpty()){
+            model.addAttribute("passwordError","Invalid password");
+            model.addAttribute("page", "login.jsp");
+            return "client/index";
+        }
+
+
         try {
             Customer user = customerRepository.findByEmailLike(email);
-            if (!user.getPassword().equals(password) || !user.getEmail().equals((email))) {
-                model.addAttribute("message", "Login failed");
-            } else {
+            if(user.getEmail().equals(email) && user.getPassword().equals(password)){
                 sessionService.set("email", email);
+
+                if (user.getActivated()) {
+                    model.addAttribute("message", "This account has been locked");
+                }
                 //cookie chx lay dc email
                 if (remember) {
                     cookieService.add("email", email, 10);
@@ -50,7 +70,7 @@ public class LoginController {
                 }
             }
         } catch (Exception e) {
-            model.addAttribute("message", "Login failed");
+            model.addAttribute("emailError", "Invalid email");
 
         }
         model.addAttribute("page", "login.jsp");
