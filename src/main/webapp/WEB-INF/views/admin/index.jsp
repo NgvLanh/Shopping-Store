@@ -263,7 +263,7 @@
                             <%--<a class="dropdown-item" href="#">--%>
                             <%--    <i class="mdi mdi-cached mr-2 text-success">--%>
                             <%--    </i> Activity Log </a>--%>
-                            <a class="dropdown-item" href="/home">
+                            <a class="dropdown-item" href="/logout">
                                 <i class="mdi mdi-logout mr-2 text-primary"></i>
                                 Sign Out
                             </a>

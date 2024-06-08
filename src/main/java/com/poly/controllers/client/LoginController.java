@@ -5,6 +5,7 @@ import com.poly.repositories.CustomerRepository;
 import com.poly.services.CookieService;
 import com.poly.services.ParamService;
 import com.poly.services.SessionService;
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-
 public class LoginController {
 
     @Autowired
@@ -29,67 +29,84 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(Model model, @RequestParam("email") String email,
-                        @RequestParam("password") String password) {
-        boolean remember = paramService.getBoolean("remember", false);
-        if(email.isEmpty() && password.isEmpty()){
-            model.addAttribute("emailError","Invalid email");
-            model.addAttribute("passwordError","Invalid password");
+                        @RequestParam("password") String password,
+                        @RequestParam(value = "remember", defaultValue = "false") Boolean remember) {
+        System.out.println(remember);
+        // Check for empty email and password fields
+        if (email.isEmpty() && password.isEmpty()) {
+            model.addAttribute("emailError", "Please enter your email");
+            model.addAttribute("passwordError", "Please enter your password");
             model.addAttribute("page", "login.jsp");
             return "client/index";
         }
-        if (email.isEmpty()){
-            model.addAttribute("emailError","Invalid email");
+        if (email.isEmpty()) {
+            model.addAttribute("emailError", "Please enter your email");
             model.addAttribute("page", "login.jsp");
             return "client/index";
         }
-        if (password.isEmpty()){
-            model.addAttribute("passwordError","Invalid password");
+        if (password.isEmpty()) {
+            model.addAttribute("passwordError", "Please enter your password");
             model.addAttribute("page", "login.jsp");
             return "client/index";
         }
-
 
         try {
-            Customer user = customerRepository.findByEmailLike(email);
-            if(user.getEmail().equals(email) && user.getPassword().equals(password)){
-                sessionService.set("email", email);
+            // Attempt to find the user by email
+            Customer customer = customerRepository.findByEmailLike(email);
+            if (customer == null) {
+                model.addAttribute("allError", "Your email or password is incorrect.");
+                model.addAttribute("page", "login.jsp");
+                return "client/index";
+            }
 
-                if (user.getActivated()) {
-                    model.addAttribute("message", "This account has been locked");
-                }
-                //cookie chx lay dc email
+            // Validate email and password
+            if (customer.getPassword().equals(password)) {
+                customer.setPassword("***");
                 if (remember) {
                     cookieService.add("email", email, 10);
-                } else {
-                    cookieService.remove("email");
+                    System.out.println(cookieService.getValue("email"));
                 }
-                if (user.getRole()) {
+                sessionService.set("customer", customer);
+                // Handle remember me functionality
+
+
+                // Check if the account is activated
+                if (!customer.getActivated()) {
+                    model.addAttribute("allError", "Your account has been locked.");
+                    model.addAttribute("page", "login.jsp");
+                    return "client/index";
+                }
+
+
+
+                // Redirect based on user role
+                if (customer.getRole()) {
                     return "redirect:/admin/dashboard";
                 } else {
                     return "redirect:/home";
                 }
+            } else {
+                model.addAttribute("allError", "Your email or password is incorrect.");
             }
         } catch (Exception e) {
-            model.addAttribute("emailError", "Invalid email");
-
+            e.printStackTrace();  // Optionally log the exception for debugging
         }
+
         model.addAttribute("page", "login.jsp");
         return "client/index";
-
     }
 
+
     @GetMapping("/login")
-    public String getLogin(@ModelAttribute("login") Customer customer, Model model) {
-        String email = cookieService.getValue("email");
-        if (email != null) {
-            model.addAttribute("email", email);
-        }
+    public String getLogin(Model model) {
         model.addAttribute("page", "login.jsp");
         return "client/index";
     }
 
     @GetMapping("/logout")
     public String logout() {
+        cookieService.remove("email");
+        sessionService.remove("customer");
         return "redirect:/home";
     }
 }

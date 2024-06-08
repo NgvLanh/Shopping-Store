@@ -90,7 +90,7 @@
                     </c:forEach>
                     <tr class="bottom_button">
                         <td colspan="3">
-                            <a class="button" href="#">Update Cart</a>
+                            <a class="button" href="/cart">Update Cart</a>
                         </td>
                         <td colspan="5">
                             <div class="d-flex align-items-center position-relative">

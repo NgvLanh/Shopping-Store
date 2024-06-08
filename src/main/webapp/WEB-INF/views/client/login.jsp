@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!--================ End Header Menu Area =================-->
@@ -39,39 +38,43 @@
                         <h4>New to our website?</h4>
                         <p>There are advances being made in science and technology everyday, and a good example of this
                             is the</p>
-                        <a class="button button-account" href="register">Create an Account</a>
+                        <a class="button button-account" href="/register">Create an Account</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="login_form_inner">
                     <h3>Log in to enter</h3>
-                    <form class="row login_form" action="/login" method="post"  >
+                    <form class="row login_form" action="/login" method="post">
                         <div class="col-md-12 form-group">
                             <input type="text" class="form-control" id="email" name="email" placeholder="Email"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
-                            <p  class="error-message" style="font-size: 14px; margin: 4px">${emailError}</p>
+                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+                            <p class="error-message d-flex justify-content-start"
+                               style="font-size: 14px; margin: 4px">${emailError}</p>
                         </div>
                         <div class="col-md-12 form-group">
-                            <input  type="password" class="form-control" id="password" name="password" placeholder="Password"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-                            <p class="error-message" style="font-size: 14px; margin: 4px">${passwordError}</p>
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Password"
+                                   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <p class="error-message d-flex justify-content-start"
+                               style="font-size: 14px; margin: 4px">${passwordError}</p>
                         </div>
-                         <div class="col-md-12 form-group">
+                        <div class="col-md-12 form-group">
                             <div class="creat_account">
-                                <input type="checkbox" id="remember" name="remember" value="remember" />
-                                <label for="remember">Keep me logged in</label>
+                                <input type="checkbox" id="remember" name="remember"/>
+                                <label for="remember">Remember me</label>
                             </div>
-                         </div>
-                        <p class="error-message" style="font-size: 14px; margin: 4px">${allError}</p>
+                        </div>
                         <div class="col-md-12 form-group">
                             <button type="submit" value="submit" class="button button-login w-100">Log In</button>
-                            <a href="#">Forgot Password?</a>
+                            <%--                            <a href="#">Forgot Password?</a>--%>
+                            <p class="error-message d-flex justify-content-start"
+                               style="font-size: 14px; margin: 4px">${allError}</p>
+                            <b><i class="error-message d-flex justify-content-start"
+                                  style="font-size: 14px; margin: 4px">${message}${param.error}</i></b>
                         </div>
 
                     </form>
-                    <div>
-                    </div>
                 </div>
             </div>
         </div>
