@@ -1,5 +1,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<style>
+    .coupon-container {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
 
+    .coupon-input {
+        flex: 1;
+        margin-right: 10px; /* Khoảng cách giữa input và nút */
+    }
+
+    .apply-btn {
+        min-width: 80px; /* Đảm bảo nút có độ rộng tối thiểu */
+        border-radius: 5px; /* Đường viền cong */
+    }
+
+</style>
 <!--================ End Header Menu Area =================-->
 
 <!-- ================ start banner area ================= -->
@@ -38,8 +55,8 @@
                     </thead>
                     <tbody>
                     <c:forEach var="item" items="${cartItems}">
-                        <form action="/cart/update-quantity/${item.cartItemId}" method="post">
-                            <span id="cartItemId">${item.cartItemId}</span>
+                        <form  action="/cart/update-quantity/${item.cartItemId}" method="post">
+                            <span class="d-none" id="cartItemId">${item.cartItemId}</span>
                             <tr>
                                 <td>
                                     <div class="media">
@@ -60,15 +77,11 @@
                                 </td>
                                 <td>
                                     <div class="product_count">
-                                        <button class="increase items-count" type="button" style="right: -25px;">
-                                            <i class="ti-angle-up"></i>
-                                        </button>
+
                                         <input type="number" name="qty" id="sst" maxlength="3" value="${item.quantity}"
                                                title="Quantity:" oninput="this.form.submit()"
                                                class="input-text qty">
-                                        <button class="reduced items-count" type="button" style="right: -25px;">
-                                            <i class="ti-angle-down"></i>
-                                        </button>
+
                                     </div>
                                     <i class="ml-5">Stock:
                                         <b id="stock">${item.productItem.quantity}</b>
@@ -93,9 +106,9 @@
                             <a class="button" href="/cart">Update Cart</a>
                         </td>
                         <td colspan="5">
-                            <div class="d-flex align-items-center position-relative">
-                                <input type="text" class="form-control" placeholder="Coupon Code">
-                                <a class="btn btn-primary" href="#">Apply</a>
+                            <div class="coupon-container">
+                                <input type="text" class="form-control coupon-input" placeholder="Coupon Code">
+                                <button class="btn btn-primary apply-btn">Apply</button>
                             </div>
                         </td>
                     </tr>
@@ -256,9 +269,11 @@
             if (Number(inputQuantity.value) < maxStock) {
                 inputQuantity.value++;
                 updateTotals();
+
             }
         });
     });
+
 
     window.addEventListener('DOMContentLoaded', () => {
         updateTotals();
