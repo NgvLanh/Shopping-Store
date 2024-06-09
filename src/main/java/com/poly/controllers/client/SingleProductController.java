@@ -88,6 +88,8 @@ public class SingleProductController {
 
             // Kiểm tra nếu mục hàng đã tồn tại trong giỏ hàng
             CartItem existingCartItem = cartItemRepository.findByCartAndProductItem(cart, productItemAddToCart);
+            System.out.println(existingCartItem);
+
             if (existingCartItem != null) {
                 // Cập nhật số lượng nếu mục hàng đã tồn tại
                 existingCartItem.setQuantity(existingCartItem.getQuantity() + quantity);

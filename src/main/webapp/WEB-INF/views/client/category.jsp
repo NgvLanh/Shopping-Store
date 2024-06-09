@@ -25,84 +25,58 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-3 col-lg-4 col-md-5">
-                <div class="sidebar-categories">
-                    <div class="head">Browse Categories</div>
-                    <ul class="main-categories">
-                        <li class="common-filter">
-                            <form action="#">
+                <form action="" onchange="filterData()">
+                    <div class="sidebar-categories">
+                        <div class="head">Price</div>
+                        <ul class="main-categories">
+                            <li class="common-filter">
+                                <ul>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="mx-2">0</span>
+                                        <input type="range" id="priceRange" class="mx-2">
+                                        <span class="mx-2">${maxPrice}</span>
+                                    </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-categories">
+                        <div class="head">Category</div>
+                        <ul class="main-categories">
+                            <li class="common-filter">
                                 <ul>
                                     <c:forEach items="${categories}" var="category">
                                         <li class="filter-list">
-                                            <input class="pixel-radio" type="radio" name="category" id="${category.categoryId}"
-                                                   onchange="categoryOption('${category.categoryId}')">
-                                            <label for="${category.categoryId}">
+                                            <input class="pixel-radio" type="checkbox" name="category"
+                                                   value="${category.categoryId}"
+                                                   id="category-${category.categoryId}">
+                                            <label for="category-${category.categoryId}">
                                                     ${category.name}
                                             </label>
                                         </li>
                                     </c:forEach>
                                 </ul>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-                <div class="sidebar-filter">
-                    <div class="top-filter-head">Product Filters</div>
-                    <div class="common-filter">
-                        <div class="head">Brands</div>
-                        <form action="#">
-                            <ul>
-                                <c:forEach items="${brands}" var="brand">
-                                    <li class="filter-list">
-                                        <input class="pixel-radio" type="radio" id="apple" name="_">
-                                        <label for="apple">${brand.name}</label>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </form>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="common-filter">
-                        <div class="head">Color</div>
-                        <form action="#">
-                            <ul>
-                                <c:forEach items="${colors}" var="color">
-                                    <li class="filter-list">
-                                        <input class="pixel-radio" type="radio" id="apple1" name="_">
-                                        <label for="apple">
-                                                ${color.colorName}
-                                        </label>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </form>
+                    <div class="sidebar-categories">
+                        <div class="head">Browse Categories</div>
+                        <ul class="main-categories">
+                            <li class="common-filter">
+                                <ul>
+                                    <c:forEach items="${brands}" var="brand">
+                                        <li class="filter-list">
+                                            <input class="pixel-radio" type="checkbox" name="brand"
+                                                   value="${brand.brandId}"
+                                                   id="brand-$${brand.brandId}">
+                                            <label for="brand-$${brand.brandId}">${brand.name}</label>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="common-filter">
-                        <div class="head">Size</div>
-                        <form action="#">
-                            <ul>
-                                <c:forEach items="${sizes}" var="size">
-                                    <li class="filter-list">
-                                        <input class="pixel-radio" type="radio" id="black" name="_">
-                                        <label for="black">${size.sizeName}</label>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </form>
-                    </div>
-                    <div class="common-filter">
-                        <div class="head">Price</div>
-                        <div class="price-range-area">
-                            <div id="price-range"></div>
-                            <div class="value-wrapper d-flex">
-                                <div class="price">Price:</div>
-                                <span>$</span>
-                                <div id="lower-value"></div>
-                                <div class="to">to</div>
-                                <span>$</span>
-                                <div id="upper-value"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
             <div class="col-xl-9 col-lg-8 col-md-7">
                 <!-- Start Filter Bar -->
@@ -125,7 +99,7 @@
                         <form action="/category" method="post" class="mb-3">
                             <div class="input-group filter-bar-search">
                                 <input onchange="searchProduct()" type="text" placeholder="Search" id="keywords"
-                                       name="keywords" value="${keywords}">
+                                       name="keywords">
                                 <div class="input-group-append">
                                     <button type="submit">
                                         <i class="ti-search"></i>
@@ -293,79 +267,120 @@
     </div>
 </section>
 <script>
-    function categoryOption(category) {
-        console.log(category)
+    function searchProduct() {
+        const keywords = document.getElementById("keywords").value.toLowerCase();
+        const filteredProducts = productItemsList.filter(item =>
+            item.product.name.toLowerCase().includes(keywords)
+        );
+        renderProductList(filteredProducts);
+    }
+
+    function filterData() {
+        let priceRange = document.getElementById("priceRange");
+        let brands = document.getElementsByName("brand");
+        let categories = document.getElementsByName("category");
+
+        // Khởi tạo đối tượng option
+        let option = {
+            price: Number(priceRange.value),
+            brand: [],
+            category: []
+        };
+
+        // Thu thập các thương hiệu đã được chọn
+        brands.forEach((brand) => {
+            if (brand.checked) {
+                option.brand.push(brand.value);
+            }
+        });
+
+        // Thu thập các danh mục đã được chọn
+        categories.forEach((category) => {
+            if (category.checked) {
+                option.category.push(category.value);
+            }
+        });
+
+        filterProducts(option);
+
     }
 
     // Dữ liệu mẫu
-    const productItemsList = [
-        <c:forEach items="${productItems}" var="productItem" varStatus="status">
-        {
-            productItem: {
-                productItemId: '${productItem.productItemId}',
-                product: {
-                    productId: '${productItem.product.productId}',
-                    name: '${productItem.product.name}',
-                    description: '${productItem.product.description}',
-                    image: '${productItem.product.image}',
-                    category: {
-                        categoryId: '${productItem.product.category.categoryId}',
-                        name: '${productItem.product.category.name}'
-                    },
-                    brand: {
-                        brandId: '${productItem.product.brand.brandId}',
-                        name: '${productItem.product.brand.name}'
-                    },
-                    supplier: {
-                        supplierId: '${productItem.product.supplier.supplierId}',
-                        supplierName: '${productItem.product.supplier.supplierName}',
-                        contactName: '${productItem.product.supplier.contactName}',
-                        contactPhone: '${productItem.product.supplier.contactPhone}',
-                        contactEmail: '${productItem.product.supplier.contactEmail}',
-                        address: '${productItem.product.supplier.address}',
-                        city: '${productItem.product.supplier.city}'
-                    }
-                },
-                price: '${productItem.price}',
-                quantity: '${productItem.quantity}',
-                color: '${productItem.color}',
-                size: '${productItem.size}',
-                discounts: []
+    const productItemsList = [];
+    <c:forEach items="${productItems}" var="productItem">
+    productItemsList.push({
+        productItemId: '${productItem.productItemId}',
+        product: {
+            productId: '${productItem.product.productId}',
+            name: '${productItem.product.name}',
+            description: '${productItem.product.description}',
+            image: '${productItem.product.image}',
+            category: {
+                categoryId: '${productItem.product.category.categoryId}',
+                name: '${productItem.product.category.name}'
+            },
+            brand: {
+                brandId: '${productItem.product.brand.brandId}',
+                name: '${productItem.product.brand.name}'
+            },
+            supplier: {
+                supplierId: '${productItem.product.supplier.supplierId}',
+                supplierName: '${productItem.product.supplier.supplierName}',
+                contactName: '${productItem.product.supplier.contactName}',
+                contactPhone: '${productItem.product.supplier.contactPhone}',
+                contactEmail: '${productItem.product.supplier.contactEmail}',
+                address: '${productItem.product.supplier.address}',
+                city: '${productItem.product.supplier.city}'
             }
         },
-        </c:forEach>
-    ];
-
-    // Lấy phần tử chứa danh sách sản phẩm
-    const productList = document.getElementById('card-product');
-
-    // Tạo chuỗi HTML cho từng sản phẩm và chèn vào innerHTML
-    let productHTML = '';
-    productItemsList.forEach((productItem) => {
-        productHTML +=
-            '<div class="col-md-6 col-lg-4">' +
-            '<div class="card text-center card-product">' +
-            '<a href="/single-product?product_id=' + productItem.productId + '">' +
-            '<div class="card-product__img">' +
-            '<img style="height: 280px; width: 260px" src="../../../uploads/' + productItem.image + '" alt="">' +
-            '<ul class="card-product__imgOverlay">' +
-            '<li><button><i class="ti-search"></i></button></li>' +
-            '<li><button><i class="ti-shopping-cart"></i></button></li>' +
-            '<li><button><i class="ti-heart"></i></button></li>' +
-            '</ul>' +
-            '</div>' +
-            '<div class="card-body">' +
-            '<p>' + productItem.nameBrand + '</p>' +
-            '<h4 class="card-product__title">' + productItem.nameProduct + '</h4>' +
-            '<p class="card-product__price">' + productItem.price + '</p>' +
-            '</div>' +
-            '</a>' +
-            '</div>' +
-            '</div>';
+        price: Number('${productItem.price}'),
+        quantity: Number('${productItem.quantity}'),
+        color: '${productItem.color}',
+        size: '${productItem.size}',
+        discounts: []
     });
-    // Chèn chuỗi HTML vào phần tử product-list
-    productList.innerHTML = productHTML;
-    console.log(productItemsList);
+    </c:forEach>
+
+    function filterProducts(option) {
+        const filteredProducts = productItemsList.filter(item =>
+            (option.price === 0 || item.price <= option.price) &&
+            (option.brand.length === 0 || option.brand.includes(item.product.brand.brandId)) &&
+            (option.category.length === 0 || option.category.includes(item.product.category.categoryId))
+        );
+        renderProductList(filteredProducts);
+    }
+
+    // Function to render the product list
+    function renderProductList(products) {
+        const productList = document.getElementById('card-product');
+        let productHTML = '';
+        products.forEach((productItem) => {
+            productHTML +=
+                '<div class="col-md-6 col-lg-4">' +
+                '<div class="card text-center card-product">' +
+                '<a href="/single-product?product_id=' + productItem.product.productId + '">' +
+                '<div class="card-product__img">' +
+                '<img style="height: 280px; width: 260px" src="../../../uploads/' + productItem.product.image + '" alt="">' +
+                '<ul class="card-product__imgOverlay">' +
+                '<li><button><i class="ti-search"></i></button></li>' +
+                '<li><button><i class="ti-shopping-cart"></i></button></li>' +
+                '<li><button><i class="ti-heart"></i></button></li>' +
+                '</ul>' +
+                '</div>' +
+                '<div class="card-body">' +
+                '<p>' + productItem.product.brand.name + '</p>' +
+                '<h4 class="card-product__title">' + productItem.product.name + '</h4>' +
+                '<p class="card-product__price">$' + productItem.price + '</p>' +
+                '</div>' +
+                '</a>' +
+                '</div>' +
+                '</div>';
+        });
+        productList.innerHTML = productHTML;
+    }
+
+    // Initial rendering of the product list with all products
+    renderProductList(productItemsList);
 </script>
 <!-- ================ Subscribe section end ================= -->
 

@@ -37,12 +37,15 @@ public class ShopCategoryController {
 
 
     @ModelAttribute("productItems")
-    public List<ProductItem> getAllProductItems(){ return productItemRepository.findDistinctProductItems();
+    public List<ProductItem> getAllProductItems() {
+        return productItemRepository.findDistinctProductItems();
     }
+
     @ModelAttribute("sizes")
     public List<Size> getAllSize() {
         return sizeRepository.findAll();
     }
+
     @ModelAttribute("colors")
     public List<Color> getAllColor() {
         return colorRepository.findAll();
@@ -60,11 +63,8 @@ public class ShopCategoryController {
 
     @GetMapping("")
     public String category(Model model) {
-//        String kwords = keywords.orElse("");
-//        System.out.println(kwords);
-//        List<Product> productList = productRepository.findAllByNameLike("%" + kwords + "%");
-//        model.addAttribute("categoriesAndProducts",productList);
-//        System.out.println(productList);
+
+        model.addAttribute("maxPrice", productItemRepository.findMaxPrice());
         model.addAttribute("page", "category.jsp");
         return "client/index";
     }

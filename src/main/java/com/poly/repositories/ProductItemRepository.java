@@ -22,4 +22,7 @@ public interface ProductItemRepository extends JpaRepository<ProductItem, Long> 
             "SELECT * FROM CTE WHERE row_num = 1",
             nativeQuery = true)
     List<ProductItem> findDistinctProductItems();
+
+    @Query("SELECT MAX(price) FROM productItems")
+    Integer findMaxPrice();
 }
