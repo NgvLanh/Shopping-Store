@@ -77,10 +77,10 @@ public class RouterController {
         model.addAttribute("page", pageName);
         return "admin/index";
     }
-    @GetMapping("/admin/dashboard")
-    public String admin(Model model) {
-        return setPageAdmin(model, "home.jsp");
-    }
+//    @GetMapping("/admin/dashboard")
+//    public String admin(Model model) {
+//        return setPageAdmin(model, "home.jsp");
+//    }
 
 //    @GetMapping("/product-management")
 //    public String productManagement(Model model) {

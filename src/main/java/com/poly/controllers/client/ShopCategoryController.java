@@ -37,7 +37,7 @@ public class ShopCategoryController {
 
 
     @ModelAttribute("productItems")
-    public List<ProductItem> getAllProductItems(){ return productItemRepository.findAll();
+    public List<ProductItem> getAllProductItems(){ return productItemRepository.findDistinctProductItems();
     }
     @ModelAttribute("sizes")
     public List<Size> getAllSize() {

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LoginController {
@@ -30,7 +31,8 @@ public class LoginController {
     @PostMapping("/login")
     public String login(Model model, @RequestParam("email") String email,
                         @RequestParam("password") String password,
-                        @RequestParam(value = "remember", defaultValue = "false") Boolean remember) {
+                        @RequestParam(value = "remember", defaultValue = "false") Boolean remember,
+                        RedirectAttributes redirectAttributes) {
         System.out.println(remember);
         // Check for empty email and password fields
         if (email.isEmpty() && password.isEmpty()) {
@@ -62,13 +64,13 @@ public class LoginController {
             // Validate email and password
             if (customer.getPassword().equals(password)) {
                 customer.setPassword("***");
+
+                sessionService.set("customer", customer);
+                // Handle remember me functionality
                 if (remember) {
                     cookieService.add("email", email, 10);
                     System.out.println(cookieService.getValue("email"));
                 }
-                sessionService.set("customer", customer);
-                // Handle remember me functionality
-
 
                 // Check if the account is activated
                 if (!customer.getActivated()) {
@@ -76,9 +78,7 @@ public class LoginController {
                     model.addAttribute("page", "login.jsp");
                     return "client/index";
                 }
-
-
-
+                redirectAttributes.addFlashAttribute("customer", customer);
                 // Redirect based on user role
                 if (customer.getRole()) {
                     return "redirect:/admin/dashboard";

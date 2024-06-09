@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
     .text-secondary.mx-1.p-1:hover {
         color: #0b20ea !important;
@@ -80,7 +81,8 @@
                                         <div class="modal-body pt-0">
                                             <form action="#" method="post">
                                                 <label for="search"></label>
-                                                <input type="text" id="search" class="w-100 border-secondary p-2 rounded"
+                                                <input type="text" id="search"
+                                                       class="w-100 border-secondary p-2 rounded"
                                                        placeholder="Search anything here ..."
                                                        style="border: 1px solid;">
                                             </form>
@@ -96,7 +98,18 @@
                             <button onclick="window.location.href='cart'"><i class="ti-shopping-cart"></i><span
                                     class="nav-shop__circle">:)</span></button>
                         </li>
-                        <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li>
+                        <li class="nav-item">
+                            <span class="button button-header" id="account">
+                                <c:choose>
+                                    <c:when test="${not empty sessionScope.customer}">
+                                        <p style="text-transform: uppercase; margin: 0;">${sessionScope.customer.name}</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p></p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -104,3 +117,13 @@
     </div>
 </header>
 <!-- Button trigger modal -->
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const account = document.getElementById("account");
+        if (account.textContent.trim() === '') {
+            account.style.display = 'none';
+        } else {
+            account.style.display = 'block';
+        }
+    })
+</script>

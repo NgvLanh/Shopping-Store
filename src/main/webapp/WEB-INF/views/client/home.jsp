@@ -27,12 +27,13 @@
     <!--================ Hero Carousel start =================-->
     <section class="section-margin mt-0">
         <div class="owl-carousel owl-theme hero-carousel">
-            <c:forEach var="product" items="${products}">
-                <a href="/single-product?product_id=${product.productId}" class="hero-carousel__slide">
-                    <img src="../../uploads/${product.image}" alt="" class="img-fluid">
+            <c:forEach var="productItems" items="${productItemsList}">
+                <a href="/single-product?product_id=${productItems.product.productId}" class="hero-carousel__slide d-flex">
+                    <img src="../../uploads/${productItems.product.image}" class="img-fluid" style="height: 750px !important;">
                     <div href="#" class="hero-carousel__slideOverlay">
-                        <h3>${product.name}</h3>
-                        <p>${product.brand.name}</p>
+                        <h3>${productItems.product.name}</h3>
+                        <p>$${productItems.price}</p>
+                        <i class="text-white">${productItems.product.description}</i>
                     </div>
                 </a>
             </c:forEach>
@@ -48,12 +49,12 @@
                 <h2>Trending <span class="section-intro__style">Product</span></h2>
             </div>
             <div class="row">
-                <c:forEach var="product" items="${products}">
+                <c:forEach var="productItems" items="${productItemsList}">
 
                     <div class="col-md-6 col-lg-4 col-xl-3">
                         <div class="card text-center card-product">
                             <div class="card-product__img">
-                                <img class="card-img" src="../../uploads/${product.image}" alt="">
+                                <img class="card-img" src="../../uploads/${productItems.product.image}" alt="">
                                 <ul class="card-product__imgOverlay">
                                     <li>
                                         <button>
@@ -62,7 +63,7 @@
                                     </li>
                                     <li>
                                         <button>
-                                            <a href="${product.productId}">
+                                            <a href="${productItems.product.productId}">
                                                 <i class="ti-shopping-cart"></i>
                                             </a>
                                         </button>
@@ -75,9 +76,11 @@
                                 </ul>
                             </div>
                             <div class="card-body">
-                                <p>${product.brand.name}</p>
-                                <h4 class="card-product__title"><a href="single-product">${product.name}</a></h4>
-                                <p class="card-product__price">${product.category.name}</p>
+                                <p>${productItems.product.brand.name}</p>
+                                <h4 class="card-product__title">
+                                    <a href="single-product">${productItems.product.name}</a>
+                                </h4>
+                                <p class="card-product__price">${productItems.product.category.name}</p>
                             </div>
                         </div>
                     </div>
@@ -114,17 +117,17 @@
                 <h2>Best <span class="section-intro__style">Sellers</span></h2>
             </div>
             <div class="owl-carousel owl-theme" id="bestSellerCarousel">
-               <c:forEach var="product" items="${products}">
+               <c:forEach var="productItems" items="${productItemsList}">
                    <div class="card text-center card-product">
                        <div class="card-product__img">
-                           <img class="img-fluid" src="../../uploads/${product.image}" alt="">
+                           <img class="img-fluid" src="../../uploads/${productItems.product.image}" alt="">
                            <ul class="card-product__imgOverlay">
                                <li>
                                    <button><i class="ti-search"></i></button>
                                </li>
                                <li>
                                    <button>
-                                       <a href="${product.productId}">
+                                       <a href="${productItems.product.productId}">
                                            <i class="ti-shopping-cart"></i>
                                        </a>
                                    </button>
@@ -135,11 +138,11 @@
                            </ul>
                        </div>
                        <div class="card-body">
-                           <p>${product.brand.name}</p>
+                           <p>${productItems.product.brand.name}</p>
                            <h4 class="card-product__title">
-                               <a href="single-product">${product.name}</a>
+                               <a href="single-product">${productItems.product.name}</a>
                            </h4>
-                           <p class="card-product__price">${product.category.name}</p>
+                           <p class="card-product__price">${productItems.product.category.name}</p>
                        </div>
                    </div>
                </c:forEach>

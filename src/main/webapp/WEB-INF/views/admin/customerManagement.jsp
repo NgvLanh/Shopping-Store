@@ -56,7 +56,7 @@
                                             <td title="${customer.address}">${customer.address}</td>
                                             <td>${customer.city}</td>
                                             <td>
-                                                <fmt:formatDate value="${customer.createdTime}"/>
+                                                <fmt:formatDate value="${customer.createDate}"/>
                                             </td>
                                             <td>${customer.activated ? "Yes" : "No"}</td>
                                             <td onclick="confirmDelete(this)"><i class="mdi mdi-lock text-black" style="font-size: 1.5rem; cursor: pointer"></i></td>

@@ -32,10 +32,12 @@
                             <form action="#">
                                 <ul>
                                     <c:forEach items="${categories}" var="category">
-                                        <li class="filter-list"><input class="pixel-radio" type="radio" name="_"
-
-                                        ><label
-                                        >${category.name}<span></span></label>
+                                        <li class="filter-list">
+                                            <input class="pixel-radio" type="radio" name="category" id="${category.categoryId}"
+                                                   onchange="categoryOption('${category.categoryId}')">
+                                            <label for="${category.categoryId}">
+                                                    ${category.name}
+                                            </label>
                                         </li>
                                     </c:forEach>
                                 </ul>
@@ -50,8 +52,10 @@
                         <form action="#">
                             <ul>
                                 <c:forEach items="${brands}" var="brand">
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="_"><label
-                                            for="apple">${brand.name}</label></li>
+                                    <li class="filter-list">
+                                        <input class="pixel-radio" type="radio" id="apple" name="_">
+                                        <label for="apple">${brand.name}</label>
+                                    </li>
                                 </c:forEach>
                             </ul>
                         </form>
@@ -61,9 +65,12 @@
                         <form action="#">
                             <ul>
                                 <c:forEach items="${colors}" var="color">
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="apple1"
-                                                                   name="_"><label
-                                            for="apple">${color.colorName}</label></li>
+                                    <li class="filter-list">
+                                        <input class="pixel-radio" type="radio" id="apple1" name="_">
+                                        <label for="apple">
+                                                ${color.colorName}
+                                        </label>
+                                    </li>
                                 </c:forEach>
                             </ul>
                         </form>
@@ -73,12 +80,11 @@
                         <form action="#">
                             <ul>
                                 <c:forEach items="${sizes}" var="size">
-                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="black"
-                                                                   name="_"><label
-                                            for="black">${size.sizeName}</label></li>
+                                    <li class="filter-list">
+                                        <input class="pixel-radio" type="radio" id="black" name="_">
+                                        <label for="black">${size.sizeName}</label>
+                                    </li>
                                 </c:forEach>
-
-
                             </ul>
                         </form>
                     </div>
@@ -121,7 +127,9 @@
                                 <input onchange="searchProduct()" type="text" placeholder="Search" id="keywords"
                                        name="keywords" value="${keywords}">
                                 <div class="input-group-append">
-                                    <button type="submit"><i class="ti-search"></i></button>
+                                    <button type="submit">
+                                        <i class="ti-search"></i>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -131,36 +139,8 @@
                 <!-- End Filter Bar -->
                 <!-- Start Best Seller -->
                 <section class="lattest-product-area pb-40 category-list">
-                    <div class="row">
-                        <c:forEach items="${productItems}" var="productItem">
-
-                            <div class="col-md-6 col-lg-4">
-                                <div class="card text-center card-product">
-<%--                                    <a href="/single-product?product_id=${productItem.product.productId}">--%>
-                                    <div class="card-product__img">
-                                        <img style="height: 280px; width: 260px" src="../../../uploads/${productItem.product.image}"
-                                             alt="">
-                                        <ul class="card-product__imgOverlay">
-                                            <li>
-                                                <button><i class="ti-search"></i></button>
-                                            </li>
-                                            <li>
-                                                <button><i class="ti-shopping-cart"></i></button>
-                                            </li>
-                                            <li>
-                                                <button><i class="ti-heart"></i></button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="card-body">
-                                        <p>${productItem.product.brand.name}</p>
-                                        <h4 class="card-product__title">${productItem.product.name}</h4>
-                                        <p class="card-product__price">${productItem.price}</p>
-                                    </div>
-<%--                                    </a>--%>
-                                </div>
-                            </div>
-                        </c:forEach>
+                    <div class="row" id="card-product">
+                        <%--                       cart product --%>
                     </div>
                 </section>
                 <!-- End Best Seller -->
@@ -313,14 +293,79 @@
     </div>
 </section>
 <script>
-    function searchProduct() {
-        const inputKeywords = document.getElementById("keywords");
-        const keywords = inputKeywords.value;
-        console.log(keywords);
-        window.location.href = "/category?keywords="+keywords;
+    function categoryOption(category) {
+        console.log(category)
     }
 
+    // Dữ liệu mẫu
+    const productItemsList = [
+        <c:forEach items="${productItems}" var="productItem" varStatus="status">
+        {
+            productItem: {
+                productItemId: '${productItem.productItemId}',
+                product: {
+                    productId: '${productItem.product.productId}',
+                    name: '${productItem.product.name}',
+                    description: '${productItem.product.description}',
+                    image: '${productItem.product.image}',
+                    category: {
+                        categoryId: '${productItem.product.category.categoryId}',
+                        name: '${productItem.product.category.name}'
+                    },
+                    brand: {
+                        brandId: '${productItem.product.brand.brandId}',
+                        name: '${productItem.product.brand.name}'
+                    },
+                    supplier: {
+                        supplierId: '${productItem.product.supplier.supplierId}',
+                        supplierName: '${productItem.product.supplier.supplierName}',
+                        contactName: '${productItem.product.supplier.contactName}',
+                        contactPhone: '${productItem.product.supplier.contactPhone}',
+                        contactEmail: '${productItem.product.supplier.contactEmail}',
+                        address: '${productItem.product.supplier.address}',
+                        city: '${productItem.product.supplier.city}'
+                    }
+                },
+                price: '${productItem.price}',
+                quantity: '${productItem.quantity}',
+                color: '${productItem.color}',
+                size: '${productItem.size}',
+                discounts: []
+            }
+        },
+        </c:forEach>
+    ];
 
+    // Lấy phần tử chứa danh sách sản phẩm
+    const productList = document.getElementById('card-product');
+
+    // Tạo chuỗi HTML cho từng sản phẩm và chèn vào innerHTML
+    let productHTML = '';
+    productItemsList.forEach((productItem) => {
+        productHTML +=
+            '<div class="col-md-6 col-lg-4">' +
+            '<div class="card text-center card-product">' +
+            '<a href="/single-product?product_id=' + productItem.productId + '">' +
+            '<div class="card-product__img">' +
+            '<img style="height: 280px; width: 260px" src="../../../uploads/' + productItem.image + '" alt="">' +
+            '<ul class="card-product__imgOverlay">' +
+            '<li><button><i class="ti-search"></i></button></li>' +
+            '<li><button><i class="ti-shopping-cart"></i></button></li>' +
+            '<li><button><i class="ti-heart"></i></button></li>' +
+            '</ul>' +
+            '</div>' +
+            '<div class="card-body">' +
+            '<p>' + productItem.nameBrand + '</p>' +
+            '<h4 class="card-product__title">' + productItem.nameProduct + '</h4>' +
+            '<p class="card-product__price">' + productItem.price + '</p>' +
+            '</div>' +
+            '</a>' +
+            '</div>' +
+            '</div>';
+    });
+    // Chèn chuỗi HTML vào phần tử product-list
+    productList.innerHTML = productHTML;
+    console.log(productItemsList);
 </script>
 <!-- ================ Subscribe section end ================= -->
 

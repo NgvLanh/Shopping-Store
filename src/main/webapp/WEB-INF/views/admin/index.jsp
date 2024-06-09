@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,10 +46,19 @@
                         <!--change to offline or busy as needed-->
                     </div>
                     <div class="nav-profile-text d-flex flex-column pr-3">
-                        <span class="font-weight-medium mb-2">Admin</span>
+                        <span class="font-weight-medium mb-2">
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.customer.name}">
+                                    <p style="text-transform: uppercase; margin: 0;">${sessionScope.customer.name}</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p></p>
+                                </c:otherwise>
+                            </c:choose>
+                        </span>
                         <span class="font-weight-normal">$8,753.00</span>
                     </div>
-                    <span class="badge badge-danger text-white ml-3 rounded">3</span>
+<%--                    <span class="badge badge-danger text-white ml-3 rounded">3</span>--%>
                 </a>
             </li>
             <li class="nav-item">
@@ -255,9 +265,18 @@
                         </div>
                     </li>
                     <li class="nav-item nav-profile dropdown border-0">
-                        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" id="profileDropdown" href="#" data-toggle="dropdown">
                             <img class="nav-profile-img mr-2" alt="" src="/assets/images/faces-clipart/pic-4.png"/>
-                            <span class="profile-name">Admin</span>
+                            <span class="profile-name">
+                                <c:choose>
+                                    <c:when test="${not empty sessionScope.customer}">
+                                        <p style="text-transform: uppercase; margin: 0;">${sessionScope.customer.name}</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p></p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </span>
                         </a>
                         <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
                             <%--<a class="dropdown-item" href="#">--%>
@@ -270,7 +289,6 @@
                         </div>
                     </li>
                 </ul>
-
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
                         data-toggle="offcanvas">
                     <span class="mdi mdi-menu"></span>
@@ -284,7 +302,6 @@
     <!-- page-body-wrapper ends -->
 </div>
 <!-- container-scroller -->
-<!-- plugins:js -->
 <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
 <!-- endinject -->
 <!-- Plugin js for this page -->
