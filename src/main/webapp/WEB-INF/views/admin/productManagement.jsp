@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
     input[type="file"]::file-selector-button {
         background: linear-gradient(to left, whitesmoke, skyblue);
@@ -12,6 +13,17 @@
     .form-control:not(input[type="file"]) {
         padding: 12px !important;
     }
+
+    .row > span {
+        padding: 10px;
+        display: flex;
+        gap: 12px;
+    }
+
+    .row > span > label {
+        margin: 0;
+        cursor: pointer;
+    }
 </style>
 <div class="content-wrapper">
     <div class="main-panel">
@@ -20,7 +32,7 @@
                 <h3 class="page-title">Products management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Admin</a></li>
                         <li class="breadcrumb-item active" aria-current="page"> Products management</li>
                     </ol>
                 </nav>
@@ -31,116 +43,87 @@
                         <div class="card-body">
                             <h4 class="card-title">Product form</h4>
                             <p class="card-description">Create - Update</p>
-                            <form:form class="forms-sample row" method="post" action="/product-management/create"
+                            <%--@elvariable id="product" type="com.poly.entities.Product"--%>
+                            <form:form class="forms-sample row" method="post"
                                        modelAttribute="product" enctype="multipart/form-data">
+                                <form:hidden path="productId"/>
                                 <div class="form-group col-md-6">
                                     <label for="name">Name</label>
                                     <form:input path="name" type="text" class="form-control" id="name"
                                                 placeholder="Product name"/>
+                                    <form:errors path="name" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="description">Description</label>
-                                    <form:input path="description" type="text" class="form-control" id="description"
+                                    <form:input path="description" type="text" class="form-control"
+                                                id="description"
                                                 placeholder="Description"/>
+                                    <form:errors path="description" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="price">Price</label>
-                                    <form:input path="price" type="text" class="form-control" id="price"
-                                                placeholder="Price"/>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="quantity">Quantity</label>
-                                    <form:input path="quantity" type="text" class="form-control" id="quantity"
-                                                placeholder="Quantity"/>
-                                </div>
+                                <form:hidden path="image"/>
                                 <div class="form-group col-md-6">
                                     <label for="image">Image</label>
-                                    <form:input path="image" type="file" class="form-control" id="image"
-                                                placeholder="Image"/>
+                                    <input name="photo" type="file" class="form-control" id="photo"
+                                           placeholder="Image"/>
                                     <div class="border d-block mt-2" style="height: 200px;">
-                                        <img src="${image}" alt="image" id="imagePreview" width="50%" height="100%"
+                                        <img src="../../../uploads/${srcImage}" alt="image" id="imagePreview"
+                                             width="50%"
+                                             height="100%"
                                              style="display: none; margin: auto">
                                     </div>
+                                    <span class="text-danger"
+                                          style="font-size: 14px; margin: 4px">${msgImage}</span>
                                 </div>
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', () => {
-                                        const imagePreview = document.getElementById('imagePreview');
-                                        if (imagePreview.src !== 'http://localhost:8080/product-management' &&
-                                            imagePreview.src !== 'http://localhost:8080/product-management/create') {
-                                            imagePreview.style.display = 'block';
-                                        }
-                                    });
-                                    document.getElementById('image').addEventListener('change', function (event) {
-                                        const file = event.target.files[0];
-                                        if (file) {
-                                            const reader = new FileReader();
-                                            reader.onload = function (e) {
-                                                const imagePreview = document.getElementById('imagePreview');
-                                                imagePreview.src = e.target.result;
-                                                imagePreview.style.display = 'block';
-                                            };
-                                            reader.readAsDataURL(file);
-                                        } else {
-                                            const imagePreview = document.getElementById('imagePreview');
-                                            imagePreview.style.display = 'none';
-                                            imagePreview.src = '';
-                                        }
-                                    });
-                                </script>
                                 <div class="form-group col-md-6">
-                                    <div class="form-group">
-                                        <label for="brand">Brand</label>
-                                        <form:select path="brand" class="form-control" id="brand">
-                                            <form:option value="null">-- Select Brand --</form:option>
-                                            <form:option value="1">Brand 1</form:option>
-                                            <!-- Add more options as necessary -->
-                                        </form:select>
-                                    </div>
                                     <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="brand">Brand</label>
+                                            <form:select path="brand" class="form-control" id="brand">
+                                                <form:option value="">-- Select Brand --</form:option>
+                                                <jsp:useBean id="brands" scope="request" type="java.util.List"/>
+                                                <form:options items="${brands}" itemLabel="name"/>
+                                            </form:select>
+                                            <form:errors path="brand" cssClass="text-danger"
+                                                         cssStyle="font-size: 14px; margin: 4px"/>
+                                        </div>
                                         <div class="form-group col-md-6">
                                             <label for="category">Category</label>
                                             <form:select path="category" class="form-control" id="category">
-                                                <form:option value="null">-- Select Category --</form:option>
-                                                <form:option value="">Category 1</form:option>
-                                                <!-- Add more options as necessary -->
+                                                <form:option value="">-- Select Category --</form:option>
+                                                <jsp:useBean id="categories" scope="request" type="java.util.List"/>
+                                                <form:options items="${categories}" itemLabel="name"/>
                                             </form:select>
+                                            <form:errors path="category" cssClass="text-danger"
+                                                         cssStyle="font-size: 14px; margin: 4px"/>
                                         </div>
-
                                         <div class="form-group col-md-6">
                                             <label for="supplier">Supplier</label>
                                             <form:select path="supplier" class="form-control" id="supplier">
-                                                <form:option value="null">-- Select Supplier --</form:option>
-                                                <form:option value="">Supplier 1</form:option>
+                                                <form:option value="">-- Select Supplier --</form:option>
+                                                <jsp:useBean id="suppliers" scope="request" type="java.util.List"/>
+                                                <form:options items="${suppliers}" itemLabel="supplierName"/>
                                                 <!-- Add more options as necessary -->
                                             </form:select>
+                                            <form:errors path="supplier" cssClass="text-danger"
+                                                         cssStyle="font-size: 14px; margin: 4px"/>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label for="color">Color</label>
-                                                <form:select path="color" class="form-control" id="color">
-                                                    <form:option value="null">-- Select Color --</form:option>
-                                                    <form:option value="red">Color Red</form:option>
-                                                    <!-- Add more options as necessary -->
-                                                </form:select>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="size">Size</label>
-                                                <form:select path="size" class="form-control" id="size">
-                                                    <form:option value="null">-- Select Size --</form:option>
-                                                    <form:option value="s">Size S</form:option>
-                                                    <!-- Add more options as necessary -->
-                                                </form:select>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
 
+
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary mr-2">Create</button>
+                                    <button type="submit" class="btn btn-primary mr-2" ${disabledSave}
+                                            formaction="/admin/product-management/create">Save
+                                    </button>
+                                    <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
+                                            formaction="/admin/product-management/update">
+                                        Update
+                                    </button>
                                     <button type="button" class="btn btn-light"
-                                            onclick="window.location.href='/product-management'">Cancel
+                                            onclick="window.location.href='/admin/product-management'">Cancel
                                     </button>
                                 </div>
                             </form:form>
@@ -159,65 +142,49 @@
                                 <table class="table table-hover" style="cursor: pointer">
                                     <thead>
                                     <tr>
+                                        <th>Id</th>
                                         <th>Image</th>
                                         <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Color</th>
-                                        <th>Quantity</th>
                                         <th>Brand</th>
                                         <th>Description</th>
                                         <th>Category</th>
-                                        <th>Size</th>
                                         <th>Supplier</th>
                                         <th>Update</th>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td><img src="../../../uploads/s7-1497188_lifestyle.webp" alt=""></td>
-                                        <td>Classic Fit Cotton-Linen Polo Shirt</td>
-                                        <td>$125.00</td>
-                                        <td>
-                                            <label class="badge" style="background:white;">
-                                                White
-                                            </label>
-                                        </td>
-                                        <td>120</td>
-                                        <td>Polo Ralph Lauren</td>
-                                        <td>
-                                            <%-- Description --%>
-                                        </td>
-                                        <td>T-shirt</td>
-                                        <td>M</td>
-                                        <td>New House</td>
-                                        <td><i class="mdi mdi-table-edit"
-                                               style="font-size: 1.5rem; color: darkgreen"></i></td>
-                                        <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
-                                                                         style="font-size: 1.5rem; color: red"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="../../../uploads/s7-AI710944762001_lifestyle.webp" alt=""></td>
-                                        <td>Classic Fit Striped Mesh Polo Shirt</td>
-                                        <td>$115.00</td>
-                                        <td>
-                                            <label class="badge" style="background: black; color: white">
-                                                Black
-                                            </label>
-                                        </td>
-                                        <td>110</td>
-                                        <td>Polo Ralph Lauren</td>
-                                        <td>
-                                            <%-- Description --%>
-                                        </td>
-                                        <td>T-shirt</td>
-                                        <td>L</td>
-                                        <td>New House</td>
-                                        <td><i class="mdi mdi-table-edit"
-                                               style="font-size: 1.5rem; color: darkgreen"></i></td>
-                                        <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
-                                                                         style="font-size: 1.5rem; color: red"></i></td>
-                                    </tr>
+                                    <c:forEach var="product" items="${products}">
+                                        <tr>
+                                            <td>${product.productId}</td>
+                                            <td><img src="../../../uploads/${product.image}" alt=""></td>
+                                            <td>${product.name}</td>
+                                            <td>
+                                                    ${product.brand.name}
+                                            </td>
+                                            <td>
+                                                    ${product.description}
+                                            </td>
+                                            <td>
+                                                    ${product.category.name}
+                                            </td>
+                                            <td>
+                                                    ${product.supplier.supplierName}
+                                            </td>
+                                            <td>
+                                                <a href="/admin/product-management/edit/${product.productId}">
+                                                    <i class="mdi mdi-table-edit"
+                                                       style="font-size: 1.5rem; color: darkgreen"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a onclick="confirmDelete(${product.productId})">
+                                                    <i class="mdi mdi-delete"
+                                                       style="font-size: 1.5rem; color: red"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -234,9 +201,10 @@
         </footer>
     </div>
 </div>
+<%----%>
 <script>
-    const confirmDelete = (e) => {
-        console.log(e)
+    // confirm delete
+    const confirmDelete = (id) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -251,8 +219,29 @@
                     title: "Deleted!",
                     text: "Your file has been deleted.",
                     icon: "success"
+                }).then(() => {
+                    window.location.href = `/admin/product-management/delete/` + id;
                 });
             }
         });
     }
+
+    // photo review
+    const photo = document.getElementById('photo');
+    photo.addEventListener('change', () => {
+        const file = photo.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.style.display = 'none';
+            imagePreview.src = '';
+        }
+    });
 </script>

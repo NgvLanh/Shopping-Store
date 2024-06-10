@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +15,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title>Four Free</title>
+    <title>FOUR FREE</title>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -32,45 +33,60 @@
 <div class="container-scroller">
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="text-center sidebar-brand-wrapper d-block">
-            <a class="sidebar-brand brand-logo d-flex justify-content-center" href="/admin">
+            <a class="sidebar-brand brand-logo d-flex justify-content-center" href="/admin/dashboard">
                 <img src="/assets/images/logo.png" alt="logo" class="m-auto"/>
             </a>
         </div>
         <ul class="nav">
             <li class="nav-item nav-profile">
-                <a href="#" class="nav-link">
+                <a href="/admin/dashboard" class="nav-link">
                     <div class="nav-profile-image">
-                        <img src="/assets/images/faces/face1.jpg" alt="profile"/>
+                        <img src="/assets/images/faces-clipart/pic-4.png" alt="profile"/>
                         <span class="login-status online"></span>
                         <!--change to offline or busy as needed-->
                     </div>
                     <div class="nav-profile-text d-flex flex-column pr-3">
-                        <span class="font-weight-medium mb-2">Admin</span>
+                        <span class="font-weight-medium mb-2">
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.customer.name}">
+                                    <p style="text-transform: uppercase; margin: 0;">${sessionScope.customer.name}</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p></p>
+                                </c:otherwise>
+                            </c:choose>
+                        </span>
                         <span class="font-weight-normal">$8,753.00</span>
                     </div>
-                    <span class="badge badge-danger text-white ml-3 rounded">3</span>
+<%--                    <span class="badge badge-danger text-white ml-3 rounded">3</span>--%>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/dashboard">
+                <a class="nav-link" href="/admin/dashboard">
                     <i class="mdi mdi-home menu-icon"></i>
                     <span class="menu-title">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/product-management">
+                <a class="nav-link" href="/admin/product-management">
                     <i class="mdi mdi-desktop-tower menu-icon"></i>
                     <span class="menu-title">Product</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/customer-management">
+                <a class="nav-link" href="/admin/product-variation-management">
+                    <i class="mdi mdi-desktop-classic menu-icon"></i>
+                    <span class="menu-title">Product variation</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/customer-management">
                     <i class="mdi mdi-account-search menu-icon"></i>
                     <span class="menu-title">Customer</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/supplier-management">
+                <a class="nav-link" href="/admin/supplier-management">
                     <i class="mdi mdi-bank menu-icon"></i>
                     <span class="menu-title">Supplier</span>
                 </a>
@@ -85,25 +101,25 @@
                 <div class="collapse show" id="ui-basic" style="">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="/brands-management">Brand</a>
+                            <a class="nav-link" href="/admin/brands-management">Brand</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/categories-management">Category</a>
+                            <a class="nav-link" href="/admin/categories-management">Category</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/size-color-management">Size & color</a>
+                            <a class="nav-link" href="/admin/size-color-management">Size & color</a>
                         </li>
                     </ul>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/review-management">
+                <a class="nav-link" href="/admin/review-management">
                     <i class="mdi mdi-border-color menu-icon"></i>
                     <span class="menu-title">Review</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/order-management">
+                <a class="nav-link" href="/admin/order-management">
                     <i class="mdi mdi-barcode-scan menu-icon"></i>
                     <span class="menu-title">Order process</span>
                 </a>
@@ -112,14 +128,15 @@
                 <div class="nav-link">
                     <div class="mt-4">
                         <div class="border-none">
-                            <a href="/notification-management" class="text-black">Notification</a>
+                            <a href="/admin/discounts-management" class="text-black">Discounts</a>
                         </div>
                         <ul class="mt-4 pl-0">
-                            <li>Sign Out</li>
+                            <li><a href="/logout" class="text-black">Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
             </li>
+
         </ul>
     </nav>
     <div class="container-fluid page-body-wrapper">
@@ -142,7 +159,7 @@
         </div>
         <nav class="navbar col-lg-12 col-12 p-lg-0 fixed-top d-flex flex-row">
             <div class="navbar-menu-wrapper d-flex align-items-stretch justify-content-between">
-                <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="admin"><img
+                <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="/admin/dashboard"><img
                         src="/assets/images/logo-mini.svg" alt="logo"/></a>
                 <button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button"
                         data-toggle="minimize">
@@ -186,7 +203,7 @@
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="customer-management" class="p-3 mb-0">View all activities</a>
+                            <a href=/admin/"notification-management" class="p-3 mb-0">View all activities</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown d-none d-sm-flex">
@@ -238,24 +255,37 @@
                 <ul class="navbar-nav navbar-nav-right ml-lg-auto">
                     <li class="nav-item dropdown d-none d-xl-flex border-0">
                         <a class="nav-link dropdown-toggle" id="languageDropdown" href="#" data-toggle="dropdown">
-                            <i class="mdi mdi-earth"></i> English </a>
+                            <i class="mdi mdi-earth"></i> English
+                        </a>
                         <div class="dropdown-menu navbar-dropdown" aria-labelledby="languageDropdown">
-                            <a class="dropdown-item" href="#"> French </a>
-                            <a class="dropdown-item" href="#"> Spain </a>
-                            <a class="dropdown-item" href="#"> Latin </a>
-                            <a class="dropdown-item" href="#"> Japanese </a>
+                            <a class="dropdown-item" href="#">Vietnamese</a>
+                            <%--<a class="dropdown-item" href="#">Spain</a>--%>
+                            <%--<a class="dropdown-item" href="#">Latin</a>--%>
+                            <%--<a class="dropdown-item" href="#">Japanese</a>--%>
                         </div>
                     </li>
                     <li class="nav-item nav-profile dropdown border-0">
-                        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
-                            <img class="nav-profile-img mr-2" alt="" src="/assets/images/faces/face1.jpg"/>
-                            <span class="profile-name">Henry Klein</span>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" id="profileDropdown" href="#" data-toggle="dropdown">
+                            <img class="nav-profile-img mr-2" alt="" src="/assets/images/faces-clipart/pic-4.png"/>
+                            <span class="profile-name">
+                                <c:choose>
+                                    <c:when test="${not empty sessionScope.customer}">
+                                        <p style="text-transform: uppercase; margin: 0;">${sessionScope.customer.name}</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p></p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </span>
                         </a>
                         <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
+                            <%--<a class="dropdown-item" href="#">--%>
+                            <%--    <i class="mdi mdi-cached mr-2 text-success">--%>
+                            <%--    </i> Activity Log </a>--%>
+                            <a class="dropdown-item" href="/logout">
+                                <i class="mdi mdi-logout mr-2 text-primary"></i>
+                                Sign Out
+                            </a>
                         </div>
                     </li>
                 </ul>
@@ -272,7 +302,6 @@
     <!-- page-body-wrapper ends -->
 </div>
 <!-- container-scroller -->
-<!-- plugins:js -->
 <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
 <!-- endinject -->
 <!-- Plugin js for this page -->

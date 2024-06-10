@@ -1,20 +1,15 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 5/18/2024
-  Time: 12:27 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="content-wrapper">
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title text-warning">Categories management</h3>
+                <h3 class="page-title">Categories Management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin">Admin</a></li>
-                        <li class="breadcrumb-item active " aria-current="page" > Categories management </li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Admin</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Categories Management</li>
                     </ol>
                 </nav>
             </div>
@@ -23,48 +18,54 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title card-description"></h4>
-                            <form class="forms-sample">
+                            <form:form class="forms-sample" method="post" action="/admin/categories-management/create"
+                                       modelAttribute="category" enctype="multipart/form-data">
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1" class="text-danger">Category Name</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Category Name">
+                                    <label for="categoryName">Category Name</label>
+                                    <form:input path="name" class="form-control" id="categoryName" placeholder="Category name"/>
+                                    <form:errors path="name" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1" class="text-success">Description</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Description">
+                                    <label for="categoryDescription">Description</label>
+                                    <form:input path="description" class="form-control" id="categoryDescription" placeholder="Description"/>
+                                    <form:errors path="description" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr-2"> Submit </button>
-                                <button class="btn btn-light">Cancel</button>
-                            </form>
+
+                                <button type="submit" class="btn btn-primary mr-2"${disabledSave}>Save</button>
+                                <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
+                                        formaction="/admin/categories-management/update/${category.categoryId}">Update</button>
+                                <button type="button" class="btn btn-light" onclick="window.location.href='/admin/categories-management'">Cancel</button>
+                            </form:form>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title card-description ">Categories Table</h4>
-
+                            <h4 class="card-title card-description">Categories Table</h4>
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th class="text-danger">Category Name:</th>
-                                        <th class="text-success">Description</th>
+                                        <th>Category Name</th>
+                                        <th>Description</th>
+                                        <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Trousers</td>
-                                        <td>description</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>T-shirt</td>
-                                        <td>description</td>
-
-                                    </tr>
-
-
+                                    <c:forEach var="category" items="${categories}">
+                                        <tr>
+                                            <td>${category.name}</td>
+                                            <td>${category.description}</td>
+                                            <td>
+                                                <a href="/admin/categories-management/edit/${category.categoryId}"
+                                                   class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="/admin/categories-management/delete/${category.categoryId}"
+                                                   class="btn btn-danger btn-sm">Delete</a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

@@ -1,68 +1,143 @@
 package com.poly.controllers.admin;
 
-import com.poly.models.Product;
-import jakarta.servlet.ServletContext;
+import com.poly.entities.*;
+import com.poly.repositories.*;
+import com.poly.services.ParamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.File;
+
+import java.util.List;
 
 @Controller
-@RequestMapping("/product-management")
+@RequestMapping("/admin/product-management")
 public class ProductController {
 
     @Autowired
-    ServletContext context;
+    ParamService paramService;
 
-    @ModelAttribute("product")
-    public Product product() {
-        return new Product();
-    }
+    @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    BrandRepository brandRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
+
+    @Autowired
+    SupplierRepository supplierRepository;
+
+    @Autowired
+    ColorRepository colorRepository;
+
+    @Autowired
+    SizeRepository sizeRepository;
 
     @GetMapping("")
-    public String showProductManagement(Model model) {
-        model.addAttribute("page", "productManagement.jsp");
-        return "admin/index";
-    }
-
-    @GetMapping("/create")
-    public String showCreateProductForm(Model model) {
+    public String showProductManagement(@ModelAttribute("product") Product product,
+                                        Model model) {
+        model.addAttribute("disabledUpdate", "disabled");
         model.addAttribute("page", "productManagement.jsp");
         return "admin/index";
     }
 
     @PostMapping("/create")
-    public String createProduct(@ModelAttribute("product") Product product, Model model) {
-        MultipartFile file = product.getImage();
+    public String createProduct(@Validated @ModelAttribute("product") Product product,
+                                BindingResult result,
+                                @RequestPart("photo") MultipartFile file,
+                                Model model) {
+        model.addAttribute("disabledUpdate", "disabled");
         if (!file.isEmpty()) {
-            // Luư file ảnh vào thư mục uploads
-            try {
-                String fileName = file.getOriginalFilename();
-                // Kiểm tra xem có đường dẫn chưa
-                File uploadFolder = new File(context.getRealPath("/uploads/"));
-                if (!uploadFolder.exists()) {
-                    uploadFolder.mkdirs();
-                }
-                // Tạo file trong thư mục uploads
-                assert fileName != null;
-                File dirFile = new File(uploadFolder, fileName);
-
-                file.transferTo(dirFile);
-
-                model.addAttribute("image", "/uploads/" + fileName);
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (!result.hasErrors()) {
+                paramService.save(file, "/uploads/");
+                product.setImage(file.getOriginalFilename());
+                productRepository.save(product);
+                return "redirect:/admin/product-management";
             }
+        } else {
+            model.addAttribute("msgImage", "Please upload a product image.");
         }
-        product.print();
-
-        // Logic to handle product creation (e.g., save to the database)
-        // productService.save(product); (uncomment and implement this line if you have a service for saving the product)
-
         model.addAttribute("page", "productManagement.jsp");
         return "admin/index";
     }
 
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id,
+                       Model model) {
+        Product product = productRepository.findById(id).orElse(null);
+        model.addAttribute("disabledSave", "disabled");
+        model.addAttribute("product", product);
+        model.addAttribute("srcImage", product.getImage());
+        model.addAttribute("page", "productManagement.jsp");
+        return "admin/index";
+    }
+
+    @PostMapping("/update")
+    public String update(@Validated @ModelAttribute("product") Product product,
+                         BindingResult result,
+                         @RequestPart("photo") MultipartFile file,
+                         Model model) {
+        model.addAttribute("disabledSave", "disabled");
+        if (file.isEmpty() && !product.getImage().isEmpty()) {
+            if (!result.hasErrors()) {
+                productRepository.save(product);
+                return "redirect:/admin/product-management";
+            }
+        } else if (!file.isEmpty()) {
+            if (!result.hasErrors()) {
+                paramService.save(file, "/uploads/");
+                product.setImage(file.getOriginalFilename());
+                productRepository.save(product);
+                return "redirect:/admin/product-management";
+            }
+        } else {
+            model.addAttribute("msgImage", "Please upload a product image.");
+        }
+        model.addAttribute("page", "productManagement.jsp");
+        return "admin/index";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        productRepository.deleteById(id);
+        return "redirect:/admin/product-management";
+    }
+
+
+    @ModelAttribute("products")
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    @ModelAttribute("brands")
+    public List<Brand> getAllBrands() {
+        return brandRepository.findAll();
+    }
+
+    @ModelAttribute("categories")
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
+    }
+
+    @ModelAttribute("suppliers")
+    public List<Supplier> getAllSuppliers() {
+        return supplierRepository.findAll();
+    }
+
+    @ModelAttribute("colors")
+    public List<Color> getAllColors() {
+        return colorRepository.findAll();
+    }
+
+    @ModelAttribute("sizes")
+    public List<Size> getAllSizes() {
+        return sizeRepository.findAll();
+    }
+
 }
+

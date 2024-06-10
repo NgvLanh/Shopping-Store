@@ -1,37 +1,77 @@
 package com.poly.controllers.admin;
 
 
-import com.poly.models.Supplier;
+import com.poly.entities.Brand;
+import com.poly.entities.Product;
+import com.poly.entities.Supplier;
+import com.poly.repositories.SupplierRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
-@RequestMapping("/supplier-management")
+@RequestMapping("/admin/supplier-management")
 public class SupplierController {
-    @ModelAttribute("supplier")
-    public Supplier supplier() {
-        return new Supplier();
+    @Autowired
+    private SupplierRepository supplierRepository;
+
+    @ModelAttribute("suppliers")
+    public List<Supplier> getAllSupplier() {
+        return supplierRepository.findAll();
     }
 
     @GetMapping("")
-    public String ShowSupplierManagement(Model model){
-        model.addAttribute("page", "supplierManagement.jsp");
-        return "admin/index";
-    }
-
-    @GetMapping("/create")
-    public String showCreateSupplierForm(Model model) {
+    public String supplierManagement(@ModelAttribute("supplier") Supplier supplier, Model model) {
+        model.addAttribute("disabledUpdate", "disabled");
         model.addAttribute("page", "supplierManagement.jsp");
         return "admin/index";
     }
 
     @PostMapping("/create")
-    public String createSupplier(@ModelAttribute("supplier") Supplier supplier, Model model) {
+    public String createBrand(@Validated @ModelAttribute("supplier") Supplier supplier,
+                              BindingResult result, Model model) {
+        model.addAttribute("disabledUpdate", "disabled");
+        if (!result.hasErrors()) {
+            supplierRepository.save(supplier);
+            return "redirect:/admin/supplier-management";
+        }
         model.addAttribute("page", "supplierManagement.jsp");
         return "admin/index";
     }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model model) {
+        model.addAttribute("disabledSave", "disabled");
+        model.addAttribute("supplier", supplierRepository.findById(id).orElse(null));
+        model.addAttribute("page", "supplierManagement.jsp");
+        return "admin/index";
+    }
+
+    @PostMapping("/update/{id}")
+    public String update(@Validated @ModelAttribute("supplier") Supplier supplier,
+                         BindingResult result, Model model) {
+        model.addAttribute("disabledSave", "disabled");
+        if (!result.hasErrors()) {
+            Supplier supplierUpdate = supplierRepository.findById(supplier.getSupplierId()).orElse(null);
+            supplierUpdate.setSupplierId(supplierUpdate.getSupplierId());
+            supplierRepository.save(supplier);
+            return "redirect:/admin/supplier-management";
+        }
+        model.addAttribute("page", "supplierManagement.jsp");
+        return "admin/index";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id, Model model) {
+        supplierRepository.deleteById(id);
+        return "redirect:/admin/supplier-management";
+    }
+
+
 }

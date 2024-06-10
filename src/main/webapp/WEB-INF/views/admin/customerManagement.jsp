@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -13,8 +15,8 @@
                 <h3 class="page-title">Customer management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin">Admin</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"> Customer management </li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Admin</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"> Customer management</li>
                     </ol>
                 </nav>
             </div>
@@ -23,58 +25,48 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Customer Table</h4>
-                            <%--                            <p class="card-description"> Add class <code>.table-striped</code>--%>
+                            <p class="card-description">
+                                All of customers
                             </p>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>User</th>
-                                        <th>First name</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <th>Adress</th>
+                                        <th>Address</th>
                                         <th>City</th>
-                                        <th>Created_At</th>
-                                        <th>Update</th>
-                                        <th>Delete</th>
+                                        <th>Created at</th>
+                                        <th>Activated</th>
+                                        <th>Un/Lock</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td class="py-1">
-                                            <img src="../../assets/images/faces-clipart/pic-1.png" alt="image">
-                                        </td>
-                                        <td>Herman Beck</td>
-                                        <td>
-                                            hermanbeck@gmail.com
-                                        </td>
-                                        <td>091111123</td>
-                                        <td>Q.NinhKieu</td>
-                                        <td>Can Tho</td>
-                                        <td>19/04/2024 - 20:03</td>
-                                        <td><i class="mdi mdi-table-edit"
-                                               style="font-size: 1.5rem; color: darkgreen"></i></td>
-                                        <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
-                                                                             style="font-size: 1.5rem; color: red"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-1">
-                                            <img src="../../assets/images/faces-clipart/pic-2.png" alt="image">
-                                        </td>
-                                        <td>Messsy Adam</td>
-                                        <td>
-                                            MessyAdam@gmail.com
-                                        </td>
-                                        <td>091116295</td>
-                                        <td>Q.CaiRang</td>
-                                        <td>Can Tho</td>
-                                        <td>19/04/2024 - 20:03</td>
-                                        <td><i class="mdi mdi-table-edit"
-                                               style="font-size: 1.5rem; color: darkgreen"></i></td>
-                                        <td onclick="confirmDelete(this)"><i class="mdi mdi-delete"
-                                                                             style="font-size: 1.5rem; color: red"></i></td>
-                                    </tr>
+                                    <jsp:useBean id="customers" scope="request" type="java.util.List"/>
+                                    <c:forEach var="customer" items="${customers}">
+                                        <tr>
+                                            <td class="py-1">
+                                                <img src="../../../uploads/${customer.image}" alt="${customer.image}">
+                                            </td>
+                                            <td>${customer.name}</td>
+                                            <td>${customer.email}</td>
+                                            <td>${customer.phone}</td>
+                                            <td title="${customer.address}">${customer.address}</td>
+                                            <td>${customer.city}</td>
+                                            <td>
+                                                <fmt:formatDate value="${customer.createDate}"/>
+                                            </td>
+                                            <td>${customer.activated ? "Yes" : "No"}</td>
+                                            <td onclick="
+                                                    window.location.href = '/admin/customer-management/update/' + ${customer.customerId};">
+                                                <i
+                                                        class="mdi mdi-lock text-black"
+                                                        style="font-size: 1.5rem; cursor: pointer"></i>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -84,10 +76,19 @@
             </div>
         </div>
         <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
-            </div>
+            <%--            <div class="d-sm-flex justify-content-center justify-content-sm-between">--%>
+            <%--                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>--%>
+            <%--                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>--%>
+            <%--            </div>--%>
         </footer>
     </div>
 </div>
+<c:if test="${alertCustomer}">
+    <script>
+        Swal.fire({
+            title: "Done!",
+            text: "Update activated successfully.",
+            icon: "success"
+        });
+    </script>
+</c:if>

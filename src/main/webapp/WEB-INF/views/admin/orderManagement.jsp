@@ -1,11 +1,15 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 5/18/2024
-  Time: 12:27 PM
-  To change this template use File | Settings | File Templates.
+Created by IntelliJ IDEA.
+User: Admin
+Date: 5/18/2024
+Time: 12:27 PM
+To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="content-wrapper">
     <div class="main-panel">
         <div class="content-wrapper">
@@ -13,119 +17,156 @@
                 <h3 class="page-title">Orders management</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin">Admin</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"> Orders management </li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Admin</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"> Orders management</li>
                     </ol>
                 </nav>
             </div>
             <div class="row">
-                <div class="col-md-6 grid-margin stretch-card">
+                <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Order form</h4>
-                            <p class="card-description">Basic form layout</p>
-                            <form class="forms-sample">
+                            <p class="card-description">Update order</p>
+                            <%--@elvariable id="order" type="com.poly.entities.Order"--%>
+                            <form:form class="forms-sample" method="post" action="/admin/order-management"
+                                       modelAttribute="order">
+                                <form:hidden path="customer.customerId"/>
+                                <form:hidden path="payment.paymentId"/>
+                                <form:hidden path="shippingDate"/>
+                                <form:hidden path="date"/>
                                 <div class="form-group">
-                                    <label for="exampleInputUsername1">Username</label>
-                                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
+                                    <label for="orderId">Order Id</label>
+                                    <form:input type="text" class="form-control" id="orderId"
+                                                readonly="true"
+                                                path="orderId" placeholder="Order id"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                    <label for="customer-name">Customer name</label>
+                                    <form:input type="text" class="form-control" id="customer-name"
+                                                readonly="true"
+                                                path="customer.name" placeholder="Customer name"/>
+                                </div>
+                                <%--                                <div class="form-group">--%>
+                                <%--                                    <label for="date">Date</label>--%>
+                                <%--                                    <form:input type="datetime-local" class="form-control" id="date"--%>
+                                <%--                                                path="date" placeholder="date"/>--%>
+                                <%--                                </div>--%>
+                                <%--                                <div class="form-group">--%>
+                                <%--                                    <label for="shipping-date">Shipping date</label>--%>
+                                <%--                                    <form:input type="datetime-local" class="form-control" id="shipping-date"--%>
+                                <%--                                                path="shippingDate" placeholder="Shippping date"/>--%>
+                                <%--                                </div>--%>
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <form:select path="status" class="form-control">
+                                        <form:option value="">Awaiting Confirmation</form:option>
+                                        <form:options items="${status}"/>
+                                    </form:select>
+                                    <form:errors path="status" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    <label for="total">Total</label>
+                                    <form:input type="number" class="form-control" readonly="true" id="total"
+                                                path="total" placeholder="total"/>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputConfirmPassword1">Confirm Password</label>
-                                    <input type="password" class="form-control" id="exampleInputConfirmPassword1" placeholder="Password">
-                                </div>
-                                <div class="form-check form-check-flat form-check-primary">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input"> Remember me <i class="input-helper"></i></label>
-                                </div>
-                                <button type="submit" class="btn btn-primary mr-2"> Submit </button>
-                                <button class="btn btn-light">Cancel</button>
-                            </form>
+
+                                <button type="submit" class="btn btn-primary mr-2"
+                                        formaction="/admin/order-management/update" ${disabledSave}>Save
+                                </button>
+                                <button type="button" class="btn btn-light"
+                                        onclick="window.location.href='/admin/order-management'">Cancel
+                                </button>
+                            </form:form>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Hoverable Table</h4>
-                            <p class="card-description"> Add class <code>.table-hover</code>
-                            </p>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
+            </div>
+
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Order Table</h4>
+                        <p class="card-description">All of orders
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Order Id</th>
+                                    <th>Customer Name</th>
+                                    <th>Order Date</th>
+                                    <th>Date Shipping (Expected to)</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th>Update</th>
+                                    <th>View</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="order" items="${orders}">
                                     <tr>
-                                        <th>User</th>
-                                        <th>Product</th>
-                                        <th>Sale</th>
-                                        <th>Status</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Photoshop</td>
-                                        <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i>
+                                        <td>${order.orderId}</td>
+                                        <td>${order.customer.name}</td>
+                                        <td>
+                                            <fmt:formatDate value="${order.date}"/>
                                         </td>
                                         <td>
-                                            <label class="badge badge-danger">Pending</label>
+                                            <fmt:formatDate value="${order.shippingDate}"/>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Messsy</td>
-                                        <td>Flash</td>
-                                        <td class="text-danger"> 21.06% <i class="mdi mdi-arrow-down"></i>
-                                        </td>
+                                        <td class="status">${order.status}</td>
+                                        <td>${order.total}</td>
                                         <td>
-                                            <label class="badge badge-warning">In progress</label>
+                                            <a class="edit" href="/admin/order-management/edit/${order.orderId}">
+                                                <i class="mdi mdi-table-edit"
+                                                   style="font-size: 1.5rem; color: darkgreen"></i>
+                                            </a>
                                         </td>
+                                        <td><i class="mdi mdi-eye-outline" type="button" data-toggle="modal" data-target="#exampleModal"
+                                               style="font-size: 1.5rem; color: sandybrown; cursor: pointer"></i></td>
                                     </tr>
-                                    <tr>
-                                        <td>John</td>
-                                        <td>Premier</td>
-                                        <td class="text-danger"> 35.00% <i class="mdi mdi-arrow-down"></i>
-                                        </td>
-                                        <td>
-                                            <label class="badge badge-info">Fixed</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Peter</td>
-                                        <td>After effects</td>
-                                        <td class="text-success"> 82.00% <i class="mdi mdi-arrow-up"></i>
-                                        </td>
-                                        <td>
-                                            <label class="badge badge-success">Completed</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dave</td>
-                                        <td>53275535</td>
-                                        <td class="text-success"> 98.05% <i class="mdi mdi-arrow-up"></i>
-                                        </td>
-                                        <td>
-                                            <label class="badge badge-warning">In progress</label>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
+    </div>
+    <footer class="footer">
+    </footer>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </footer>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
+<script>
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const status = document.getElementsByClassName("status");
+        const edits = document.getElementsByClassName("edit");
+        for (let i = 0; i < status.length; i++) {
+            if (status[i].textContent === 'Confirmed' || status[i].textContent === 'Cancellation') {
+                edits[i].style.display = 'none';
+            }
+        }
+    })
+</script>
