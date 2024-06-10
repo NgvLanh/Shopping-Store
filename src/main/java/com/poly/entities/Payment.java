@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -13,11 +14,8 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
-
-    @OneToMany(mappedBy = "payment")
-    private List<Order> orders;
-
-    private Timestamp date;
+    @Temporal(TemporalType.DATE)
+    private Date date = new Date();
 
     private Integer amount;
 

@@ -33,7 +33,6 @@ public class LoginController {
                         @RequestParam("password") String password,
                         @RequestParam(value = "remember", defaultValue = "false") Boolean remember,
                         RedirectAttributes redirectAttributes) {
-        System.out.println(remember);
         // Check for empty email and password fields
         if (email.isEmpty() && password.isEmpty()) {
             model.addAttribute("emailError", "Please enter your email");
@@ -69,7 +68,6 @@ public class LoginController {
                 // Handle remember me functionality
                 if (remember) {
                     cookieService.add("email", email, 10);
-                    System.out.println(cookieService.getValue("email"));
                 }
 
                 // Check if the account is activated

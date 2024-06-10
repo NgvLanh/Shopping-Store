@@ -40,7 +40,7 @@
                                         <th>City</th>
                                         <th>Created at</th>
                                         <th>Activated</th>
-                                        <th>Un/lock</th>
+                                        <th>Un/Lock</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -59,7 +59,12 @@
                                                 <fmt:formatDate value="${customer.createDate}"/>
                                             </td>
                                             <td>${customer.activated ? "Yes" : "No"}</td>
-                                            <td onclick="confirmDelete(this)"><i class="mdi mdi-lock text-black" style="font-size: 1.5rem; cursor: pointer"></i></td>
+                                            <td onclick="
+                                                    window.location.href = '/admin/customer-management/update/' + ${customer.customerId};">
+                                                <i
+                                                        class="mdi mdi-lock text-black"
+                                                        style="font-size: 1.5rem; cursor: pointer"></i>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -78,25 +83,12 @@
         </footer>
     </div>
 </div>
-<script>
-    const confirmDelete = (e) => {
-        console.log(e)
+<c:if test="${alertCustomer}">
+    <script>
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
-                });
-            }
+            title: "Done!",
+            text: "Update activated successfully.",
+            icon: "success"
         });
-    }
-</script>
+    </script>
+</c:if>

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <style>
     .coupon-container {
         display: flex;
@@ -55,7 +56,7 @@
                     </thead>
                     <tbody>
                     <c:forEach var="item" items="${cartItems}">
-                        <form  action="/cart/update-quantity/${item.cartItemId}" method="post">
+                        <form action="/cart/update-quantity/${item.cartItemId}" method="post">
                             <span class="d-none" id="cartItemId">${item.cartItemId}</span>
                             <tr>
                                 <td>
@@ -79,6 +80,7 @@
                                     <div class="product_count">
 
                                         <input type="number" name="qty" id="sst" maxlength="3" value="${item.quantity}"
+                                               min="1" max="${item.productItem.quantity}"
                                                title="Quantity:" oninput="this.form.submit()"
                                                class="input-text qty">
 
@@ -114,11 +116,15 @@
                     </tr>
                     <tr>
                         <td colspan="5">
-                            <div class="d-flex justify-content-end">
-                                <h5 class="mr-2">Subtotal $</h5>
-                                <h5 id="subtotal"></h5>
+                            <div class="d-flex flex-column align-items-end">
+                                <div class="my-2">
+                                    <h5>Shipping fee: $ 2.00</h5>
+                                </div>
+                                <div class="d-flex">
+                                    <h5 class="mr-2">Subtotal $</h5>
+                                    <h5 id="subtotal"></h5>
+                                </div>
                             </div>
-
                         </td>
                     </tr>
                     <tr class="shipping_area">
@@ -127,11 +133,6 @@
                         </td>
                         <td colspan="1">
                             <div class="shipping_box">
-                                <ul class="list">
-                                    <li><a href="#">Online</a></li>
-                                    <li class="active"><a href="#">Offline</a></li>
-                                </ul>
-                                <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
                                 <select class="shipping_select">
                                     <option value="can-tho">Can Tho</option>
                                 </select>
@@ -144,7 +145,6 @@
                     </tr>
                     <tr class="out_button_area">
                         <td colspan="4">
-
                         </td>
                         <td colspan="1">
                             <div class="checkout_btn_inner d-flex align-items-center">
@@ -169,46 +169,69 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="order_box">
-                    <h2>Your Order</h2>
-                    <ul class="list">
-                        <li><a href="#"><h4>Product <span>Total</span></h4></a></li>
-                        <c:forEach var="item" items="${cartItems}">
-                            <li><a href="#">${item.productItem.product.name} <span class="middle">x</span> <span
-                                    class="last">$720.00</span></a></li>
-                        </c:forEach>
-                    </ul>
-                    <ul class="list list_2">
-                        <li><a href="#">Subtotal <span>$2160.00</span></a></li>
-                        <li><a href="#">Shipping <span>Flat rate: $50.00</span></a></li>
-                        <li><a href="#">Total <span>$2210.00</span></a></li>
-                    </ul>
-                    <div class="payment_item">
-                        <div class="radion_btn">
-                            <input type="radio" id="f-option5" name="selector">
-                            <label for="f-option5">Check payments</label>
-                            <div class="check"></div>
-                        </div>
-                        <p>Please send a check to Store Name, Store Street, Store Town, Store State / County,
-                            Store Postcode.</p>
-                    </div>
-                    <div class="payment_item active">
-                        <div class="radion_btn">
-                            <input type="radio" id="f-option6" name="selector">
-                            <label for="f-option6">Paypal </label>
-                            <img src="img/product/card.jpg" alt="">
-                            <div class="check"></div>
-                        </div>
-                        <p>Pay via PayPal; you can pay with your credit card if you donât have a PayPal
-                            account.</p>
-                    </div>
-                    <div class="creat_account">
-                        <input type="checkbox" id="f-option4" name="selector">
-                        <label for="f-option4">Iâve read and accept the </label>
-                        <a href="#">terms &amp; conditions*</a>
-                    </div>
-                    <div class="text-center">
-                        <a class="button button-paypal" href="#">Proceed to Paypal</a>
-                    </div>
+                    <form action="/order" method="post">
+                        <h2>Your Order</h2>
+                        <ul class="list">
+                            <li>
+                                <a href="#">
+                                    <h4>Product<span>Total</span></h4>
+                                </a>
+                            </li>
+                            <c:set var="subtotal" value="0"/>
+                            <c:forEach var="item" items="${cartItems}">
+                                <li>
+                                    <a href="/cart">${item.productItem.product.name}
+                                        <span class="middle">${item.quantity}x</span>
+                                        <span class="last">$<fmt:formatNumber
+                                                value="${item.productItem.price * item.quantity}"
+                                                type="number" minFractionDigits="2"
+                                                maxFractionDigits="2"/></span>
+                                    </a>
+                                </li>
+                                <c:set var="subtotal" value="${subtotal + (item.productItem.price * item.quantity)}"/>
+                            </c:forEach>
+
+                            <c:set var="shippingCost" value="2"/>
+                            <c:set var="total" value="${subtotal + shippingCost}"/>
+
+                            <ul class="list list_2">
+                                <li><a href="#">Subtotal <span>$<fmt:formatNumber value="${subtotal}" type="number"
+                                                                                  minFractionDigits="2"
+                                                                                  maxFractionDigits="2"/></span></a>
+                                </li>
+                                <li><a href="#">Shipping <span>$<fmt:formatNumber value="${shippingCost}" type="number"
+                                                                                  minFractionDigits="2"
+                                                                                  maxFractionDigits="2"/></span></a>
+                                </li>
+                                <li><a href="#">Total <span>$<fmt:formatNumber value="${total}" type="number"
+                                                                               minFractionDigits="2"
+                                                                               maxFractionDigits="2"/></span></a></li>
+                            </ul>
+
+                            <!-- Hidden field to store the total value -->
+                            <input type="hidden" name="total" value="${total}"/>
+                            <div class="payment_item">
+                                <div class="radion_btn">
+                                    <input type="radio" id="f-option5" name="payment-method" value="off">
+                                    <label for="f-option5">Payment on delivery</label>
+                                    <div class="check"></div>
+                                </div>
+                                <p>Receive goods then pay directly with the delivery person.</p>
+                            </div>
+                            <div class="payment_item active">
+                                <div class="radion_btn">
+                                    <input type="radio" id="f-option6" name="payment-method" value="onl">
+                                    <label for="f-option6">Online payment</label>
+                                    <img src="img/product/card.jpg" alt="">
+                                    <div class="check"></div>
+                                </div>
+                                <p>Pay quickly with online wallet or banking.</p>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="button button-paypal">Order now</button>
+                            </div>
+                        </ul>
+                    </form>
                 </div>
             </div>
         </div>
@@ -233,7 +256,8 @@
             totals[index].textContent = totalValue.toFixed(2);
             subtotalValue += totalValue;
         });
-
+        let shippingFee = 2.00;
+        subtotalValue += shippingFee;
         subtotal.textContent = subtotalValue.toFixed(2);
     }
 

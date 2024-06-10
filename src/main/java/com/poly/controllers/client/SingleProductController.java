@@ -82,13 +82,14 @@ public class SingleProductController {
             Cart cart = sessionService.get("cart");
             if (cart == null) {
                 cart = new Cart();
+                Customer customer = sessionService.get("customer");
+                cart.setCustomer(customer);
                 sessionService.set("cart", cart);
                 cartRepository.save(cart);
             }
 
             // Kiểm tra nếu mục hàng đã tồn tại trong giỏ hàng
             CartItem existingCartItem = cartItemRepository.findByCartAndProductItem(cart, productItemAddToCart);
-            System.out.println(existingCartItem);
 
             if (existingCartItem != null) {
                 // Cập nhật số lượng nếu mục hàng đã tồn tại
@@ -101,6 +102,9 @@ public class SingleProductController {
                 cartItem.setProductItem(productItemAddToCart);
                 cartItem.setQuantity(quantity);
                 cartItemRepository.save(cartItem);
+
+                Long itemNumber = cartItemRepository.count();
+                sessionService.set("itemNumber", itemNumber);
             }
 
             model.addAttribute("outOfStock", "Add to cart success.");

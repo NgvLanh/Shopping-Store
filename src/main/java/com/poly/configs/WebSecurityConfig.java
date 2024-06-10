@@ -24,8 +24,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
 
         //AuthInterceptor
-//        registry.addInterceptor(auth)
-//                .addPathPatterns("/account/**", "/cart/**", "/admin/**")
-//                .excludePathPatterns("/home/**");
+        registry.addInterceptor(auth)
+                .addPathPatterns("/add-to-cart/**", "/cart/**", "/admin/**")
+                .excludePathPatterns("/home/**");
     }
 }

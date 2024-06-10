@@ -96,7 +96,13 @@
                         </li>
                         <li class="nav-item">
                             <button onclick="window.location.href='cart'"><i class="ti-shopping-cart"></i><span
-                                    class="nav-shop__circle">:)</span></button>
+                                    class="nav-shop__circle">
+                                <c:choose>
+                                    <c:when test="${not empty sessionScope.itemNumber}">
+                                        ${sessionScope.itemNumber == 0 ? '' : sessionScope.itemNumber}
+                                    </c:when>
+                                </c:choose>
+                            </span></button>
                         </li>
                         <li class="nav-item">
                             <span class="button button-header" id="account">
