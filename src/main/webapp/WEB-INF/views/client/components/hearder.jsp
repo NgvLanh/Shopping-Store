@@ -28,43 +28,32 @@
                                aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item"><a class="nav-link" href="/category">Shop Category</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/single-product">Product Details</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/checkout">Product Checkout</a></li>
+<%--                                <li class="nav-item"><a class="nav-link" href="/single-product">Product Details</a></li>--%>
+<%--                                <li class="nav-item"><a class="nav-link" href="/checkout">Product Checkout</a></li>--%>
                                 <li class="nav-item"><a class="nav-link" href="/confirmation">Confirmation</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/cart">Shopping Cart</a></li>
+<%--                                <li class="nav-item"><a class="nav-link" href="/cart">Shopping Cart</a></li>--%>
                             </ul>
                         </li>
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true"
-                               aria-expanded="false">Blog</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/single-blog">Blog Details</a></li>
-                            </ul>
-                        </li>
+<%--                        <li class="nav-item submenu dropdown">--%>
+<%--                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"--%>
+<%--                               aria-haspopup="true"--%>
+<%--                               aria-expanded="false">Blog</a>--%>
+<%--                            <ul class="dropdown-menu">--%>
+<%--                                <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>--%>
+<%--                                <li class="nav-item"><a class="nav-link" href="/single-blog">Blog Details</a></li>--%>
+<%--                            </ul>--%>
+<%--                        </li>--%>
                         <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true"
                                aria-expanded="false">Pages</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="login">Login</a></li>
-                                <li class="nav-item"><a class="nav-link" href="register">Register</a></li>
-                                <li class="nav-item"><a class="nav-link" href="tracking-order">Tracking</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+<%--                                <li class="nav-item"><a class="nav-link" href="tracking-order">Tracking</a></li>--%>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true"
-                               aria-expanded="false">
-                                <%--                                <spring:message code="language"/>--%>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="?lang=vi">Vietnamese</a></li>
-                                <li class="nav-item"><a class="nav-link" href="?lang=en">English</a></li>
-                            </ul>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/tracking-order">Tracking</a></li>
                     </ul>
 
                     <ul class="nav-shop">
