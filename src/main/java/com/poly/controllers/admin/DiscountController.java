@@ -1,11 +1,9 @@
 package com.poly.controllers.admin;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poly.entities.Discount;
-import com.poly.entities.ProductItem;
-import com.poly.entities.Review;
 import com.poly.repositories.DiscountRepository;
-import com.poly.repositories.ProductItemRepository;
-import com.poly.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -23,8 +23,18 @@ public class DiscountController {
     @Autowired
     DiscountRepository discountRepository;
 
-    @Autowired
-    ProductItemRepository productItemRepository;
+    @GetMapping("/admin/discounts-management/form-data")
+    @ResponseBody
+    public String getFormData() {
+        ObjectMapper mapper = new ObjectMapper();
+        List<Discount> discounts = discountRepository.findAll();
+        try {
+            return mapper.writeValueAsString(discounts);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @GetMapping("")
     public String discountsManagement(@ModelAttribute("discount") Discount discount, Model model) {
@@ -35,24 +45,63 @@ public class DiscountController {
 
     @PostMapping("/create")
     public String create(@Validated @ModelAttribute("discount") Discount discount,
-                         BindingResult result,
-                         Model model) {
-        discount.setCreateTime(new Timestamp(System.currentTimeMillis()));
-        model.addAttribute("disabledUpdate", "disabled");
-        if (!result.hasErrors()) {
+                         BindingResult result, Model model,
+                         @RequestParam("endTime") String endTime) {
+        // Kiểm tra ngày kết thúc
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsedDate = dateFormat.parse(endTime);
+            Date currentDate = new Date();
+            if (parsedDate.compareTo(currentDate) <= 0) {
+                model.addAttribute("msgDate", "End date must be greater than current date");
+                // Hiển thị lại trang form với thông báo lỗi
+                model.addAttribute("page", "discountsManagement.jsp");
+                return "admin/index";
+            }
+            discount.setEndTime(parsedDate);
             discountRepository.save(discount);
+
+            // Lấy danh sách mới và gửi lại cho giao diện người dùng
+            List<Discount> updatedDiscounts = discountRepository.findAll();
+            model.addAttribute("discounts", updatedDiscounts);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
         model.addAttribute("page", "discountsManagement.jsp");
         return "admin/index";
     }
 
+
     @PostMapping("/update")
-    public String update(@ModelAttribute("discount") Discount discount, Model model) {
-        model.addAttribute("disabledSave", "disabled");
-        discountRepository.save(discount);
+    public String update(@Validated @ModelAttribute("discount") Discount discount,
+                         BindingResult result, Model model,
+                         @RequestParam("endTime") String endTime) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("disabledSave", "disabled");
+            model.addAttribute("page", "discountsManagement.jsp");
+            return "admin/index";
+        }
+        if (endTime.isEmpty()){
+            model.addAttribute("msgDate"," Please select an end time.");
+        }
+
+        // Thiết lập thời gian kết thúc từ dữ liệu người dùng nhập vào
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsedDate = dateFormat.parse(endTime);
+            // Thiết lập thời gian kết thúc cho đối tượng Discount
+            discount.setEndTime(parsedDate);
+            discountRepository.save(discount);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         model.addAttribute("page", "discountsManagement.jsp");
         return "admin/index";
     }
+
 
     @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable Long id) {
@@ -65,20 +114,13 @@ public class DiscountController {
 
     @GetMapping("/delete/{id}")
     public String delete(Model model, @PathVariable Long id) {
-        model.addAttribute("disabledSave", "disabled");
-        Discount discount = discountRepository.findById(id).orElse(null);
-        model.addAttribute("discount", discount);
-        model.addAttribute("page", "discountsManagement.jsp");
-        return "admin/index";
+        discountRepository.deleteById(id);
+        return "redirect:/admin/discounts-management";
     }
 
     @ModelAttribute("discounts")
-    public List<Discount> getAllReviews() {
+    public List<Discount> getAllDiscounts() {
         return discountRepository.findAll();
     }
 
-    @ModelAttribute("productItemList")
-    public List<ProductItem> getAllProductItems() {
-        return productItemRepository.findAll();
-    }
 }

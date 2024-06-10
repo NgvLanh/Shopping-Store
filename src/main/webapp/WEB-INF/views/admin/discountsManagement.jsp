@@ -20,28 +20,17 @@
                         <div class="card-body">
                             <h4 class="card-title">Discount Form</h4>
                             <p class="card-description">Create - Update</p>
-                            <%--@elvariable id="discount" type="com.poly.entities.Discount"--%>
                             <form:form class="forms-sample row" method="post"
                                        action="/admin/discounts-management/create"
                                        modelAttribute="discount" enctype="multipart/form-data">
                                 <form:hidden path="discountId"/>
-                                <div class="form-group col-md-6">
-                                    <label for="productItem">Product Item</label>
-                                    <form:select path="productItem" class="form-control" id="productItem">
-                                        <form:option value="">-- Select Product --</form:option>
-                                        <form:options items="${productItemList}" itemLabel="product.name"/>
-                                    </form:select>
-                                    <form:errors path="productItem" cssClass="text-danger"
-                                                 cssStyle="font-size: 14px; margin: 4px"/>
-                                </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="code">Code</label>
                                     <div class="d-flex">
                                         <form:input path="code" type="text" class="form-control" id="code"
                                                     placeholder="Code" readonly="true"/>
-                                        <button type="button" class="btn btn-inverse-danger" onclick="generateCode(8)">Generate
-                                        </button>
+                                        <button type="button" class="btn btn-inverse-danger" onclick="generateCode(8)">Generate</button>
                                     </div>
                                     <form:errors path="code" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
@@ -50,7 +39,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="percentNumber">Percent</label>
                                     <form:input path="percentNumber" type="number" class="form-control"
-                                                id="percentNumber" placeholder="PercentNumber"/>
+                                                id="percentNumber" placeholder="Percent Number" min="0" max="100"/>
                                     <form:errors path="percentNumber" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
@@ -58,19 +47,15 @@
                                             placeholder="End Time" cssStyle="display: none"/>
                                 <div class="form-group col-md-6">
                                     <label for="endTime">End Time</label>
-                                    <form:input path="endTime" type="datetime-local" class="form-control" id="endTime"
-                                                placeholder="End Time"/>
-                                    <span class="text-danger" style="font-size: 14px; margin: 4px"></span>
+                                    <input name="endTime" type="date" class="form-control" id="endTime"
+                                           placeholder="End Time"/>
+                                    <span class="text-danger" style="font-size: 14px">${msgDate}</span>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary mr-2" ${disabledSave}>Save</button>
-                                    <button type="submit" class="btn btn-primary mr-2" ${disabledUpdate}
-                                            formaction="/admin/discounts-management/update">Update
-                                    </button>
-                                    <button type="button" class="btn btn-light"
-                                            onclick="window.location.href='/admin/discounts-management'">Cancel
-                                    </button>
+                                    <button type="submit" class="btn btn-primary mr-2" formaction="/admin/discounts-management/create">Save</button>
+                                    <button type="submit" class="btn btn-primary mr-2" formaction="/admin/discounts-management/update" ${disabledUpdate}>Update</button>
+                                    <button type="button" class="btn btn-light" onclick="window.location.href='/admin/discounts-management'">Cancel</button>
                                 </div>
                             </form:form>
                         </div>
@@ -87,7 +72,6 @@
                                     <thead>
                                     <tr>
                                         <th>Discount ID</th>
-                                        <th>Product Item</th>
                                         <th>Code</th>
                                         <th>Percent</th>
                                         <th>Create Time</th>
@@ -100,27 +84,22 @@
                                     <c:forEach var="discount" items="${discounts}">
                                         <tr>
                                             <td>${discount.discountId}</td>
-                                            <td>${discount.productItem.product.name}</td>
                                             <td>${discount.code}</td>
                                             <td>${discount.percentNumber}</td>
                                             <td>
-                                                <fmt:formatDate value="${discount.createTime}" type="both"
-                                                                timeStyle="short"/>
+                                                <fmt:formatDate value="${discount.createTime}" type="both" timeStyle="short"/>
                                             </td>
                                             <td>
-                                                <fmt:formatDate value="${discount.endTime}" type="both"
-                                                                timeStyle="short"/>
+                                                <fmt:formatDate value="${discount.endTime}" type="both" timeStyle="short"/>
                                             </td>
                                             <td>
-                                                <a href="/admin/discounts-management/edit/${discount.discountId}"
-                                                   class="btn btn-warning">Edit</a>
+                                                <a href="/admin/discounts-management/edit/${discount.discountId}" class="btn btn-warning">Edit</a>
                                             </td>
                                             <td>
-                                                <button class="btn btn-danger">Delete</button>
+                                                <a href="/admin/discounts-management/delete/${discount.discountId}" class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -136,6 +115,7 @@
         </footer>
     </div>
 </div>
+
 <script>
     function generateCode(length) {
         const code = document.getElementById('code');

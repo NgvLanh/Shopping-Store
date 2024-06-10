@@ -2,12 +2,13 @@ package com.poly.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Entity(name = "discounts")
@@ -16,19 +17,28 @@ public class Discount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long discountId;
 
-    @ManyToOne
-    @JoinColumn(name = "productItemId")
-    @NotNull(message = "Please select product.")
-    private ProductItem productItem;
+//    @ManyToOne
+//    @JoinColumn(name = "productItemId")
+//    @NotNull(message = "Please select product.")
+//    private ProductItem productItem;
 
     @NotBlank(message = "Please enter code.")
     @Column(unique = true, updatable = false)
     private String code;
 
     @NotNull(message = "Please enter percent number.")
+    @Min(value = 0, message = "percentNumber")
+    @Max(value = 100, message = "percentNumber")
     private Integer percentNumber;
 
-    private Timestamp createTime;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "created_time")
+    Date createTime = new Date();
 
-    private Timestamp endTime;
+    private Date endTime;
+
+    @Override
+    public String toString() {
+        return String.valueOf(discountId);
+    }
 }
