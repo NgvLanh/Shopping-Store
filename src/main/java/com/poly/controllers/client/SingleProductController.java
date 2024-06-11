@@ -36,6 +36,8 @@ public class SingleProductController {
     ColorRepository colorRepository;
     @Autowired
     ParamService paramService;
+    @Autowired
+    ReviewRepository reviewRepository;
 
     @GetMapping("/single-product")
     public String singleProduct(Model model,
@@ -115,7 +117,23 @@ public class SingleProductController {
         return "client/index";
     }
 
+    @PostMapping("/post-review")
+    public String postReview(@RequestParam("product_id") Long productId,
+                             @RequestParam("rating") Integer rating,
+                             @RequestParam("review") String comment) {
 
+        Customer customer = sessionService.get("customer");
+        if (customer == null) {
+            return "redirect:/cart";
+        }
+        Review review = new Review();
+        review.setProduct(productRepository.findById(productId).orElse(null));
+        review.setCustomer(customer);
+        review.setRating(rating);
+        review.setComment(comment);
+        reviewRepository.save(review);
+        return "redirect:/single-product?product_id=" + productId;
+    }
 
     @ModelAttribute("colors")
     public Set<Color> getAllColors(@RequestParam("product_id") Long id) {
@@ -137,4 +155,8 @@ public class SingleProductController {
         return sizes;
     }
 
+    @ModelAttribute("reviews")
+    public List<Review> getAllReviews(@RequestParam("product_id") Long id) {
+        return reviewRepository.findReviewByProductProductId(id);
+    }
 }
