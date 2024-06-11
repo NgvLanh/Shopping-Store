@@ -45,8 +45,8 @@
                         <span class="login-status online"></span>
                         <!--change to offline or busy as needed-->
                     </div>
-                    <div class="nav-profile-text d-flex flex-column pr-3">
-                        <span class="font-weight-medium mb-2">
+                    <div class="nav-profile-text d-flex flex-column">
+                        <span class="font-weight-medium">
                             <c:choose>
                                 <c:when test="${not empty sessionScope.customer.name}">
                                     <p style="text-transform: uppercase; margin: 0;">${sessionScope.customer.name}</p>
@@ -56,7 +56,6 @@
                                 </c:otherwise>
                             </c:choose>
                         </span>
-                        <span class="font-weight-normal">$8,753.00</span>
                     </div>
 <%--                    <span class="badge badge-danger text-white ml-3 rounded">3</span>--%>
                 </a>

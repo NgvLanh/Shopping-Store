@@ -11,4 +11,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT o FROM Orders o WHERE o.orderId= :orderId")
     List<Order> findByByOrderId(@Param("orderId") Long orderId);
+
+    @Query("SELECT SUM(o.total) FROM Orders o")
+    Double findTotalSumOrder();
 }

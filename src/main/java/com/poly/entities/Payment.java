@@ -17,7 +17,7 @@ public class Payment {
     @Temporal(TemporalType.DATE)
     private Date date = new Date();
 
-    private Integer amount;
+    private Double amount;
 
     private String method;
 

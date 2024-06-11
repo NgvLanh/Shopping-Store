@@ -23,11 +23,6 @@ public class RouterController {
         return setPageClient(model, "checkout.jsp");
     }
 
-    @GetMapping("/confirmation")
-    public String confirmation(Model model) {
-        return setPageClient(model, "confirmation.jsp");
-    }
-
     @GetMapping("/blog")
     public String blog(Model model) {
         return setPageClient(model, "blog.jsp");

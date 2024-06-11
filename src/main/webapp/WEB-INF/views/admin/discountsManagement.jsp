@@ -54,7 +54,6 @@
 
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary mr-2" formaction="/admin/discounts-management/create">Save</button>
-                                    <button type="submit" class="btn btn-primary mr-2" formaction="/admin/discounts-management/update" ${disabledUpdate}>Update</button>
                                     <button type="button" class="btn btn-light" onclick="window.location.href='/admin/discounts-management'">Cancel</button>
                                 </div>
                             </form:form>
@@ -74,9 +73,8 @@
                                         <th>Discount ID</th>
                                         <th>Code</th>
                                         <th>Percent</th>
-                                        <th>Create Time</th>
-                                        <th>End Time</th>
-                                        <th>Update</th>
+                                        <th>Create Date</th>
+                                        <th>End Date</th>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
@@ -87,13 +85,10 @@
                                             <td>${discount.code}</td>
                                             <td>${discount.percentNumber}</td>
                                             <td>
-                                                <fmt:formatDate value="${discount.createTime}" type="both" timeStyle="short"/>
+                                                <fmt:formatDate value="${discount.createTime}"/>
                                             </td>
                                             <td>
-                                                <fmt:formatDate value="${discount.endTime}" type="both" timeStyle="short"/>
-                                            </td>
-                                            <td>
-                                                <a href="/admin/discounts-management/edit/${discount.discountId}" class="btn btn-warning">Edit</a>
+                                                <fmt:formatDate value="${discount.endTime}"/>
                                             </td>
                                             <td>
                                                 <a href="/admin/discounts-management/delete/${discount.discountId}" class="btn btn-danger">Delete</a>
