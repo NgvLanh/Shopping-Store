@@ -17,7 +17,7 @@ public class Order {
     private Date shippingDate;
     @NotBlank(message = "NotBlank.order.status")
     private String status;
-    private Integer total;
+    private Double total;
 
     @ManyToOne
     @JoinColumn(name = "customerId")

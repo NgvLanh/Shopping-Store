@@ -50,13 +50,14 @@
                 <h2>Trending <span class="section-intro__style">Product</span></h2>
             </div>
             <div class="row">
-                <c:forEach var="productItems" items="${productItemsList}">
-                    <a href="/single-product?product_id=${productItems.product.productId}">
+                <jsp:useBean id="trendingProducts" scope="request" type="org.springframework.data.domain.Page"/>
+                <c:forEach var="product" items="${trendingProducts.content}">
+                    <a href="/single-product?product_id=${product.productId}">
                         <div class="col-md-6 col-lg-4 col-xl-3">
                             <div class="card text-center card-product">
                                 <div class="card-product__img">
                                     <img style="height: 320px;width: 260px" class="card-img"
-                                         src="../../uploads/${productItems.product.image}" alt="">
+                                         src="../../uploads/${product.image}" alt="">
                                     <ul class="card-product__imgOverlay">
                                         <li>
                                             <button>
@@ -65,9 +66,7 @@
                                         </li>
                                         <li>
                                             <button>
-                                                <a href="${productItems.product.productId}">
-                                                    <i class="ti-shopping-cart"></i>
-                                                </a>
+                                                <i class="ti-shopping-cart"></i>
                                             </button>
                                         </li>
                                         <li>
@@ -78,14 +77,23 @@
                                     </ul>
                                 </div>
                                 <div class="card-body">
-                                    <p>${productItems.product.brand.name}</p>
+                                    <p>${product.brand.name}</p>
                                     <h4 class="card-product__title">
-                                        <a href="single-product">${productItems.product.name}</a>
+                                        <a href="single-product">${product.name}</a>
                                     </h4>
-                                    <p class="card-product__price">${productItems.product.category.name}</p>
+                                    <p class="card-product__price">${product.category.name}</p>
                                 </div>
                             </div>
                         </div>
+                    </a>
+                </c:forEach>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <c:forEach var="i" begin="1" end="${trendingProducts.totalPages}" step="1">
+                    <a href="?page=${i-1}"
+                       class="text-white mx-1 d-flex align-items-center justify-content-center"
+                       style="text-decoration: none; width: 32px; height: 28px; background: #384aeb; border-radius: 4px;">
+                            ${i}
                     </a>
                 </c:forEach>
             </div>
@@ -122,30 +130,38 @@
             <div class="owl-carousel owl-theme" id="bestSellerCarousel">
                 <c:forEach var="productItems" items="${productItemsList}">
 
-                        <div class="card text-center card-product">
-                            <div class="card-product__img">
-                                <img style="height: 320px; width: 260px"
-                                     src="../../uploads/${productItems.product.image}" alt="">
-                                <ul class="card-product__imgOverlay">
-                                    <li>
-                                        <button><i class="ti-search"></i></button>
-                                    </li>
-                                    <li>
-                                        <button>
-                                            <a href="/single-product?product_id=${productItems.product.productId}"><i class="ti-shopping-cart"></i></a>
-                                        </button>
-                                    </li>
-                                    <li><button><i class="ti-heart"></i></button></li>
-                                </ul>
-                            </div>
-                            <div class="card-body">
-                                <p>${productItems.product.brand.name}</p>
-                                <h4 class="card-product__title">
-                                    <a href="single-product">${productItems.product.name}</a>
-                                </h4>
-                                <p class="card-product__price">${productItems.product.category.name}</p>
-                            </div>
+                    <div class="card text-center card-product">
+                        <div class="card-product__img">
+                            <img style="height: 320px; width: 260px"
+                                 src="../../uploads/${productItems.product.image}" alt="">
+                            <ul class="card-product__imgOverlay">
+                                <li>
+                                    <button>
+                                        <i class="ti-search"></i>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button>
+                                        <a href="/single-product?product_id=${productItems.product.productId}">
+                                            <i class="ti-shopping-cart"></i>
+                                        </a>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button>
+                                        <i class="ti-heart"></i>
+                                    </button>
+                                </li>
+                            </ul>
                         </div>
+                        <div class="card-body">
+                            <p>${productItems.product.brand.name}</p>
+                            <h4 class="card-product__title">
+                                <a href="single-product">${productItems.product.name}</a>
+                            </h4>
+                            <p class="card-product__price">${productItems.product.category.name}</p>
+                        </div>
+                    </div>
 
                 </c:forEach>
             </div>

@@ -67,7 +67,10 @@
                                         </div>
                                         <div class="media-body">
                                             <p>${item.productItem.product.name}</p>
-                                            <p style="color: ${item.productItem.color.colorName}">${item.productItem.color.colorName}</p>
+                                            <div style="display:flex; gap: 4px;">
+                                                <p style="color: ${item.productItem.color.colorName}">${item.productItem.color.colorName}</p>
+                                                - <p style="color: black">${item.productItem.size.sizeName}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -104,19 +107,29 @@
                         </form>
                     </c:forEach>
                     <tr class="bottom_button">
-                        <td colspan="3">
-                            <a class="button" href="/cart">Update Cart</a>
-                        </td>
-                        <td colspan="5">
-                            <div class="coupon-container">
-                                <input type="text" class="form-control coupon-input" placeholder="Coupon Code">
-                                <button class="btn btn-primary apply-btn">Apply</button>
-                            </div>
-                        </td>
+                        <form action="/cart/add-code" method="post">
+                            <td colspan="3">
+                                <a class="button" href="/cart">Update Cart</a>
+                            </td>
+                            <td colspan="5">
+                                <div class="coupon-container">
+                                    <input type="text" class="form-control coupon-input" placeholder="Coupon Code"
+                                           name="code">
+                                    <button type="submit" class="btn btn-primary apply-btn">Apply</button>
+                                </div>
+                            </td>
+                        </form>
                     </tr>
                     <tr>
                         <td colspan="5">
                             <div class="d-flex flex-column align-items-end">
+                                <c:if test="${not empty msgCode}">
+                                    <c:set var="discountPercent" value="${percent}"/>
+                                    <div class="my-2">
+                                        <h5>${msgCode}</h5>
+                                    </div>
+                                </c:if>
+
                                 <div class="my-2">
                                     <h5>Shipping fee: $ 2.00</h5>
                                 </div>
@@ -192,7 +205,8 @@
                             </c:forEach>
 
                             <c:set var="shippingCost" value="2"/>
-                            <c:set var="total" value="${subtotal + shippingCost}"/>
+                            <c:set var="total"
+                                   value="${discountPercent == 0 ? (subtotal + shippingCost) : ((subtotal + shippingCost) * (100 - discountPercent)) / 100}"/>
 
                             <ul class="list list_2">
                                 <li><a href="#">Subtotal <span>$<fmt:formatNumber value="${subtotal}" type="number"
@@ -203,6 +217,14 @@
                                                                                   minFractionDigits="2"
                                                                                   maxFractionDigits="2"/></span></a>
                                 </li>
+                                <li><a href="#">Discount
+                                    <span>
+                                        <c:if test="${not empty discountPercent}">
+                                            ${discountPercent}%
+                                        </c:if>
+                                    </span>
+                                </a>
+                                </li>
                                 <li><a href="#">Total <span>$<fmt:formatNumber value="${total}" type="number"
                                                                                minFractionDigits="2"
                                                                                maxFractionDigits="2"/></span></a></li>
@@ -212,7 +234,7 @@
                             <input type="hidden" name="total" value="${total}"/>
                             <div class="payment_item">
                                 <div class="radion_btn">
-                                    <input type="radio" id="f-option5" name="payment-method" value="off">
+                                    <input type="radio" id="f-option5" name="payment-method" value="off" checked>
                                     <label for="f-option5">Payment on delivery</label>
                                     <div class="check"></div>
                                 </div>

@@ -1,24 +1,26 @@
 package com.poly.controllers.client;
 
-import com.poly.entities.Customer;
 import com.poly.entities.Product;
 import com.poly.entities.ProductItem;
 import com.poly.repositories.ProductItemRepository;
 import com.poly.repositories.ProductRepository;
 import com.poly.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
+
 
 @Controller
+@RequestMapping("/home")
 public class HomeController {
 
     @Autowired
@@ -30,12 +32,15 @@ public class HomeController {
     @Autowired
     SessionService sessionService;
 
-    @GetMapping("/home")
-    public String home(Model model) {
+    @GetMapping
+    public String home(@RequestParam("page") Optional<Integer> page,
+                       Model model) {
+        Pageable pageable = PageRequest.of(page.orElse(0), 4);
+        Page<Product> products = productRepository.findAll(pageable);
+        model.addAttribute("trendingProducts", products);
         model.addAttribute("page", "home.jsp");
         return "/client/index";
     }
-
 
     @ModelAttribute("productItemsList")
     public List<ProductItem> getAllProducts() {

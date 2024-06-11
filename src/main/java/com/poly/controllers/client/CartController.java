@@ -1,7 +1,9 @@
 package com.poly.controllers.client;
 
 import com.poly.entities.CartItem;
+import com.poly.entities.Discount;
 import com.poly.repositories.CartItemRepository;
+import com.poly.repositories.DiscountRepository;
 import com.poly.services.ParamService;
 import com.poly.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class CartController {
     ParamService paramService;
     @Autowired
     SessionService sessionService;
+    @Autowired
+    DiscountRepository discountRepository;
 
     @GetMapping
     public String cart(Model model) {
@@ -46,6 +50,23 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    @PostMapping("/add-code")
+    public String addCode(Model model,
+                          @RequestParam("code") String code) {
+        List<Discount> discounts = discountRepository.findAll();
+        for (Discount discount: discounts) {
+            if (code.trim().equals(discount.getCode())) {
+                model.addAttribute("msgCode", "Your order gets " + discount.getPercentNumber() + "% discount. ");
+                model.addAttribute("percent", discount.getPercentNumber());
+                model.addAttribute("page", "cart.jsp");
+                return "client/index";
+            }
+        }
+
+        model.addAttribute("msgCode", "Code is incorrect.");
+        model.addAttribute("page", "cart.jsp");
+        return "client/index";
+    }
 
     @ModelAttribute("cartItems")
     public List<CartItem> getCartItems() {

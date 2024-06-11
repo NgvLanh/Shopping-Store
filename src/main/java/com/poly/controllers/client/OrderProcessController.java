@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 @Controller
@@ -31,8 +33,9 @@ public class OrderProcessController {
 
     @PostMapping("/order")
     public String order(Model model,
-                        @RequestParam("total") Integer total,
-                        @RequestParam("payment-method") String paymentMethod) {
+                        @RequestParam("total") Double total,
+                        @RequestParam("payment-method") String paymentMethod,
+                        RedirectAttributes redirectAttributes) {
         Payment payment = new Payment();
         if (paymentMethod.equals("onl")) {
             payment.setStatus("completed");
@@ -51,7 +54,7 @@ public class OrderProcessController {
         order.setPayment(payment);
         orderRepository.save(order);
         List<CartItem> cartItemList = cartItemRepository.findAll();
-        for (CartItem cartItem: cartItemList) {
+        for (CartItem cartItem : cartItemList) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setProductItem(cartItem.getProductItem());
@@ -63,6 +66,7 @@ public class OrderProcessController {
             orderItemRepository.save(orderItem);
         }
 
+        redirectAttributes.addFlashAttribute(orderRepository.findAll().get(orderRepository.findAll().size() - 1).getOrderId());
         sessionService.remove("cart");
         sessionService.remove("itemNumber");
         cartItemRepository.deleteAll();

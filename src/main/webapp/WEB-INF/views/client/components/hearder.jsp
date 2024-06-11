@@ -30,7 +30,7 @@
                                 <li class="nav-item"><a class="nav-link" href="/category">Shop Category</a></li>
 <%--                                <li class="nav-item"><a class="nav-link" href="/single-product">Product Details</a></li>--%>
 <%--                                <li class="nav-item"><a class="nav-link" href="/checkout">Product Checkout</a></li>--%>
-                                <li class="nav-item"><a class="nav-link" href="/confirmation">Confirmation</a></li>
+<%--                                <li class="nav-item"><a class="nav-link" href="/confirmation">Confirmation</a></li>--%>
 <%--                                <li class="nav-item"><a class="nav-link" href="/cart">Shopping Cart</a></li>--%>
                             </ul>
                         </li>
@@ -84,7 +84,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <button onclick="window.location.href='cart'"><i class="ti-shopping-cart"></i><span
+                            <button onclick="window.location.href='/cart'"><i class="ti-shopping-cart"></i><span
                                     class="nav-shop__circle">
                                 <c:choose>
                                     <c:when test="${not empty sessionScope.itemNumber}">

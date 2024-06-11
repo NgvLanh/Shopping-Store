@@ -78,24 +78,22 @@ public class DiscountController {
                          BindingResult result, Model model,
                          @RequestParam("endTime") String endTime) {
 
-        if (result.hasErrors()) {
-            model.addAttribute("disabledSave", "disabled");
-            model.addAttribute("page", "discountsManagement.jsp");
-            return "admin/index";
-        }
-        if (endTime.isEmpty()){
-            model.addAttribute("msgDate"," Please select an end time.");
+        System.out.println("end:" + endTime);
+        if (endTime.trim().isEmpty()) {
+            model.addAttribute("msgDate", " Please select an end time.");
         }
 
-        // Thiết lập thời gian kết thúc từ dữ liệu người dùng nhập vào
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date parsedDate = dateFormat.parse(endTime);
-            // Thiết lập thời gian kết thúc cho đối tượng Discount
-            discount.setEndTime(parsedDate);
-            discountRepository.save(discount);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!result.hasErrors()) {
+            // Thiết lập thời gian kết thúc từ dữ liệu người dùng nhập vào
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date parsedDate = dateFormat.parse(endTime);
+                // Thiết lập thời gian kết thúc cho đối tượng Discount
+                discount.setEndTime(parsedDate);
+                discountRepository.save(discount);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         model.addAttribute("page", "discountsManagement.jsp");
