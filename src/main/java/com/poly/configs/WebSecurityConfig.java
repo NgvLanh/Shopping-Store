@@ -17,6 +17,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
+        // 123
+
         //GlobalInterceptor
         registry.addInterceptor(global)
                 .addPathPatterns("/**")

@@ -8,6 +8,7 @@ import java.util.Date;
 @Data
 @Entity(name = "reviews")
 public class Review {
+    // 123
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;

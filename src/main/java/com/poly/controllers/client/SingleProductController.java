@@ -19,6 +19,7 @@ import java.util.*;
 
 @Controller
 public class SingleProductController {
+    // 123
     @Autowired
     SessionService sessionService;
     @Autowired

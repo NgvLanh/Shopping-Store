@@ -25,7 +25,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-3 col-lg-4 col-md-5">
-                <form action="" onchange="filterData()">
+                <form action="#" method="dialog" onchange="filterData()">
                     <div class="sidebar-categories">
                         <div class="head">Price</div>
                         <ul class="main-categories">
@@ -33,7 +33,7 @@
                                 <ul>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span class="mx-2">0</span>
-                                        <input type="range" id="priceRange" class="mx-2">
+                                        <input type="range" id="priceRange" class="mx-2" min="0" step="10" max="${maxPrice}">
                                         <span class="mx-2">${maxPrice}</span>
                                     </div>
                                 </ul>

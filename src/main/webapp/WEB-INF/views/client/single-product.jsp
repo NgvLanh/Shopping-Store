@@ -162,6 +162,7 @@
                 <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab"
                    aria-controls="review"
                    aria-selected="false">Reviews</a>
+<%--                ừknlànơn --%>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
