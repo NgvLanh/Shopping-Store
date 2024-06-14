@@ -26,6 +26,20 @@
         margin: 0;
         cursor: pointer;
     }
+
+    .hidden {
+        display: none;
+    }
+
+    .success-message {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+    }
 </style>
 <section class="blog-banner-area" id="category">
     <div class="container h-100">
@@ -57,11 +71,11 @@
             </div>
             <div class="col-lg-6">
                 <div class="login_form_inner register_form_inner">
+                    <h3>Register</h3>
                     <%--@elvariable id="customer" type="com.poly.entities.Customer"--%>
-                    <form:form class="row login_form" method="post"
+                    <form:form class="row login_form" method="post" id="signupForm"
                                modelAttribute="customer" enctype="multipart/form-data">
                         <form:hidden path="customerId"/>
-
                         <div class="col-md-12 form-group">
                             <form:input path="name" type="text" class="form-control" id="name" name="name"
                                         placeholder="Username"
@@ -129,8 +143,8 @@
                                      height="100%"
                                      style="display: none; margin: auto">
                             </div>
-                            <span class="text-danger"
-                                  style="font-size: 14px; display: flex; justify-content: start">${msgImage}</span>
+                                <%--                            <span class="text-danger"--%>
+                                <%--                                  style="font-size: 14px; display: flex; justify-content: start">${msgImage}</span>--%>
 
                         </div>
                         <div class="col-md-12 form-group">
@@ -145,8 +159,11 @@
                             </button>
                         </div>
                         <%--                        <form:errors path="*" element="li" delimiter=";"/>--%>
-                    </form:form>
 
+                    </form:form>
+                    <div id="successMessage" class="hidden success-message">
+                        Đăng ký thành công!
+                    </div>
                 </div>
             </div>
         </div>
@@ -170,5 +187,20 @@
             imagePreview.src = '';
         }
     })
+
+    // Lấy form và thành phần thông báo
+    const form = document.getElementById('signupForm');
+    const successMessage = document.getElementById('successMessage');
+
+    // Bắt sự kiện submit của form
+    form.addEventListener('submit', function (event) {
+        // Ngăn chặn hành động mặc định của form
+        event.preventDefault();
+
+        // Hiển thị thông báo thành công
+        successMessage.classList.remove('hidden');
+
+        // Có thể thực hiện các hành động khác sau khi đăng ký thành công ở đây
+    });
 </script>
 

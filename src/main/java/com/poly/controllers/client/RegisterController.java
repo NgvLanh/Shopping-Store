@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/register")
@@ -30,37 +31,32 @@ public class RegisterController {
     @PostMapping("/create")
     public String createCustomer(@Validated @ModelAttribute("customer") Customer customer,
                                  BindingResult result,
-                                 @RequestParam("photo") MultipartFile file,
+                                 @RequestParam("photo") Optional<MultipartFile> file,
                                  Model model) {
+        MultipartFile file1 = file.orElse(null);
 
-        if (!file.isEmpty()) {
+        if (!result.hasErrors()) {
+            Customer emailExist = customerRepository.findByEmailLike(customer.getEmail());
+            Customer phoneExist = customerRepository.findByPhoneLike(customer.getPhone());
+            if (emailExist == null) {
+                if (phoneExist == null) {
+                    if (!file1.getOriginalFilename().isEmpty()) {
+                        customer.setImage(file1.getOriginalFilename());
+                        paramService.save(file1, "/uploads/");
+                    }
+                    customer.setCreateDate(new Date());
+                    customerRepository.save(customer);
+                    return "redirect:/register";
+                } else {
+                    model.addAttribute("phoneExist", "Phone is exist");
+                }
 
-            if (!result.hasErrors()) {
-                Customer emailExist = customerRepository.findByEmailLike(customer.getEmail());
-                Customer phoneExist = customerRepository.findByPhoneLike(customer.getPhone());
-               if (emailExist == null){
-                   if(phoneExist == null){
-                       customer.setImage(file.getOriginalFilename());
-                       paramService.save(file, "/uploads/");
-                       customer.setCreateDate(new Date());
-                       customerRepository.save(customer);
-                       return "redirect:/register";
-                   }else{
-                       model.addAttribute("phoneExist", "Phone is exist");
-                   }
-
-               }else{
-                   model.addAttribute("emailExist", "Email is exist");
-               }
-
+            } else {
+                model.addAttribute("emailExist", "Email is exist");
             }
 
-        } else {
-            model.addAttribute("msgImage", "Please upload a product image.");
         }
-
-
-        model.addAttribute("page", "register.jsp");
-        return "client/index";
-    }
+        model.addAttribute("page","register.jsp");
+        return"client/index";
+}
 }

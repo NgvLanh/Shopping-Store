@@ -3624,7 +3624,7 @@ a {
 
 @media (min-width: 1000px) {
     .login_box_area .login_box_img {
-        height: 896.66px
+        height: 100%
     }
 }
 
