@@ -1,10 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- ================ start banner area ================= -->
 <section class="blog-banner-area" id="category">
     <div class="container h-100">
         <div class="blog-banner">
             <div class="text-center">
-                <h1>Order Confirmation</h1>
+                <h1>Your Order</h1>
                 <nav aria-label="breadcrumb" class="banner-breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -20,163 +22,107 @@
 <!--================Order Details Area =================-->
 <section class="order_details section-margin--small">
     <div class="container">
-        <p class="text-center billing-alert">Thank you. Your order has been received.</p>
-<%--        <div class="row mb-5">--%>
-<%--            <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">--%>
-<%--                <div class="confirmation-card">--%>
-<%--                    <h3 class="billing-title">Order Info</h3>--%>
-<%--                    <table class="order-rable">--%>
-<%--                        <tr>--%>
-<%--                            <td>Order number</td>--%>
-<%--                            <td>: 60235</td>--%>
-<%--                        </tr>--%>
-<%--                        <tr>--%>
-<%--                            <td>Date</td>--%>
-<%--                            <td>: Oct 03, 2017</td>--%>
-<%--                        </tr>--%>
-<%--                        <tr>--%>
-<%--                            <td>Total</td>--%>
-<%--                            <td>: USD 2210</td>--%>
-<%--                        </tr>--%>
-<%--                        <tr>--%>
-<%--                            <td>Payment method</td>--%>
-<%--                            <td>: Check payments</td>--%>
-<%--                        </tr>--%>
-<%--                    </table>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">--%>
-<%--                <div class="confirmation-card">--%>
-<%--                    <h3 class="billing-title">Billing Address</h3>--%>
-<%--                    <table class="order-rable">--%>
-<%--                        <tr>--%>
-<%--                            <td>Street</td>--%>
-<%--                            <td>: 56/8 panthapath</td>--%>
-<%--                        </tr>--%>
-<%--                        <tr>--%>
-<%--                            <td>City</td>--%>
-<%--                            <td>: Dhaka</td>--%>
-<%--                        </tr>--%>
-<%--                        <tr>--%>
-<%--                            <td>Country</td>--%>
-<%--                            <td>: Bangladesh</td>--%>
-<%--                        </tr>--%>
-<%--                        <tr>--%>
-<%--                            <td>Postcode</td>--%>
-<%--                            <td>: 1205</td>--%>
-<%--                        </tr>--%>
-<%--                    </table>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">--%>
-<%--                <div class="confirmation-card">--%>
-<%--                    <h3 class="billing-title">Shipping Address</h3>--%>
-<%--                    <table class="order-rable">--%>
-<%--                        <tr>--%>
-<%--                            <td>Street</td>--%>
-<%--                            <td>: 56/8 panthapath</td>--%>
-<%--                        </tr>--%>
-<%--                        <tr>--%>
-<%--                            <td>City</td>--%>
-<%--                            <td>: Dhaka</td>--%>
-<%--                        </tr>--%>
-<%--                        <tr>--%>
-<%--                            <td>Country</td>--%>
-<%--                            <td>: Bangladesh</td>--%>
-<%--                        </tr>--%>
-<%--                        <tr>--%>
-<%--                            <td>Postcode</td>--%>
-<%--                            <td>: 1205</td>--%>
-<%--                        </tr>--%>
-<%--                    </table>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="order_details_table">--%>
-<%--            <h2>Order Details</h2>--%>
-<%--            <div class="table-responsive">--%>
-<%--                <table class="table">--%>
-<%--                    <thead>--%>
-<%--                    <tr>--%>
-<%--                        <th scope="col">Product</th>--%>
-<%--                        <th scope="col">Quantity</th>--%>
-<%--                        <th scope="col">Total</th>--%>
-<%--                    </tr>--%>
-<%--                    </thead>--%>
-<%--                    <tbody>--%>
-<%--                    <tr>--%>
-<%--                        <td>--%>
-<%--                            <p>Pixelstore fresh Blackberry</p>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            <h5>x 02</h5>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            <p>$720.00</p>--%>
-<%--                        </td>--%>
-<%--                    </tr>--%>
-<%--                    <tr>--%>
-<%--                        <td>--%>
-<%--                            <p>Pixelstore fresh Blackberry</p>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            <h5>x 02</h5>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            <p>$720.00</p>--%>
-<%--                        </td>--%>
-<%--                    </tr>--%>
-<%--                    <tr>--%>
-<%--                        <td>--%>
-<%--                            <p>Pixelstore fresh Blackberry</p>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            <h5>x 02</h5>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            <p>$720.00</p>--%>
-<%--                        </td>--%>
-<%--                    </tr>--%>
-<%--                    <tr>--%>
-<%--                        <td>--%>
-<%--                            <h4>Subtotal</h4>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            <h5></h5>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            <p>$2160.00</p>--%>
-<%--                        </td>--%>
-<%--                    </tr>--%>
-<%--                    <tr>--%>
-<%--                        <td>--%>
-<%--                            <h4>Shipping</h4>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            <h5></h5>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            <p>Flat rate: $50.00</p>--%>
-<%--                        </td>--%>
-<%--                    </tr>--%>
-<%--                    <tr>--%>
-<%--                        <td>--%>
-<%--                            <h4>Total</h4>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            <h5></h5>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--                            <h4>$2210.00</h4>--%>
-<%--                        </td>--%>
-<%--                    </tr>--%>
-<%--                    </tbody>--%>
-<%--                </table>--%>
-<%--            </div>--%>
-<%--        </div>--%>
+        <p class="text-center billing-alert">
+            <c:choose>
+                <c:when test="${not empty sessionScope.customer}">
+                    Thank you. Your order has been received.
+                </c:when>
+                <c:otherwise>
+                    Please log in to view your order.
+                </c:otherwise>
+            </c:choose>
+        </p>
+        <c:forEach var="order" items="${orders}">
+            <div class="order_details_table">
+                <h2>Order Details (${order.orderId})</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Cancel</th>
+                            <th scope="col">Received</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p>${order.date}</p>
+                            </td>
+                            <td>
+                                <h5>${order.status}</h5>
+                            </td>
+                            <td>
+                                <p>
+                                        ${order.total}
+                                        <%--                                    <fmt:formatNumber value="${order.total}"/>--%>
+                                </p>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-dark" disabled>
+                                    Cancel
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-success" disabled>
+                                    Yes
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4">
+                    <p class="d-flex align-items-center">
+                        <a href="/your-order/order-details?order_id=${order.orderId}">
+                            View all products
+                        </a>
+                        <button class="btn" type="button" data-toggle="collapse"
+                                data-target="#collapse${order.orderId}" aria-expanded="false"
+                                aria-controls="collapseExample"
+                                style="transform: rotate(90deg); color: #007bff; background: transparent;
+                                box-shadow: none !important; padding: 8px;">
+                            >
+                        </button>
+                    </p>
+                    <div class="collapse" id="collapse${order.orderId}">
+                        <div class="card card-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="item" items="${orderItems}">
+                                    <tr>
+                                        <td>
+                                            <p>${item.productItem.product.name}</p>
+                                        </td>
+                                        <td>
+                                            <h5>${item.quantity}</h5>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                    ${item.price}
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
     </div>
 </section>
 <!--================End Order Details Area =================-->
 
 
-<!--================ Start footer Area  =================-->
+<!--================ Start footer Area =================-->

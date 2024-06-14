@@ -170,37 +170,26 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="row total_rate">
-                            <%--                            <div class="col-6">--%>
-                            <%--                                <div class="box_total">--%>
-                            <%--                                    <h5>Overall</h5>--%>
-                            <%--                                    <h4>4.0</h4>--%>
-                            <%--                                    <h6>(03 Reviews)</h6>--%>
-                            <%--                                </div>--%>
-                            <%--                            </div>--%>
-                            <%--                            <div class="col-6">--%>
-                            <%--                                <div class="rating_list">--%>
-                            <%--                                    <h3>Based on 3 Reviews</h3>--%>
-                            <%--                                    <ul class="list">--%>
-                            <%--                                        <li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i--%>
-                            <%--                                                class="fa fa-star"></i><i--%>
-                            <%--                                                class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>--%>
-                            <%--                                        <li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i--%>
-                            <%--                                                class="fa fa-star"></i><i--%>
-                            <%--                                                class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>--%>
-                            <%--                                        <li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i--%>
-                            <%--                                                class="fa fa-star"></i><i--%>
-                            <%--                                                class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>--%>
-                            <%--                                        <li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i--%>
-                            <%--                                                class="fa fa-star"></i><i--%>
-                            <%--                                                class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>--%>
-                            <%--                                        <li><a href="#">1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i--%>
-                            <%--                                                class="fa fa-star"></i><i--%>
-                            <%--                                                class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>--%>
-                            <%--                                    </ul>--%>
-                            <%--                                </div>--%>
-                            <%--                            </div>--%>
+                            <div class="col-12">
+                                <c:set var="totalStars" value="0" />
+                                <c:set var="reviewCount" value="0" />
+
+                                <!-- Lặp qua các đánh giá để tính tổng số sao và số lượng đánh giá -->
+                                <c:forEach var="review" items="${reviews}">
+                                    <c:set var="totalStars" value="${totalStars + review.rating}" />
+                                    <c:set var="reviewCount" value="${reviewCount + 1}" />
+                                </c:forEach>
+
+                                <!-- Tính số sao trung bình -->
+                                <c:set var="avgStar" value="${reviewCount == 0 ? 0 : totalStars / reviewCount}" />
+                                <div class="box_total">
+                                    <h5>Overall</h5>
+                                    <h4>${avgStar}</h4>
+                                    <h6>(${reviewCount} Reviews)</h6>
+                                </div>
+                            </div>
                         </div>
-                        <div class="review_list">
+                        <div class="review_list mt-4">
                             <c:forEach var="review" items="${reviews}">
                                 <div class="review_item">
                                     <div class="media">
@@ -244,7 +233,7 @@
                                               cols="30" rows="5" placeholder="Enter Message"></textarea>
                                 </div>
                                 <div class="form-group text-center text-md-right mt-3">
-                                    <button type="submit" id="button-review" disabled class="button">Submit Now
+                                    <button type="submit" id="button-review" disabled class="button">Post
                                     </button>
                                 </div>
                             </form>

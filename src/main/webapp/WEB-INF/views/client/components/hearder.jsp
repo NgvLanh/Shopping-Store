@@ -30,7 +30,7 @@
                                 <li class="nav-item"><a class="nav-link" href="/category">Shop Category</a></li>
 <%--                                <li class="nav-item"><a class="nav-link" href="/single-product">Product Details</a></li>--%>
 <%--                                <li class="nav-item"><a class="nav-link" href="/checkout">Product Checkout</a></li>--%>
-<%--                                <li class="nav-item"><a class="nav-link" href="/confirmation">Confirmation</a></li>--%>
+                                <li class="nav-item"><a class="nav-link" href="/your-order">Your order</a></li>
 <%--                                <li class="nav-item"><a class="nav-link" href="/cart">Shopping Cart</a></li>--%>
                             </ul>
                         </li>
