@@ -1,5 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style>
     .coupon-container {
         display: flex;
@@ -17,6 +19,9 @@
         border-radius: 5px; /* Đường viền cong */
     }
 
+    select {
+        display: block !important;
+    }
 </style>
 <!--================ End Header Menu Area =================-->
 
@@ -55,6 +60,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <c:set var="numberItem" value="${fn:length(cartItems)}"/>
                     <c:forEach var="item" items="${cartItems}">
                         <form action="/cart/update-quantity/${item.cartItemId}" method="post">
                             <span class="d-none" id="cartItemId">${item.cartItemId}</span>
@@ -66,7 +72,7 @@
                                                  width="150px">
                                         </div>
                                         <div class="media-body">
-                                            <p>${item.productItem.product.name}</p>
+                                            <a href="/single-product?product_id=${item.productItem.product.productId}">${item.productItem.product.name}</a>
                                             <div style="display:flex; gap: 4px;">
                                                 <p style="color: ${item.productItem.color.colorName}">${item.productItem.color.colorName}</p>
                                                 - <p style="color: black">${item.productItem.size.sizeName}</p>
@@ -112,47 +118,66 @@
                                 <a class="button" href="/cart">Update Cart</a>
                             </td>
                             <td colspan="5">
-                                <div class="coupon-container">
-                                    <input type="text" class="form-control coupon-input" placeholder="Coupon Code"
-                                           name="code">
-                                    <button type="submit" class="btn btn-primary apply-btn">Apply</button>
+                                <div class="coupon-container" style="display:flex; flex-direction: column">
+                                    <div class="d-flex">
+                                        <input type="text" class="form-control coupon-input" placeholder="Coupon Code"
+                                               style="box-shadow: none;"
+                                               name="code">
+                                        <button type="submit" class="btn btn-primary apply-btn"
+                                                style="background: #384aeb;">Apply
+                                        </button>
+                                    </div>
+                                    <c:if test="${not empty msgCode}">
+                                        <c:set var="discountPercent" value="${percent}"/>
+                                        <div class="px-1 my-2 w-100" style="display:flex; justify-content: start">
+                                            <span>${msgCode}</span>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </td>
                         </form>
                     </tr>
-                    <tr>
-                        <td colspan="5">
-                            <div class="d-flex flex-column align-items-end">
-                                <c:if test="${not empty msgCode}">
-                                    <c:set var="discountPercent" value="${percent}"/>
-                                    <div class="my-2">
-                                        <h5>${msgCode}</h5>
+                    <tr class="shipping_area">
+                        <td colspan="3">
+                            <h5>Shipping</h5>
+                            <div class="shipping_box">
+                                <div class="row">
+                                    <div class="col-md-12 mb-2 d-flex justify-content-end">
+                                        <div>
+                                            <label for="province"
+                                                   class="d-flex justify-content-start">Province/City:</label>
+                                            <select id="province" class="form-control" onchange="fetchDistricts()">
+                                                <option value="">Select Province/City</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </c:if>
-
-                                <div class="my-2">
-                                    <h5>Shipping fee: $ 2.00</h5>
-                                </div>
-                                <div class="d-flex">
-                                    <h5 class="mr-2">Subtotal $</h5>
-                                    <h5 id="subtotal"></h5>
+                                    <div class="col-md-12 mb-2">
+                                        <label for="district" class="d-flex justify-content-start">District:</label>
+                                        <select id="district" class="form-control" onchange="fetchWards()">
+                                            <option value="">Select District</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12 mb-2">
+                                        <label for="ward" class="d-flex justify-content-start">Ward:</label>
+                                        <select id="ward" class="form-control" onchange="calculateShippingFee()">
+                                            <option value="">Select Ward</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </td>
-                    </tr>
-                    <tr class="shipping_area">
-                        <td colspan="4">
-                            <h5>Shipping</h5>
-                        </td>
-                        <td colspan="1">
-                            <div class="shipping_box">
-                                <select class="shipping_select">
-                                    <option value="can-tho">Can Tho</option>
-                                </select>
-                                <select class="shipping_select">
-                                    <option value="nha-so-mot">Nha So 1</option>
-                                </select>
-                                <input type="text" placeholder="Address details">
+                        <td colspan="3">
+                            <div class="col-md-12 mt-12">
+                                <div class="">
+                                    <p id="total-cart" class="mb-2">Total: </p>
+                                </div>
+                                <div class="">
+                                    <p id="shippingFee" class="mb-2">Shipping fee: </p>
+                                </div>
+                                <div>
+                                    <p id="tempSubtotal" class="d-none"></p>
+                                    <p id="subtotal" class="mb-2">Subtotal: </p>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -162,8 +187,16 @@
                         <td colspan="1">
                             <div class="checkout_btn_inner d-flex align-items-center">
                                 <a class="gray_btn" href="/home">Continue Shopping</a>
-                                <a class="primary-btn ml-2" href="/cart?" data-toggle="modal"
-                                   data-target="#exampleModal">Checkout</a>
+                                <button class="primary-btn ml-2"
+                                        data-toggle="modal"
+                                        data-target="#exampleModal"
+                                        style="border: none"
+                                        <c:if test="${numberItem == 0}">
+                                            disabled
+                                        </c:if>
+                                >Checkout
+                                </button>
+
                             </div>
                         </td>
                     </tr>
@@ -194,7 +227,7 @@
                             <c:forEach var="item" items="${cartItems}">
                                 <li>
                                     <a href="/cart">${item.productItem.product.name}
-                                        <span class="middle">${item.quantity}x</span>
+                                        <span class="middle">x${item.quantity}</span>
                                         <span class="last">$<fmt:formatNumber
                                                 value="${item.productItem.price * item.quantity}"
                                                 type="number" minFractionDigits="2"
@@ -204,7 +237,7 @@
                                 <c:set var="subtotal" value="${subtotal + (item.productItem.price * item.quantity)}"/>
                             </c:forEach>
 
-                            <c:set var="shippingCost" value="2"/>
+                            <c:set var="shippingCost" value=""/>
                             <c:set var="total"
                                    value="${discountPercent == 0 ? (subtotal + shippingCost) : ((subtotal + shippingCost) * (100 - discountPercent)) / 100}"/>
 
@@ -213,9 +246,7 @@
                                                                                   minFractionDigits="2"
                                                                                   maxFractionDigits="2"/></span></a>
                                 </li>
-                                <li><a href="#">Shipping <span>$<fmt:formatNumber value="${shippingCost}" type="number"
-                                                                                  minFractionDigits="2"
-                                                                                  maxFractionDigits="2"/></span></a>
+                                <li><a href="#">Shipping <span id="shipping-bill"></span></a>
                                 </li>
                                 <li><a href="#">Discount
                                     <span>
@@ -268,6 +299,7 @@
     const prices = document.querySelectorAll('#price');
     const totals = document.querySelectorAll('#total');
     const subtotal = document.getElementById('subtotal');
+    const tempSubtotal = document.getElementById('tempSubtotal');
 
     function updateTotals() {
         let subtotalValue = 0;
@@ -278,9 +310,7 @@
             totals[index].textContent = totalValue.toFixed(2);
             subtotalValue += totalValue;
         });
-        let shippingFee = 2.00;
-        subtotalValue += shippingFee;
-        subtotal.textContent = subtotalValue.toFixed(2);
+        tempSubtotal.textContent = subtotalValue;
     }
 
     inputQuantities.forEach((inputQuantity, index) => {
@@ -293,7 +323,6 @@
             } else if (isNaN(qty) || qty < 1) {
                 inputQuantity.value = 1;
             }
-
             updateTotals();
         });
     });
@@ -324,6 +353,245 @@
     window.addEventListener('DOMContentLoaded', () => {
         updateTotals();
     });
+
+    const token = '498e4765-2862-11ef-8e53-0a00184fe694';  // Thay thế bằng token thực
+    const shopId = '192565';  // Thay thế bằng shop ID thực
+
+    const provinceId = 220;  // ID của tỉnh muốn lấy tên
+    const districtId = 1574;  // ID của quận/huyện muốn lấy tên
+    const wardId = "550307";  // ID của phường/xã muốn lấy tên
+
+    document.addEventListener("DOMContentLoaded", function () {
+        fetchProvinces();
+
+        fetchProvinceNameById(provinceId)
+            .then(provinceName => {
+                document.getElementById('provinceName').textContent = 'Tên tỉnh/thành phố: ' + provinceName;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        fetchDistrictNameById(districtId)
+            .then(districtName => {
+                document.getElementById('districtName').textContent = 'Tên quận/huyện: ' + districtName;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        fetchWardNameById(wardId)
+            .then(wardName => {
+                document.getElementById('wardName').textContent = 'Tên phường/xã: ' + wardName;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+
+
+    // Hàm lấy tên tỉnh/thành phố theo ID
+    function fetchProvinceNameById(provinceId) {
+        return fetch('https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Token': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const province = data.data.find(province => province.ProvinceID === provinceId);
+                if (province) {
+                    return province.ProvinceName;
+                } else {
+                    throw new Error('Province not found');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching province name:', error);
+                throw error;
+            });
+    }
+
+    // Hàm lấy tên quận/huyện theo ID
+    function fetchDistrictNameById(districtId) {
+        return fetch('https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=' + provinceId + '&shop_id=' + shopId, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Token': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const district = data.data.find(district => district.DistrictID === districtId);
+                if (district) {
+                    return district.DistrictName;
+                } else {
+                    throw new Error('District not found');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching district name:', error);
+                throw error;
+            });
+    }
+
+    // Hàm lấy tên phường/xã theo ID
+    function fetchWardNameById(wardId) {
+        return fetch('https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=' + districtId + '&shop_id=' + shopId, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Token': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const ward = data.data.find(ward => ward.WardCode === wardId);
+                if (ward) {
+                    return ward.WardName;
+                } else {
+                    throw new Error('Ward not found');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching ward name:', error);
+                throw error;
+            });
+    }
+
+    function fetchProvinces() {
+        fetch('https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Token': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const provinceSelect = document.getElementById('province');
+                const sortedProvinces = data.data.sort((a, b) => a.ProvinceName.localeCompare(b.ProvinceName));
+                sortedProvinces.forEach(province => {
+                    const option = document.createElement('option');
+                    option.value = province.ProvinceID;
+                    option.textContent = province.ProvinceName;
+                    provinceSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching provinces:', error));
+    }
+
+    function fetchDistricts() {
+        const provinceId = document.getElementById('province').value;
+        if (!provinceId) return;
+
+        fetch('https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=' + provinceId + '&shop_id=' + shopId, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Token': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const districtSelect = document.getElementById('district');
+                districtSelect.innerHTML = '<option value="">Select District</option>';
+                const wardSelect = document.getElementById('ward');
+                wardSelect.innerHTML = '<option value="">Select Ward</option>';
+                const sortedDistricts = data.data.sort((a, b) => a.DistrictName.localeCompare(b.DistrictName));
+                sortedDistricts.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district.DistrictID;
+                    option.textContent = district.DistrictName;
+                    districtSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching districts:', error));
+    }
+
+    function fetchWards() {
+        const districtId = document.getElementById('district').value;
+        if (!districtId) return;
+
+        fetch('https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=' + districtId + '&shop_id=' + shopId, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Token': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const wardSelect = document.getElementById('ward');
+                wardSelect.innerHTML = '<option value="">Select Ward</option>';
+                const sortedWards = data.data.sort((a, b) => a.WardName.localeCompare(b.WardName));
+                sortedWards.forEach(ward => {
+                    const option = document.createElement('option');
+                    option.value = ward.WardCode;
+                    option.textContent = ward.WardName;
+                    wardSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching wards:', error));
+    }
+
+    // Hàm định dạng số thành tiền tệ
+    function formatCurrency(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function calculateShippingFee() {
+        const toDistrictId = document.getElementById('district').value;
+        const toWardCode = document.getElementById('ward').value;
+        if (!toDistrictId || !toWardCode) {
+            alert('Please select your address.');
+            return;
+        }
+
+        const params = new URLSearchParams({
+            from_district_id: 1574,
+            from_ward_code: '550307',
+            service_id: 53320,
+            service_type_id: '',
+            to_district_id: toDistrictId,
+            to_ward_code: toWardCode,
+            height: 10,
+            length: 10,
+            weight: 10,
+            width: 10,
+            insurance_value: 10000,
+            cod_failed_amount: 2000,
+            coupon: ''
+        });
+
+        fetch('https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee?' + params.toString(), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Token': token,
+                'ShopId': shopId
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const shippingFeeElement = document.getElementById('shippingFee');
+                const subtotal = document.getElementById('subtotal');
+                const total = document.getElementById('total-cart');
+                const shippingBill = document.getElementById('shipping-bill');
+                if (data.code === 200 && data.data) {
+                    // const formattedShippingFee = formatCurrency(data.data.total);
+                    const formattedShippingFee = data.data.total / 25000;
+                    total.textContent = 'Total: ' + Number(tempSubtotal.textContent).toFixed(2);
+                    shippingFeeElement.textContent = 'Shipping fee: $ ' + formattedShippingFee.toFixed(2);
+                    shippingBill.textContent = '$ ' + formattedShippingFee.toFixed(2);
+                    subtotal.textContent = 'Subtotal: $ ' + (Number(tempSubtotal.textContent) + formattedShippingFee).toFixed(2);
+                } else {
+                    shippingFeeElement.textContent = 'Cannot calculating shipping fee';
+                }
+            })
+            .catch(error => {
+                console.error('Error calculating shipping fee:', error);
+                document.getElementById('shippingFee').textContent = 'Error calculating shipping fee';
+            });
+    }
+
 </script>
 
 <!--================ Start footer Area =================-->
