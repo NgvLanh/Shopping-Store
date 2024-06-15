@@ -140,25 +140,23 @@
                     <tr class="shipping_area">
                         <td colspan="3">
                             <h5>Shipping</h5>
-                            <div class="shipping_box">
+                            <div class="" style="z-index: 10">
                                 <div class="row">
-                                    <div class="col-md-12 mb-2 d-flex justify-content-end">
-                                        <div>
-                                            <label for="province"
-                                                   class="d-flex justify-content-start">Province/City:</label>
-                                            <select id="province" class="form-control" onchange="fetchDistricts()">
-                                                <option value="">Select Province/City</option>
-                                            </select>
-                                        </div>
+                                    <div class="col-md-12 mt-2">
+                                        <label for="province"
+                                               class="">Province/City:</label>
+                                        <select id="province" class="form-control" onchange="fetchDistricts()">
+                                            <option value="">Select Province/City</option>
+                                        </select>
                                     </div>
-                                    <div class="col-md-12 mb-2">
-                                        <label for="district" class="d-flex justify-content-start">District:</label>
+                                    <div class="col-md-12 mt-2">
+                                        <label for="district" class="">District:</label>
                                         <select id="district" class="form-control" onchange="fetchWards()">
                                             <option value="">Select District</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-12 mb-2">
-                                        <label for="ward" class="d-flex justify-content-start">Ward:</label>
+                                    <div class="col-md-12 mt-2">
+                                        <label for="ward" class="">Ward:</label>
                                         <select id="ward" class="form-control" onchange="calculateShippingFee()">
                                             <option value="">Select Ward</option>
                                         </select>
@@ -166,17 +164,23 @@
                                 </div>
                             </div>
                         </td>
-                        <td colspan="3">
-                            <div class="col-md-12 mt-12">
-                                <div class="">
-                                    <p id="total-cart" class="mb-2">Total: </p>
+                        <td colspan="5">
+                            <div class="col-md-12 mt-12 ">
+                                <div class="d-flex justify-content-end">
+                                    <p id="total-cart" class="mb-2">Subtotal: </p>
                                 </div>
-                                <div class="">
+                                <div class="d-flex justify-content-end">
+                                    <p class="mb-2">
+                                        Discount (%):
+                                    <p id="discount">${discountPercent}</p>
+                                    </p>
+                                </div>
+                                <div class="d-flex justify-content-end">
                                     <p id="shippingFee" class="mb-2">Shipping fee: </p>
                                 </div>
-                                <div>
+                                <div class="d-flex justify-content-end">
                                     <p id="tempSubtotal" class="d-none"></p>
-                                    <p id="subtotal" class="mb-2">Subtotal: </p>
+                                    <p id="subtotal" class="mb-2">Total: </p>
                                 </div>
                             </div>
                         </td>
@@ -237,14 +241,14 @@
                                 <c:set var="subtotal" value="${subtotal + (item.productItem.price * item.quantity)}"/>
                             </c:forEach>
 
-                            <c:set var="shippingCost" value=""/>
-                            <c:set var="total"
-                                   value="${discountPercent == 0 ? (subtotal + shippingCost) : ((subtotal + shippingCost) * (100 - discountPercent)) / 100}"/>
+<%--                            <c:set var="shippingCost" value=""/>--%>
+<%--                            <c:set var="total"--%>
+<%--                                   value="${discountPercent == 0 ? (subtotal + shippingCost) : ((subtotal + shippingCost) * (100 - discountPercent)) / 100}"/>--%>
 
                             <ul class="list list_2">
-                                <li><a href="#">Subtotal <span>$<fmt:formatNumber value="${subtotal}" type="number"
-                                                                                  minFractionDigits="2"
-                                                                                  maxFractionDigits="2"/></span></a>
+                                <li><a href="#">Subtotal <span id="subtotal-bill">
+
+                                </span></a>
                                 </li>
                                 <li><a href="#">Shipping <span id="shipping-bill"></span></a>
                                 </li>
@@ -256,13 +260,12 @@
                                     </span>
                                 </a>
                                 </li>
-                                <li><a href="#">Total <span>$<fmt:formatNumber value="${total}" type="number"
-                                                                               minFractionDigits="2"
-                                                                               maxFractionDigits="2"/></span></a></li>
+                                <li><a href="#">Total <span id="total-bill">
+                                </span></a></li>
                             </ul>
 
                             <!-- Hidden field to store the total value -->
-                            <input type="hidden" name="total" value="${total}"/>
+                            <input type="hidden" name="total" id="input-hidden-total-bill"/>
                             <div class="payment_item">
                                 <div class="radion_btn">
                                     <input type="radio" id="f-option5" name="payment-method" value="off" checked>
@@ -575,13 +578,22 @@
                 const subtotal = document.getElementById('subtotal');
                 const total = document.getElementById('total-cart');
                 const shippingBill = document.getElementById('shipping-bill');
+                const discount = document.getElementById('discount');
+                // bill
+                const subtotalBill = document.getElementById('subtotal-bill');
+                const totalBill = document.getElementById('total-bill');
+                const inputHiddenTotal = document.getElementById('input-hidden-total-bill');
+
                 if (data.code === 200 && data.data) {
                     // const formattedShippingFee = formatCurrency(data.data.total);
                     const formattedShippingFee = data.data.total / 25000;
-                    total.textContent = 'Total: ' + Number(tempSubtotal.textContent).toFixed(2);
+                    total.textContent = 'Subtotal: $' + Number(tempSubtotal.textContent).toFixed(2);
+                    subtotalBill.textContent = '$ ' + Number(tempSubtotal.textContent).toFixed(2);
                     shippingFeeElement.textContent = 'Shipping fee: $ ' + formattedShippingFee.toFixed(2);
                     shippingBill.textContent = '$ ' + formattedShippingFee.toFixed(2);
-                    subtotal.textContent = 'Subtotal: $ ' + (Number(tempSubtotal.textContent) + formattedShippingFee).toFixed(2);
+                    subtotal.textContent = 'Total: $ ' + ((Number(tempSubtotal.textContent) + formattedShippingFee) * (100 - Number(discount.textContent)) / 100).toFixed(2);
+                    totalBill.textContent = '$ ' + ((Number(tempSubtotal.textContent) + formattedShippingFee) * (100 - Number(discount.textContent)) / 100).toFixed(2);
+                    inputHiddenTotal.value = (Number((Number(tempSubtotal.textContent) + formattedShippingFee) * (100 - Number(discount.textContent)) / 100)).toFixed(2);
                 } else {
                     shippingFeeElement.textContent = 'Cannot calculating shipping fee';
                 }
