@@ -38,11 +38,7 @@ public class OrderProcessController {
     VNPayService vnPayService;
 
     @PostMapping("/order")
-    public String order(Model model,
-                        @RequestParam("total") Double total,
-                        @RequestParam("payment-method") String paymentMethod,
-                        HttpServletRequest request,
-                        RedirectAttributes redirectAttributes) {
+    public String order(Model model, @RequestParam("total") Double total, @RequestParam("payment-method") String paymentMethod, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         Payment payment = new Payment();
         payment.setAmount(total);
         payment.setMethod(paymentMethod);
@@ -75,13 +71,19 @@ public class OrderProcessController {
         }
         if (paymentMethod.equals("onl")) {
             String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-            String vnpayUrl = vnPayService.createOrder(Integer.parseInt(String.valueOf(total)), String.valueOf(orderId), baseUrl);
+            long vndTotal = Math.round(total) * 25000;
+            String totalString = String.valueOf(vndTotal);
+            System.out.println(totalString);
+            String vnpayUrl = vnPayService.createOrder(Integer.parseInt(totalString), String.valueOf(orderId), baseUrl);
+//
+            cartItemRepository.deleteAll();
+            sessionService.remove("itemNumber");
+            redirectAttributes.addFlashAttribute(orderRepository.findAll().get(orderRepository.findAll().size() - 1).getOrderId());
             return "redirect:" + vnpayUrl;
         }
-
-        redirectAttributes.addFlashAttribute(orderRepository.findAll().get(orderRepository.findAll().size() - 1).getOrderId());
-
+        cartItemRepository.deleteAll();
         sessionService.remove("itemNumber");
+        redirectAttributes.addFlashAttribute(orderRepository.findAll().get(orderRepository.findAll().size() - 1).getOrderId());
         return "redirect:/your-order";
     }
 }
