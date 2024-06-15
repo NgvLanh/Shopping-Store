@@ -17,12 +17,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findOrderByCustomerCustomerId(Long customerId);
 
-    @Query("select o from Orders o where o.status like 'wait to confirmation' ")
+    @Query("select o from Orders o where o.status like '%' + 'wait to confirmation' + '%' ")
     List<Order> findByStatus();
 
-    @Query("select o from Orders o where o.status like 'confirm' ")
+    @Query("select o from Orders o where o.status like '%' + 'confirm' +'%' ")
     List<Order> findByStatus1();
 
-    @Query("select o from Orders o where o.status like 'Shipping orders' ")
+    @Query("select o from Orders o where o.status like '%' +'Shipping orders'+'%'  ")
     List<Order> findByStatus2();
 }
