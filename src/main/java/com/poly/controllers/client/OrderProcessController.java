@@ -82,6 +82,6 @@ public class OrderProcessController {
         redirectAttributes.addFlashAttribute(orderRepository.findAll().get(orderRepository.findAll().size() - 1).getOrderId());
 
         sessionService.remove("itemNumber");
-        return "redirect:/confirmation";
+        return "redirect:/your-order";
     }
 }
