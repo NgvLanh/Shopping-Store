@@ -34,6 +34,7 @@
                                     </div>
                                     <form:errors path="code" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
+                                    <span class="text-danger" style="font-size: 14px; margin: 4px">${msgCode}</span>
                                 </div>
 
                                 <div class="form-group col-md-6">
@@ -49,7 +50,7 @@
                                     <label for="endTime">End Time</label>
                                     <input name="endTime" type="date" class="form-control" id="endTime"
                                            placeholder="End Time"/>
-                                    <span class="text-danger" style="font-size: 14px">${msgDate}</span>
+                                    <span class="text-danger" style="font-size: 14px ; margin: 4px" >${msgDate}</span>
                                 </div>
 
                                 <div class="col-md-12">

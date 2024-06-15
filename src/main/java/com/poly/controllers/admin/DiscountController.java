@@ -59,6 +59,16 @@ public class DiscountController {
                 return "admin/index";
             }
             discount.setEndTime(parsedDate);
+            //test trùng
+//            discount.setCode("cm52TIjc");
+            if (discountRepository.existsByCode(discount.getCode())) {
+                model.addAttribute("msgCode", "Duplicate discount code");
+                // Hiển thị lại trang form với thông báo lỗi
+                model.addAttribute("page", "discountsManagement.jsp");
+                return "admin/index";
+            }
+
+
             discountRepository.save(discount);
 
             // Lấy danh sách mới và gửi lại cho giao diện người dùng
