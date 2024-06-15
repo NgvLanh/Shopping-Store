@@ -47,7 +47,7 @@ public class OrderProcessController {
         Order order = new Order();
         Customer customer = sessionService.get("customer");
         order.setCustomer(customer);
-        order.setStatus("Awaiting Confirmation");
+        order.setStatus("Wait to Confirmation");
         order.setTotal(total);
         order.setPayment(payment);
         orderRepository.save(order);
