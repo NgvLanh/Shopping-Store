@@ -150,13 +150,20 @@
                                         <th>Category</th>
                                         <th>Supplier</th>
                                         <th>Update</th>
+                                        <th>Variation</th>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <%-- Danh sách các phần tử --%>
+                                    <c:set var="items" value="${products}"/>
+                                    <%-- Biến đếm --%>
+                                    <c:set var="count" value="0"/>
                                     <c:forEach var="product" items="${products}">
+                                        <c:set var="count" value="${count + 1}"/> <%-- Tăng biến đếm --%>
                                         <tr>
-                                            <td>${product.productId}</td>
+                                            <td>${count}</td>
+
                                             <td><img src="../../../uploads/${product.image}" alt=""></td>
                                             <td>${product.name}</td>
                                             <td>
@@ -175,6 +182,14 @@
                                                 <a href="/admin/product-management/edit/${product.productId}">
                                                     <i class="mdi mdi-table-edit"
                                                        style="font-size: 1.5rem; color: darkgreen"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <!-- Button trigger modal -->
+                                                <a href="/admin/product-variation-management?product_id=${product.productId}">
+                                                    <i class="mdi mdi-table-plus" data-toggle="modal"
+                                                       data-target="#staticBackdrop"
+                                                       style="font-size: 1.5rem; color: coral"></i>
                                                 </a>
                                             </td>
                                             <td>
@@ -201,6 +216,7 @@
         </footer>
     </div>
 </div>
+<%----%>
 <%----%>
 <script>
     // confirm delete

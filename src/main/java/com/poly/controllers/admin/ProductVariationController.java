@@ -30,9 +30,11 @@ public class ProductVariationController {
     SizeRepository sizeRepository;
 
     @GetMapping("")
-    public String index(@ModelAttribute("productItem") ProductItem productItem,
-                        Model model) {
+    public String index(Model model, @ModelAttribute("productItem") ProductItem productItem,
+                        @RequestParam("product_id") Long productId) {
         model.addAttribute("disabledUpdate", "disabled");
+        Product product = productRepository.findById(productId).orElse(null);
+        model.addAttribute("product", product);
         model.addAttribute("page", "productVariationManagement.jsp");
         return "admin/index";
     }
@@ -92,11 +94,6 @@ public class ProductVariationController {
         return "admin/index";
     }
 
-    @ModelAttribute("products")
-    public List<Product> getAllProduct() {
-        return productRepository.findAll();
-    }
-
     @ModelAttribute("colors")
     public List<Color> getAllColor() {
         return colorRepository.findAll();
@@ -108,9 +105,8 @@ public class ProductVariationController {
     }
 
     @ModelAttribute("productItems")
-    public Page<ProductItem> getAllProductItems() {
-        Pageable pageable = PageRequest.of(0, 5);
-        return productItemRepository.findAll(pageable);
+    public List<ProductItem> getAllProductItems(@RequestParam("product_id") Long productId) {
+        return productItemRepository.findProductItemByProductProductId(productId);
     }
 
 }

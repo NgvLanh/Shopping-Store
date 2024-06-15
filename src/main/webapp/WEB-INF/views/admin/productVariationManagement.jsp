@@ -49,13 +49,8 @@
                                 <form:hidden path="productItemId"/>
                                 <div class="form-group col-md-6">
                                     <label for="product">Product</label>
-                                    <form:select path="product" cssClass="form-control" id="product">
-                                        <form:option value="">-- Select Product --</form:option>
-                                        <jsp:useBean id="products" scope="request" type="java.util.List"/>
-                                        <form:options items="${products}" itemLabel="name"/>
-                                    </form:select>
-                                    <form:errors path="product" cssClass="text-danger"
-                                                 cssStyle="font-size: 14px; margin: 4px"/>
+                                    <input type="hidden" value="${product.productId}" name="product" id="product">
+                                    <input type="text" value="${product.name}" class="form-control" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="price">Price</label>
@@ -135,9 +130,8 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <jsp:useBean id="productItems" scope="request"
-                                                 type="org.springframework.data.domain.Page"/>
-                                    <c:forEach var="productItem" items="${productItems.content}">
+                                    <jsp:useBean id="productItems" scope="request" type="java.util.List"/>
+                                    <c:forEach var="productItem" items="${productItems}">
                                         <tr>
                                             <td>${productItem.productItemId}</td>
                                             <td>${productItem.product.name}</td>

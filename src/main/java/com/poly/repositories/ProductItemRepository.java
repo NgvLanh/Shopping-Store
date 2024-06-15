@@ -26,4 +26,5 @@ public interface ProductItemRepository extends JpaRepository<ProductItem, Long> 
 
     @Query("SELECT MAX(price) FROM productItems")
     Integer findMaxPrice();
+
 }
