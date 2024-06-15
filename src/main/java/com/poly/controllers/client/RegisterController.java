@@ -46,7 +46,11 @@ public class RegisterController {
                     }
                     customer.setCreateDate(new Date());
                     customerRepository.save(customer);
-                    return "redirect:/register";
+                    customer.clear();
+                    model.addAttribute("messageReg","Register Successfully!");
+                    model.addAttribute("page","register.jsp");
+                    return "client/index";
+
                 } else {
                     model.addAttribute("phoneExist", "Phone is exist");
                 }

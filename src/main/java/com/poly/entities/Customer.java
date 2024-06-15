@@ -44,6 +44,15 @@ public class Customer {
     @Column(name = "created_time")
     Date createDate = new Date();
 
+    public void clear() {
+        setName(null);
+        setEmail(null);
+        setPassword(null);
+        setPhone(null);
+        setAddress(null);
+        setCity(null);
+    }
+
     // customer - cart
 
 
