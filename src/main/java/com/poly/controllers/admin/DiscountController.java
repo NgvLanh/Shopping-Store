@@ -67,10 +67,9 @@ public class DiscountController {
                 model.addAttribute("page", "discountsManagement.jsp");
                 return "admin/index";
             }
-
-
-            discountRepository.save(discount);
-
+            if (!result.hasErrors()) {
+                discountRepository.save(discount);
+            }
             // Lấy danh sách mới và gửi lại cho giao diện người dùng
             List<Discount> updatedDiscounts = discountRepository.findAll();
             model.addAttribute("discounts", updatedDiscounts);

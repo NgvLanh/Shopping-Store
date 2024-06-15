@@ -28,21 +28,21 @@
                                aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item"><a class="nav-link" href="/category">Shop Category</a></li>
-<%--                                <li class="nav-item"><a class="nav-link" href="/single-product">Product Details</a></li>--%>
-<%--                                <li class="nav-item"><a class="nav-link" href="/checkout">Product Checkout</a></li>--%>
+                                <%--                                <li class="nav-item"><a class="nav-link" href="/single-product">Product Details</a></li>--%>
+                                <%--                                <li class="nav-item"><a class="nav-link" href="/checkout">Product Checkout</a></li>--%>
                                 <li class="nav-item"><a class="nav-link" href="/your-order">Your order</a></li>
-<%--                                <li class="nav-item"><a class="nav-link" href="/cart">Shopping Cart</a></li>--%>
+                                <%--                                <li class="nav-item"><a class="nav-link" href="/cart">Shopping Cart</a></li>--%>
                             </ul>
                         </li>
-<%--                        <li class="nav-item submenu dropdown">--%>
-<%--                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"--%>
-<%--                               aria-haspopup="true"--%>
-<%--                               aria-expanded="false">Blog</a>--%>
-<%--                            <ul class="dropdown-menu">--%>
-<%--                                <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>--%>
-<%--                                <li class="nav-item"><a class="nav-link" href="/single-blog">Blog Details</a></li>--%>
-<%--                            </ul>--%>
-<%--                        </li>--%>
+                        <%--                        <li class="nav-item submenu dropdown">--%>
+                        <%--                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"--%>
+                        <%--                               aria-haspopup="true"--%>
+                        <%--                               aria-expanded="false">Blog</a>--%>
+                        <%--                            <ul class="dropdown-menu">--%>
+                        <%--                                <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>--%>
+                        <%--                                <li class="nav-item"><a class="nav-link" href="/single-blog">Blog Details</a></li>--%>
+                        <%--                            </ul>--%>
+                        <%--                        </li>--%>
                         <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true"
@@ -50,38 +50,15 @@
                             <ul class="dropdown-menu">
                                 <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-<%--                                <li class="nav-item"><a class="nav-link" href="tracking-order">Tracking</a></li>--%>
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="/tracking-order">Tracking</a></li>
                     </ul>
 
-                    <ul class="nav-shop">
+                    <ul class="nav-shop d-flex" style="justify-content: center; align-items: center">
                         <li class="nav-item">
                             <!-- Button trigger modal -->
-                            <button type="button" class="" data-toggle="modal" data-target="#searchModal">
-                                <i class="ti-search"></i>
-                            </button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body pt-0">
-                                            <form action="#" method="post">
-                                                <label for="search"></label>
-                                                <input type="text" id="search"
-                                                       class="w-100 border-secondary p-2 rounded"
-                                                       placeholder="Search anything here ..."
-                                                       style="border: 1px solid;">
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer p-1">
-                                            <button type="button" class="text-secondary mx-1 p-1">Search</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <i class="ti-search"></i>
                         </li>
                         <li class="nav-item">
                             <button onclick="window.location.href='/cart'"><i class="ti-shopping-cart"></i><span
@@ -93,8 +70,13 @@
                                 </c:choose>
                             </span></button>
                         </li>
-                        <li class="nav-item">
-                            <span class="button button-header" id="account">
+                        <li class="nav-item submenu dropdown"
+                            id="account-show">
+                            <button style="gap: 4px;"
+                                    class="nav-link dropdown-toggle d-flex align-items-center justify-content-center"
+                                    data-toggle="dropdown" role="button"
+                                    aria-haspopup="true"
+                                    aria-expanded="false" id="account">
                                 <c:choose>
                                     <c:when test="${not empty sessionScope.customer}">
                                         <p style="text-transform: uppercase; margin: 0;">${sessionScope.customer.name}</p>
@@ -103,7 +85,12 @@
                                         <p></p>
                                     </c:otherwise>
                                 </c:choose>
-                            </span>
+                            </button>
+                            <ul class="dropdown-menu m-0 p-0">
+                                <li class="nav-item m-0 d-flex justify-content-center">
+                                    <a class="nav-link px-0 text-dark"
+                                       href="/logout">Logout</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -115,10 +102,11 @@
 <script>
     window.addEventListener("DOMContentLoaded", () => {
         const account = document.getElementById("account");
+        const accountShow = document.getElementById("account-show");
         if (account.textContent.trim() === '') {
-            account.style.display = 'none';
+            accountShow.style.display = 'none';
         } else {
-            account.style.display = 'block';
+            accountShow.style.display = 'block';
         }
     })
 </script>
