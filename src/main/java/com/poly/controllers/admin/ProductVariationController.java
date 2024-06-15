@@ -30,7 +30,8 @@ public class ProductVariationController {
     SizeRepository sizeRepository;
 
     @GetMapping("")
-    public String index(Model model, @ModelAttribute("productItem") ProductItem productItem,
+    public String index(Model model,
+                        @ModelAttribute("productItem") ProductItem productItem,
                         @RequestParam("product_id") Long productId) {
         model.addAttribute("disabledUpdate", "disabled");
         Product product = productRepository.findById(productId).orElse(null);
@@ -42,19 +43,26 @@ public class ProductVariationController {
     @PostMapping("/create")
     public String createProduct(@Validated @ModelAttribute("productItem") ProductItem productItem,
                                 BindingResult result,
+                                @RequestParam("product_id") Long productId,
                                 Model model) {
         model.addAttribute("disabledUpdate", "disabled");
+        Product product = productRepository.findById(productId).orElse(null);
+        model.addAttribute("product", product);
         if (!result.hasErrors()) {
             productItemRepository.save(productItem);
-            return "redirect:/admin/product-variation-management";
+            return "redirect:/admin/product-variation-management?product_id=" + productId;
         }
         model.addAttribute("page", "productVariationManagement.jsp");
         return "admin/index";
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model) {
+    public String edit(@PathVariable Long id,
+                       Model model,
+                       @RequestParam("product_id") Long productId) {
         model.addAttribute("disabledSave", "disabled");
+        Product product = productRepository.findById(productId).orElse(null);
+        model.addAttribute("product", product);
         ProductItem productItem = productItemRepository.findById(id).orElse(null);
         model.addAttribute("productItem", productItem);
         model.addAttribute("page", "productVariationManagement.jsp");
@@ -65,20 +73,25 @@ public class ProductVariationController {
     @PostMapping("/update")
     public String update(@Validated @ModelAttribute("productItem") ProductItem productItem,
                          BindingResult result,
-                         Model model) {
+                         Model model,
+                         @RequestParam("product_id") Long productId) {
         model.addAttribute("disabledSave", "disabled");
         if (!result.hasErrors()) {
             productItemRepository.save(productItem);
-            return "redirect:/admin/product-variation-management";
+            return "redirect:/admin/product-variation-management?product_id=" + productId;
         }
         model.addAttribute("page", "productVariationManagement.jsp");
         return "admin/index";
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id,
+                         Model model,
+                         @RequestParam("product_id") Long productId) {
+        Product product = productRepository.findById(productId).orElse(null);
+        model.addAttribute("product", product);
         productItemRepository.deleteById(id);
-        return "redirect:/admin/product-variation-management";
+        return "redirect:/admin/product-variation-management?product_id=" + productId;
     }
 
     @GetMapping({"/sort", "/page"})

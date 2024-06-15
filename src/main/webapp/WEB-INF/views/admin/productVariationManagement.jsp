@@ -88,13 +88,14 @@
                                 </div>
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary mr-2" ${disabledSave}
-                                            formaction="/admin/product-variation-management/create">Save
+                                            formaction="/admin/product-variation-management/create?product_id=${product.productId}">
+                                        Save
                                     </button>
                                     <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
-                                            formaction="/admin/product-variation-management/update">Update
+                                            formaction="/admin/product-variation-management/update?product_id=${product.productId}">Update
                                     </button>
                                     <button type="button" class="btn btn-light"
-                                            onclick="window.location.href='/admin/product-variation-management'">Cancel
+                                            onclick="window.location.href='/admin/product-variation-management?product_id=${product.productId}'">Cancel
                                     </button>
                                 </div>
                             </form:form>
@@ -149,13 +150,13 @@
                                                     ${productItem.size.sizeName}
                                             </td>
                                             <td>
-                                                <a href="/admin/product-variation-management/edit/${productItem.productItemId}">
+                                                <a href="/admin/product-variation-management/edit/${productItem.productItemId}?product_id=${product.productId}">
                                                     <i class="mdi mdi-table-edit"
                                                        style="font-size: 1.5rem; color: darkgreen"></i>
                                                 </a>
                                             </td>
                                             <td>
-                                                <a onclick="confirmDelete(${productItem.productItemId})">
+                                                <a onclick="confirmDelete(${productItem.productItemId}, ${product.productId})">
                                                     <i class="mdi mdi-delete"
                                                        style="font-size: 1.5rem; color: red"></i>
                                                 </a>
@@ -164,15 +165,15 @@
                                     </c:forEach>
                                     </tbody>
                                 </table>
-                                <div class="d-flex justify-content-center mt-4">
-                                    <c:forEach var="i" begin="1" end="${productItems.totalPages}" step="1">
-                                        <a href="/admin/product-variation-management/page?page=${i-1}"
-                                           class="bg-primary text-white rounded-lg mx-1 d-flex align-items-center justify-content-center"
-                                           style="text-decoration: none; width: 32px; height: 28px">
-                                                ${i}
-                                        </a>
-                                    </c:forEach>
-                                </div>
+                                <%--                                <div class="d-flex justify-content-center mt-4">--%>
+                                <%--                                    <c:forEach var="i" begin="1" end="${productItems.totalPages}" step="1">--%>
+                                <%--                                        <a href="/admin/product-variation-management/page?page=${i-1}"--%>
+                                <%--                                           class="bg-primary text-white rounded-lg mx-1 d-flex align-items-center justify-content-center"--%>
+                                <%--                                           style="text-decoration: none; width: 32px; height: 28px">--%>
+                                <%--                                                ${i}--%>
+                                <%--                                        </a>--%>
+                                <%--                                    </c:forEach>--%>
+                                <%--                                </div>--%>
                             </div>
                         </div>
                     </div>
@@ -190,7 +191,7 @@
 <%----%>
 <script>
     // confirm delete
-    const confirmDelete = (id) => {
+    const confirmDelete = (productItemId, productId) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -206,7 +207,7 @@
                     text: "Your file has been deleted.",
                     icon: "success"
                 }).then(() => {
-                    window.location.href = `/admin/product-variation-management/delete/` + id;
+                    window.location.href = `/admin/product-variation-management/delete/` + productItemId + "?product_id=" + productId;
                 });
             }
         });
