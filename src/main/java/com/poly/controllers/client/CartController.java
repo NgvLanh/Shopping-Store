@@ -1,8 +1,11 @@
 package com.poly.controllers.client;
 
+import com.poly.entities.Cart;
 import com.poly.entities.CartItem;
+import com.poly.entities.Customer;
 import com.poly.entities.Discount;
 import com.poly.repositories.CartItemRepository;
+import com.poly.repositories.CartRepository;
 import com.poly.repositories.DiscountRepository;
 import com.poly.services.ParamService;
 import com.poly.services.SessionService;
@@ -12,12 +15,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/cart")
 public class CartController {
     @Autowired
     CartItemRepository cartItemRepository;
+    @Autowired
+    CartRepository cartRepository;
     @Autowired
     ParamService paramService;
     @Autowired
@@ -54,7 +60,7 @@ public class CartController {
     public String addCode(Model model,
                           @RequestParam("code") String code) {
         List<Discount> discounts = discountRepository.findAll();
-        for (Discount discount: discounts) {
+        for (Discount discount : discounts) {
             if (code.trim().equals(discount.getCode())) {
                 model.addAttribute("msgCode", "Your order gets " + discount.getPercentNumber() + "% discount. ");
                 model.addAttribute("percent", discount.getPercentNumber());
@@ -70,6 +76,13 @@ public class CartController {
 
     @ModelAttribute("cartItems")
     public List<CartItem> getCartItems() {
-        return cartItemRepository.findAll();
+        Customer customer = sessionService.get("customer");
+        if (customer != null) {
+            Cart cart = cartRepository.findCartByCustomerCustomerId(customer.getCustomerId());
+            if (cart != null) {
+                return cartItemRepository.findCartItemByCartCartId(cart.getCartId());
+            }
+        }
+        return null;
     }
 }
