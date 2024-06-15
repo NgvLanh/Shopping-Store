@@ -1,5 +1,6 @@
 package com.poly.controllers.admin;
 
+import com.poly.entities.Customer;
 import com.poly.entities.Order;
 import com.poly.repositories.OrderRepository;
 import com.poly.services.SessionService;
@@ -12,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,36 +33,30 @@ public class OrderController {
         return "admin/index";
     }
 
-    @PostMapping("/update")
-    public String update(@Validated @ModelAttribute("order") Order order,
-                         BindingResult result,
-                         Model model) {
-        if (!result.hasErrors()) {
-            orderRepository.save(order);
-        }
+
+
+    @GetMapping("/update/{orderId}")
+    public String update(Model model, @PathVariable Long orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        order.setStatus("confirm");
+        orderRepository.save(order);
         model.addAttribute("page", "orderManagement.jsp");
-        return "admin/index";
+        return "redirect:/admin/order-management";
     }
 
-    @GetMapping("/edit/{id}")
-    public String edit(Model model,
-                       @PathVariable Long id) {
-        model.addAttribute("disabledSave", "");
-        model.addAttribute("order", orderRepository.findById(id).orElse(null));
-        model.addAttribute("page", "orderManagement.jsp");
-        return "admin/index";
-    }
 
     @ModelAttribute("orders")
     public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+        List<Order> list = orderRepository.findByStatus();
+        Collections.reverse(list);
+        return list;
     }
 
-
-    @ModelAttribute("status")
-    public List<String> getAllStatus() {
-        return Arrays.asList(
-                "Confirmed", "Cancellation"
-        );
+    @ModelAttribute("orders1")
+    public List<Order> getAllOrders1() {
+        List<Order> list = orderRepository.findByStatus1();
+        Collections.reverse(list);
+        return list;
     }
+
 }

@@ -16,4 +16,13 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Double findTotalSumOrder();
 
     List<Order> findOrderByCustomerCustomerId(Long customerId);
+
+    @Query("select o from Orders o where o.status like 'wait to confirmation' ")
+    List<Order> findByStatus();
+
+    @Query("select o from Orders o where o.status like 'confirm' ")
+    List<Order> findByStatus1();
+
+    @Query("select o from Orders o where o.status like 'Shipping orders' ")
+    List<Order> findByStatus2();
 }

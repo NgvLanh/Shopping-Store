@@ -29,59 +29,6 @@ To change this template use File | Settings | File Templates.
                             <h4 class="card-title">Order form</h4>
                             <p class="card-description">Update order</p>
                             <%--@elvariable id="order" type="com.poly.entities.Order"--%>
-                            <%--                            <form:form class="forms-sample" method="post" action="/admin/order-management"--%>
-                            <%--                                       modelAttribute="order">--%>
-                            <%--                                <form:hidden path="customer.customerId"/>--%>
-                            <%--                                <form:hidden path="payment.paymentId"/>--%>
-                            <%--                                <form:hidden path="shippingDate"/>--%>
-                            <%--                                <form:hidden path="date"/>--%>
-                            <%--                                <div class="form-group">--%>
-                            <%--                                    <label for="orderId">Order Id</label>--%>
-                            <%--                                    <form:input type="text" class="form-control" id="orderId"--%>
-                            <%--                                                readonly="true"--%>
-                            <%--                                                path="orderId" placeholder="Order id"/>--%>
-                            <%--                                </div>--%>
-                            <%--                                <div class="form-group">--%>
-                            <%--                                    <label for="customer-name">Customer name</label>--%>
-                            <%--                                    <form:input type="text" class="form-control" id="customer-name"--%>
-                            <%--                                                readonly="true"--%>
-                            <%--                                                path="customer.name" placeholder="Customer name"/>--%>
-                            <%--                                </div>--%>
-                            <%--                                <div class="form-group">--%>
-                            <%--                                    <label for="date">Date</label>--%>
-                            <%--                                    <form:input type="datetime-local" class="form-control" id="date"--%>
-                            <%--                                                path="date" placeholder="date"/>--%>
-                            <%--                                </div>--%>
-                            <%--                                <div class="form-group">--%>
-                            <%--                                    <label for="shipping-date">Shipping date</label>--%>
-                            <%--                                    <form:input type="datetime-local" class="form-control" id="shipping-date"--%>
-                            <%--                                                path="shippingDate" placeholder="Shippping date"/>--%>
-                            <%--                                </div>--%>
-                            <%--                                <div class="form-group">--%>
-                            <%--                                    <label>Status</label>--%>
-                            <%--                                    <form:select path="status" class="form-control">--%>
-                            <%--                                        <form:option value="">Awaiting Confirmation</form:option>--%>
-                            <%--                                        <form:options items="${status}"/>--%>
-                            <%--                                    </form:select>--%>
-                            <%--                                    <form:errors path="status" cssClass="text-danger"--%>
-                            <%--                                                 cssStyle="font-size: 14px; margin: 4px"/>--%>
-                            <%--                                </div>--%>
-                            <%--                                <div class="form-group">--%>
-                            <%--                                    <label for="total">Total</label>--%>
-                            <%--                                    <form:input type="number" class="form-control" readonly="true" id="total"--%>
-                            <%--                                                path="total" placeholder="total"/>--%>
-                            <%--                                </div>--%>
-
-                            <%--                                <button type="submit" class="btn btn-primary mr-2"--%>
-                            <%--                                        formaction="/admin/order-management/update" ${disabledSave}>Save--%>
-                            <%--                                </button>--%>
-                            <%--                                <button type="button" class="btn btn-light"--%>
-                            <%--                                        onclick="window.location.href='/admin/order-management'">Cancel--%>
-                            <%--                                </button>--%>
-                            <%--                            </form:form>--%>
-                            <%--                        </div>--%>
-                            <%--                    </div>--%>
-                            <%--                </div>--%>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home"
@@ -133,8 +80,7 @@ To change this template use File | Settings | File Templates.
                                                             <th>Date Shipping (Expected to)</th>
                                                             <th>Status</th>
                                                             <th>Total</th>
-                                                            <th>Update</th>
-                                                            <th>View</th>
+                                                            <th></th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -150,17 +96,12 @@ To change this template use File | Settings | File Templates.
                                                                 </td>
                                                                 <td class="status">${order.status}</td>
                                                                 <td>${order.total}</td>
-                                                                <td>
-                                                                    <a class="edit"
-                                                                       href="/admin/order-management/edit/${order.orderId}">
-                                                                        <i class="mdi mdi-table-edit"
-                                                                           style="font-size: 1.5rem; color: darkgreen"></i>
-                                                                    </a>
+
+                                                                <td onclick="
+                                                                        window.location.href = '/admin/order-management/update/' + ${order.orderId};">
+                                                                    <i style="font-size: 15px; color: darkgreen; cursor: pointer">Confirm</i>
                                                                 </td>
-                                                                <td><i class="mdi mdi-eye-outline" type="button"
-                                                                       data-toggle="modal" data-target="#exampleModal"
-                                                                       style="font-size: 1.5rem; color: sandybrown; cursor: pointer"></i>
-                                                                </td>
+
                                                             </tr>
                                                         </c:forEach>
                                                         </tbody>
@@ -171,7 +112,50 @@ To change this template use File | Settings | File Templates.
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                    ...
+                                    <div class="col-lg-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title">Order Table</h4>
+                                                <p class="card-description">All of orders
+                                                </p>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Order Id</th>
+                                                            <th>Customer Name</th>
+                                                            <th>Order Date</th>
+                                                            <th>Date Shipping (Expected to)</th>
+                                                            <th>Status</th>
+                                                            <th>Total</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <c:forEach var="order" items="${orders1}">
+                                                            <tr>
+                                                                <td>${order.orderId}</td>
+                                                                <td>${order.customer.name}</td>
+                                                                <td>
+                                                                    <fmt:formatDate value="${order.date}"/>
+                                                                </td>
+                                                                <td>
+                                                                    <fmt:formatDate value="${order.shippingDate}"/>
+                                                                </td>
+                                                                <td class="status">${order.status}</td>
+                                                                <td>${order.total}</td>
+                                                                <td onclick="
+                                                                        window.location.href = '/admin/order-management/update1/' + ${order.orderId};">
+                                                                    <i style="font-size: 15px; color: darkgreen; cursor: pointer">Shipping orders</i>
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                     ...
