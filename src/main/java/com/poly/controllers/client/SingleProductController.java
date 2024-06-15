@@ -82,14 +82,13 @@ public class SingleProductController {
         if (quantity > productItemAddToCart.getQuantity()) {
             model.addAttribute("outOfStock", "The quantity only has " + productItemAddToCart.getQuantity() + " in stock.");
         } else {
-            Cart cart = sessionService.get("cart");
+            Customer customer = sessionService.get("customer");
+            Cart cart = cartRepository.findCartByCustomerCustomerId(customer.getCustomerId());
             if (cart == null) {
                 cart = new Cart();
-                Customer customer = sessionService.get("customer");
-                cart.setCustomer(customer);
-                sessionService.set("cart", cart);
-                cartRepository.save(cart);
             }
+            cart.setCustomer(customer);
+            cartRepository.save(cart);
 
             // Kiểm tra nếu mục hàng đã tồn tại trong giỏ hàng
             CartItem existingCartItem = cartItemRepository.findByCartAndProductItem(cart, productItemAddToCart);
