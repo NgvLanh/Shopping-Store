@@ -146,7 +146,8 @@ To change this template use File | Settings | File Templates.
                                                                 <td>${order.total}</td>
                                                                 <td onclick="
                                                                         window.location.href = '/admin/order-management/update1/' + ${order.orderId};">
-                                                                    <i style="font-size: 15px; color: darkgreen; cursor: pointer">Shipping orders</i>
+                                                                    <i style="font-size: 15px; color: darkgreen; cursor: pointer">Shipping
+                                                                        orders</i>
                                                                 </td>
                                                             </tr>
                                                         </c:forEach>
@@ -158,13 +159,141 @@ To change this template use File | Settings | File Templates.
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                    ...
+                                    <div class="col-lg-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title">Order Table</h4>
+                                                <p class="card-description">All of orders
+                                                </p>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Order Id</th>
+                                                            <th>Customer Name</th>
+                                                            <th>Order Date</th>
+                                                            <th>Date Shipping (Expected to)</th>
+                                                            <th>Status</th>
+                                                            <th>Total</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <c:forEach var="order" items="${orders2}">
+                                                            <tr>
+                                                                <td>${order.orderId}</td>
+                                                                <td>${order.customer.name}</td>
+                                                                <td>
+                                                                    <fmt:formatDate value="${order.date}"/>
+                                                                </td>
+                                                                <td>
+                                                                    <fmt:formatDate value="${order.shippingDate}"/>
+                                                                </td>
+                                                                <td class="status">${order.status}</td>
+                                                                <td>${order.total}</td>
+                                                                <td onclick="
+                                                                        window.location.href = '/admin/order-management/update2/' + ${order.orderId};">
+                                                                    <i style="font-size: 15px; color: darkgreen; cursor: pointer">Delivered</i>
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="contact1" role="tabpanel" aria-labelledby="contact1-tab">
-                                    ...
+                                    <div class="col-lg-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title">Order Table</h4>
+                                                <p class="card-description">All of orders
+                                                </p>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Order Id</th>
+                                                            <th>Customer Name</th>
+                                                            <th>Order Date</th>
+                                                            <th>Date Shipping (Expected to)</th>
+                                                            <th>Status</th>
+                                                            <th>Total</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <c:forEach var="order" items="${orders3}">
+                                                            <tr>
+                                                                <td>${order.orderId}</td>
+                                                                <td>${order.customer.name}</td>
+                                                                <td>
+                                                                    <fmt:formatDate value="${order.date}"/>
+                                                                </td>
+                                                                <td>
+                                                                    <fmt:formatDate value="${order.shippingDate}"/>
+                                                                </td>
+                                                                <td class="status">${order.status}</td>
+                                                                <td>${order.total}</td>
+                                                                <td>Finish
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="contact2-tab">
-                                    ...
+                                    <div class="col-lg-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title">Order Table</h4>
+                                                <p class="card-description">All of orders
+                                                </p>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Order Id</th>
+                                                            <th>Customer Name</th>
+                                                            <th>Order Date</th>
+                                                            <th>Date Shipping (Expected to)</th>
+                                                            <th>Status</th>
+                                                            <th>Total</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <c:forEach var="order" items="${orders4}">
+                                                            <tr>
+                                                                <td>${order.orderId}</td>
+                                                                <td>${order.customer.name}</td>
+                                                                <td>
+                                                                    <fmt:formatDate value="${order.date}"/>
+                                                                </td>
+                                                                <td>
+                                                                    <fmt:formatDate value="${order.shippingDate}"/>
+                                                                </td>
+                                                                <td class="status">${order.status}</td>
+                                                                <td>${order.total}</td>
+                                                                <td onclick="
+                                                                        window.location.href = '/admin/order-management/update4/' + ${order.orderId};">
+                                                                    <i style="font-size: 15px; color: darkgreen; cursor: pointer">Shipping
+                                                                        orders</i>
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
