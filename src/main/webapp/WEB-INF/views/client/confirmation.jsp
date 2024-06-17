@@ -139,7 +139,7 @@
         const orderStatus = statusElements[index].textContent.trim().toLowerCase();
         receivedButton.disabled = (orderStatus !== 'shipping orders');
     });
-
+    //
     const confirmReceived = (id) => {
         Swal.fire({
             title: "Are you sure?",
