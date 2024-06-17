@@ -2,7 +2,9 @@ package com.poly.controllers.admin;
 
 import com.poly.entities.Customer;
 import com.poly.entities.Order;
+import com.poly.entities.Payment;
 import com.poly.repositories.OrderRepository;
+import com.poly.repositories.PaymentRepository;
 import com.poly.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,8 @@ public class OrderController {
     SessionService session;
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    PaymentRepository paymentRepository;
 
     @GetMapping("")
     public String ShowOrderManagement(@ModelAttribute("order") Order order,
@@ -95,5 +99,19 @@ public class OrderController {
         List<Order> list = orderRepository.findByStatus4();
         Collections.reverse(list);
         return list;
+    }
+
+    @GetMapping("/update-status")
+    public String updateStatus(@RequestParam("status") String status,
+                               @RequestParam("order_id") Long orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        order.setStatus(status);
+        if (status.equals("delivered")) {
+            Payment payment = order.getPayment();
+            payment.setStatus("completed");
+            paymentRepository.save(payment);
+        }
+        orderRepository.save(order);
+        return "redirect:/admin/order-management";
     }
 }

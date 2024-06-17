@@ -77,9 +77,10 @@ To change this template use File | Settings | File Templates.
                                                             <th>Order Id</th>
                                                             <th>Customer Name</th>
                                                             <th>Order Date</th>
-                                                            <th>Date Shipping (Expected to)</th>
+                                                            <%--                                                            <th>Date Shipping (Expected to)</th>--%>
                                                             <th>Status</th>
                                                             <th>Total</th>
+                                                            <th></th>
                                                             <th></th>
                                                         </tr>
                                                         </thead>
@@ -91,17 +92,22 @@ To change this template use File | Settings | File Templates.
                                                                 <td>
                                                                     <fmt:formatDate value="${order.date}"/>
                                                                 </td>
-                                                                <td>
-                                                                    <fmt:formatDate value="${order.shippingDate}"/>
-                                                                </td>
+                                                                    <%--                                                                <td>--%>
+                                                                    <%--                                                                    <fmt:formatDate value="${order.shippingDate}"/>--%>
+                                                                    <%--                                                                </td>--%>
                                                                 <td class="status">${order.status}</td>
                                                                 <td>${order.total}</td>
 
-                                                                <td onclick="
+                                                                <td class="confirmation-card" onclick="
                                                                         window.location.href = '/admin/order-management/update/' + ${order.orderId};">
                                                                     <i style="font-size: 15px; color: darkgreen; cursor: pointer">Confirm</i>
                                                                 </td>
-
+                                                                <td>
+                                                                    <button class="cancel btn btn-outline-dark"
+                                                                            onclick="confirmCancel(${order.orderId})">
+                                                                        Cancel
+                                                                    </button>
+                                                                </td>
                                                             </tr>
                                                         </c:forEach>
                                                         </tbody>
@@ -125,7 +131,7 @@ To change this template use File | Settings | File Templates.
                                                             <th>Order Id</th>
                                                             <th>Customer Name</th>
                                                             <th>Order Date</th>
-                                                            <th>Date Shipping (Expected to)</th>
+                                                            <%--                                                            <th>Date Shipping (Expected to)</th>--%>
                                                             <th>Status</th>
                                                             <th>Total</th>
                                                             <th></th>
@@ -139,9 +145,9 @@ To change this template use File | Settings | File Templates.
                                                                 <td>
                                                                     <fmt:formatDate value="${order.date}"/>
                                                                 </td>
-                                                                <td>
-                                                                    <fmt:formatDate value="${order.shippingDate}"/>
-                                                                </td>
+                                                                    <%--                                                                <td>--%>
+                                                                    <%--                                                                    <fmt:formatDate value="${order.shippingDate}"/>--%>
+                                                                    <%--                                                                </td>--%>
                                                                 <td class="status">${order.status}</td>
                                                                 <td>${order.total}</td>
                                                                 <td onclick="
@@ -172,7 +178,7 @@ To change this template use File | Settings | File Templates.
                                                             <th>Order Id</th>
                                                             <th>Customer Name</th>
                                                             <th>Order Date</th>
-                                                            <th>Date Shipping (Expected to)</th>
+                                                            <%--                                                            <th>Date Shipping (Expected to)</th>--%>
                                                             <th>Status</th>
                                                             <th>Total</th>
                                                             <th></th>
@@ -186,9 +192,9 @@ To change this template use File | Settings | File Templates.
                                                                 <td>
                                                                     <fmt:formatDate value="${order.date}"/>
                                                                 </td>
-                                                                <td>
-                                                                    <fmt:formatDate value="${order.shippingDate}"/>
-                                                                </td>
+                                                                    <%--                                                                <td>--%>
+                                                                    <%--                                                                    <fmt:formatDate value="${order.shippingDate}"/>--%>
+                                                                    <%--                                                                </td>--%>
                                                                 <td class="status">${order.status}</td>
                                                                 <td>${order.total}</td>
                                                                 <td onclick="
@@ -218,7 +224,7 @@ To change this template use File | Settings | File Templates.
                                                             <th>Order Id</th>
                                                             <th>Customer Name</th>
                                                             <th>Order Date</th>
-                                                            <th>Date Shipping (Expected to)</th>
+                                                            <%--                                                            <th>Date Shipping (Expected to)</th>--%>
                                                             <th>Status</th>
                                                             <th>Total</th>
                                                             <th></th>
@@ -232,9 +238,9 @@ To change this template use File | Settings | File Templates.
                                                                 <td>
                                                                     <fmt:formatDate value="${order.date}"/>
                                                                 </td>
-                                                                <td>
-                                                                    <fmt:formatDate value="${order.shippingDate}"/>
-                                                                </td>
+                                                                    <%--                                                                <td>--%>
+                                                                    <%--                                                                    <fmt:formatDate value="${order.shippingDate}"/>--%>
+                                                                    <%--                                                                </td>--%>
                                                                 <td class="status">${order.status}</td>
                                                                 <td>${order.total}</td>
                                                                 <td>Done
@@ -262,7 +268,6 @@ To change this template use File | Settings | File Templates.
                                                             <th>Order Id</th>
                                                             <th>Customer Name</th>
                                                             <th>Order Date</th>
-                                                            <th>Date Shipping (Expected to)</th>
                                                             <th>Status</th>
                                                             <th>Total</th>
                                                             <th></th>
@@ -276,9 +281,9 @@ To change this template use File | Settings | File Templates.
                                                                 <td>
                                                                     <fmt:formatDate value="${order.date}"/>
                                                                 </td>
-                                                                <td>
-                                                                    <fmt:formatDate value="${order.shippingDate}"/>
-                                                                </td>
+                                                                    <%--                                                                <td>--%>
+                                                                    <%--                                                                    <fmt:formatDate value="${order.shippingDate}"/>--%>
+                                                                    <%--                                                                </td>--%>
                                                                 <td class="status">${order.status}</td>
                                                                 <td>${order.total}</td>
                                                                 <td> Cancel
@@ -322,6 +327,8 @@ To change this template use File | Settings | File Templates.
                 </div>
             </div>
             <script>
+                const cancelButtons = document.querySelectorAll('.cancel');
+                const statusElements = document.querySelectorAll('.status');
 
                 window.addEventListener("DOMContentLoaded", () => {
                     const status = document.getElementsByClassName("status");
@@ -331,5 +338,31 @@ To change this template use File | Settings | File Templates.
                             edits[i].style.display = 'none';
                         }
                     }
-                })
+                });
+                cancelButtons.forEach((cancelButton, index) => {
+                    const orderStatus = statusElements[index].textContent.trim().toLowerCase();
+                    cancelButton.disabled = (orderStatus !== 'wait to confirmation');
+                });
+
+                const confirmCancel = (id) => {
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, Cancel it!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: "Cancel!",
+                                text: "Your order has been Canceled.",
+                                icon: "success"
+                            }).then(() => {
+                                window.location.href = `/admin/order-management/update-status?status=cancel&order_id=` + id;
+                            });
+                        }
+                    });
+                }
             </script>
