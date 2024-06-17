@@ -68,9 +68,16 @@ public class SupplierController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id, Model model) {
-        supplierRepository.deleteById(id);
-        return "redirect:/admin/supplier-management";
+    public String delete(@PathVariable Long id,
+                         Model model,
+                         @ModelAttribute("supplier") Supplier supplier) {
+        try {
+            supplierRepository.deleteById(id);
+        } catch (Exception e) {
+            model.addAttribute("msgDeleteProduct", true);
+        }
+        model.addAttribute("page", "supplierManagement.jsp");
+        return "admin/index";
     }
 
 

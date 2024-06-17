@@ -65,7 +65,9 @@
                                     <form:errors path="city" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
-                                <button type="submit" class="btn btn-primary mr-2" ${disabledSave} formaction="/admin/supplier-management/create"> Save</button>
+                                <button type="submit" class="btn btn-primary mr-2" ${disabledSave}
+                                        formaction="/admin/supplier-management/create"> Save
+                                </button>
                                 <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
                                         formaction="/admin/supplier-management/update/${supplier.supplierId}">Update
                                 </button>
@@ -107,11 +109,15 @@
                                             <td>${supplier.address}</td>
                                             <td>${supplier.city}</td>
                                             <td>
-                                                <a href="/admin/supplier-management/edit/${supplier.supplierId}"
-                                                   class="btn btn-warning btn-sm">Edit</a>
-                                            </td><td>
-                                                <a href="/admin/supplier-management/delete/${supplier.supplierId}"
-                                                   class="btn btn-danger btn-sm">Delete</a>
+                                                <a href="/admin/supplier-management/edit/${supplier.supplierId}">
+                                                    <i class="mdi mdi-table-edit"
+                                                       style="font-size: 1.5rem; color: darkgreen"></i></a>
+                                            </td>
+                                            <td>
+                                                <a onclick="confirmDelete(${supplier.supplierId})">
+                                                    <i class="mdi mdi-delete"
+                                                       style="font-size: 1.5rem; color: red; cursor: pointer"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -130,3 +136,39 @@
         </footer>
     </div>
 </div>
+<script>
+    <c:if test="${msgDeleteProduct}">
+    Swal.fire({
+        title: "Something went wrong?",
+        text: "Product data still exists so cannot be deleted!",
+        icon: "error",
+        confirmButtonText: "Ok"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `/admin/supplier-management`;
+        }
+    });
+    </c:if>
+    // confirm delete
+    const confirmDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = `/admin/supplier-management/delete/` + id;
+                });
+            }
+        });
+    }
+</script>
