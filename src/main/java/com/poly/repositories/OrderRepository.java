@@ -29,6 +29,15 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select o from Orders o where o.status like 'Shipping orders' ")
     List<Order> findByStatus2();
 
+    @Query("select o from Orders o where o.status like 'delivered'  ")
+    List<Order> findByStatus3();
+
+    @Query("select o from Orders o where o.status like 'cancel'  ")
+    List<Order> findByStatus4();
+
+    @Query("update Orders o set o.status = 'cancel' where o.orderId = ?1")
+    void cancelOrderById(Long orderId);
+
     //truy vấn tổng số đơn đặt hàng ngày hiện tại đã thanh toán
     @Query("SELECT COUNT(o) FROM Orders o join payments p on p.paymentId = o.orderId WHERE p.status like 'completed' AND o.date = :currentDate")
     Long findTotalOrdersForDateA(@Param("currentDate") LocalDate currentDate);

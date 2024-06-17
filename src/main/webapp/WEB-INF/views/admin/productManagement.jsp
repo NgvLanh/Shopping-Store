@@ -217,7 +217,6 @@
     </div>
 </div>
 <%----%>
-<%----%>
 <script>
     //
     <c:if test="${msgDeleteProduct}">
