@@ -219,6 +219,7 @@
 <%----%>
 <%----%>
 <script>
+    //
     <c:if test="${msgDeleteProduct}">
         Swal.fire({
             title: "Something went wrong?",
