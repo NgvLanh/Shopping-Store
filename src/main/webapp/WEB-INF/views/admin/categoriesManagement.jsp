@@ -18,24 +18,32 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title card-description"></h4>
+                            <%--@elvariable id="category" type="com.poly.entities.Category"--%>
                             <form:form class="forms-sample" method="post" action="/admin/categories-management/create"
                                        modelAttribute="category" enctype="multipart/form-data">
-
+                                <form:hidden path="categoryId"></form:hidden>
                                 <div class="form-group">
                                     <label for="categoryName">Category Name</label>
-                                    <form:input path="name" class="form-control" id="categoryName" placeholder="Category name"/>
-                                    <form:errors path="name" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:input path="name" class="form-control" id="categoryName"
+                                                placeholder="Category name"/>
+                                    <form:errors path="name" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
                                 <div class="form-group">
                                     <label for="categoryDescription">Description</label>
-                                    <form:input path="description" class="form-control" id="categoryDescription" placeholder="Description"/>
-                                    <form:errors path="description" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <form:input path="description" class="form-control" id="categoryDescription"
+                                                placeholder="Description"/>
+                                    <form:errors path="description" cssClass="text-danger"
+                                                 cssStyle="font-size: 14px; margin: 4px"/>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary mr-2"${disabledSave}>Save</button>
                                 <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
-                                        formaction="/admin/categories-management/update/${category.categoryId}">Update</button>
-                                <button type="button" class="btn btn-light" onclick="window.location.href='/admin/categories-management'">Cancel</button>
+                                        formaction="/admin/categories-management/update/${category.categoryId}">Update
+                                </button>
+                                <button type="button" class="btn btn-light"
+                                        onclick="window.location.href='/admin/categories-management'">Cancel
+                                </button>
                             </form:form>
                         </div>
                     </div>
@@ -50,7 +58,8 @@
                                     <tr>
                                         <th>Category Name</th>
                                         <th>Description</th>
-                                        <th>Actions</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -59,10 +68,15 @@
                                             <td>${category.name}</td>
                                             <td>${category.description}</td>
                                             <td>
-                                                <a href="/admin/categories-management/edit/${category.categoryId}"
-                                                   class="btn btn-warning btn-sm">Edit</a>
-                                                <a href="/admin/categories-management/delete/${category.categoryId}"
-                                                   class="btn btn-danger btn-sm">Delete</a>
+                                                <a href="/admin/categories-management/edit/${category.categoryId}">
+                                                    <i class="mdi mdi-table-edit"
+                                                       style="font-size: 1.5rem; color: darkgreen"></i></a>
+                                            </td>
+                                            <td>
+                                                <a onclick="confirmDelete(${category.categoryId})">
+                                                    <i class="mdi mdi-delete"
+                                                       style="font-size: 1.5rem; color: red; cursor: pointer"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -81,3 +95,39 @@
         </footer>
     </div>
 </div>
+<script>
+    <c:if test="${msgDeleteProduct}">
+    Swal.fire({
+        title: "Something went wrong?",
+        text: "Product data still exists so cannot be deleted!",
+        icon: "error",
+        confirmButtonText: "Ok"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `/admin/categories-management`;
+        }
+    });
+    </c:if>
+    // confirm delete
+    const confirmDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = `/admin/categories-management/delete/` + id;
+                });
+            }
+        });
+    }
+</script>
