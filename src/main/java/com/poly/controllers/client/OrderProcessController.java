@@ -47,6 +47,7 @@ public class OrderProcessController {
         Payment payment = new Payment();
         payment.setAmount(total);
         payment.setMethod(paymentMethod);
+        payment.setStatus("pending");
         paymentRepository.save(payment);
 //
         Order order = new Order();
