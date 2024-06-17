@@ -58,8 +58,9 @@
                                                 <fmt:formatDate value="${review.reviewDate}"/>
                                             </td>
                                             <td>
-                                                <a class="btn btn-danger" href="/admin/review-management/delete/${review.reviewId}">
-                                                    Delete
+                                                <a onclick="confirmDelete(${review.reviewId})">
+                                                    <i class="mdi mdi-delete"
+                                                       style="font-size: 1.5rem; color: red"></i>
                                                 </a>
                                             </td>
                                             <td>
@@ -84,3 +85,39 @@
         </footer>
     </div>
 </div>
+<script>
+    <c:if test="${msgDeleteProduct}">
+    Swal.fire({
+        title: "Something went wrong?",
+        text: "Review data still exists so cannot be deleted!",
+        icon: "error",
+        confirmButtonText: "Ok"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `/admin/review-management`;
+        }
+    });
+    </c:if>
+    // confirm delete
+    const confirmDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = `/admin/review-management/delete/` + id;
+                });
+            }
+        });
+    }
+</script>
