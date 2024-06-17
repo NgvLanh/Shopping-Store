@@ -60,6 +60,9 @@ public class OrderController {
     public String update2(Model model, @PathVariable Long orderId) {
         Order order = orderRepository.findById(orderId).orElse(null);
         order.setStatus("delivered");
+        Payment payment = order.getPayment();
+        payment.setStatus("completed");
+        paymentRepository.save(payment);
         orderRepository.save(order);
         model.addAttribute("page", "orderManagement.jsp");
         return "redirect:/admin/order-management";

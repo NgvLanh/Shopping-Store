@@ -1,6 +1,7 @@
 package com.poly.controllers.admin;
 
 import com.poly.entities.Category;
+import com.poly.entities.Supplier;
 import com.poly.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,8 +69,15 @@ public class CategoryController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        categoryRepository.deleteById(id);
-        return "redirect:/admin/categories-management";
+    public String delete(@PathVariable Long id,
+                         Model model,
+                         @ModelAttribute("category") Category category) {
+        try {
+            categoryRepository.deleteById(id);
+        } catch (Exception e) {
+            model.addAttribute("msgDeleteProduct", true);
+        }
+        model.addAttribute("page", "categoriesManagement.jsp");
+        return "admin/index";
     }
 }
