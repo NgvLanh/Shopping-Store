@@ -42,8 +42,7 @@ public class OrderProcessController {
                         @RequestParam("total") Double total,
                         @RequestParam("payment-method") String paymentMethod,
                         HttpServletRequest request,
-                        RedirectAttributes redirectAttributes,
-                        @RequestParam("selectedItems") List<Long> selectedItems) {
+                        RedirectAttributes redirectAttributes) {
         Payment payment = new Payment();
         payment.setAmount(total);
         payment.setMethod(paymentMethod);
@@ -66,7 +65,7 @@ public class OrderProcessController {
 
         Long orderId = order1.getOrderId();
 //
-        List<CartItem> cartItemList = cartItemRepository.findAllById(selectedItems);
+        List<CartItem> cartItemList = cartItemRepository.findAll();
         for (CartItem cartItem : cartItemList) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
@@ -90,7 +89,7 @@ public class OrderProcessController {
             redirectAttributes.addFlashAttribute(orderRepository.findAll().get(orderRepository.findAll().size() - 1).getOrderId());
             return "redirect:" + vnpayUrl;
         }
-        cartItemRepository.deleteAllById(selectedItems);
+        cartItemRepository.deleteAll();
         sessionService.remove("discount");
         sessionService.remove("itemNumber");
         redirectAttributes.addFlashAttribute(orderRepository.findAll().get(orderRepository.findAll().size() - 1).getOrderId());

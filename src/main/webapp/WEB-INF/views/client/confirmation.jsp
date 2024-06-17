@@ -52,7 +52,7 @@
                                 <p>${order.date}</p>
                             </td>
                             <td>
-                                <h5>${order.status}</h5>
+                                <h5 id="status">${order.status}</h5>
                             </td>
                             <td>
                                 <p>
@@ -61,12 +61,12 @@
                                 </p>
                             </td>
                             <td>
-                                <button class="btn btn-outline-dark" disabled>
+                                <button class="btn btn-outline-dark" id="cancel">
                                     Cancel
                                 </button>
                             </td>
                             <td>
-                                <button class="btn btn-outline-success" disabled>
+                                <button class="btn btn-outline-success" id="received">
                                     Yes
                                 </button>
                             </td>
@@ -123,6 +123,18 @@
     </div>
 </section>
 <!--================End Order Details Area =================-->
-
+<script>
+    const cancels = document.querySelectorAll('#cancel');
+    const receives = document.querySelectorAll('#received');
+    const status = document.querySelectorAll('#status');
+    cancels.forEach((cancel, index) => {
+        const statusOfOrder = status[index].textContent.trim().toLowerCase();
+        if (statusOfOrder === 'wait to confirmation') {
+            cancel.disabled = true;
+        } else {
+            cancel.disabled = false;
+        }
+    });
+</script>
 
 <!--================ Start footer Area =================-->

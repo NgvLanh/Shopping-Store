@@ -29,5 +29,4 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select o from Orders o where o.status like 'Delivered'  ")
     List<Order> findByStatus3();
 
-
 }

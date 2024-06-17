@@ -232,6 +232,9 @@
                                     <textarea class="form-control different-control w-100" name="review" id="textarea"
                                               cols="30" rows="5" placeholder="Enter Message"></textarea>
                                 </div>
+                                <div class="form-group text-center text-md-left mt-3 text-danger">
+                                    ${msgComment}
+                                </div>
                                 <div class="form-group text-center text-md-right mt-3">
                                     <button type="submit" id="button-review" disabled class="button">Post
                                     </button>

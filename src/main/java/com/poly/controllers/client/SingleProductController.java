@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
 
@@ -38,13 +39,18 @@ public class SingleProductController {
     ParamService paramService;
     @Autowired
     ReviewRepository reviewRepository;
+    @Autowired
+    OrderRepository orderRepository;
 
     @GetMapping("/single-product")
     public String singleProduct(Model model,
                                 @RequestParam("product_id") Long id) {
         ProductItem productItem = productItemRepository.findProductItemByProductProductId(id).get(0);
         model.addAttribute("productItem", productItem);
-
+        String msgComment = (String) model.asMap().get("msgComment");
+        if (msgComment != null) {
+            model.addAttribute("msgComment", msgComment);
+        }
         model.addAttribute("page", "single-product.jsp");
         return "client/index";
     }
@@ -119,18 +125,24 @@ public class SingleProductController {
     @PostMapping("/post-review")
     public String postReview(@RequestParam("product_id") Long productId,
                              @RequestParam("rating") Integer rating,
-                             @RequestParam("review") String comment) {
+                             @RequestParam("review") String comment,
+                             RedirectAttributes redirectAttributes) {
 
         Customer customer = sessionService.get("customer");
         if (customer == null) {
             return "redirect:/cart";
         }
-        Review review = new Review();
-        review.setProduct(productRepository.findById(productId).orElse(null));
-        review.setCustomer(customer);
-        review.setRating(rating);
-        review.setComment(comment);
-        reviewRepository.save(review);
+        List<Order> orders = orderRepository.findOrderByCustomerCustomerId(customer.getCustomerId());
+        if (!orders.isEmpty()) {
+            Review review = new Review();
+            review.setProduct(productRepository.findById(productId).orElse(null));
+            review.setCustomer(customer);
+            review.setRating(rating);
+            review.setComment(comment);
+            reviewRepository.save(review);
+            return "redirect:/single-product?product_id=" + productId;
+        }
+        redirectAttributes.addFlashAttribute("msgComment", "You can't comment because you haven't purchased the product.");
         return "redirect:/single-product?product_id=" + productId;
     }
 
