@@ -92,10 +92,12 @@
                                         Save
                                     </button>
                                     <button type="submit" class="btn btn-behance mr-2" ${disabledUpdate}
-                                            formaction="/admin/product-variation-management/update?product_id=${product.productId}">Update
+                                            formaction="/admin/product-variation-management/update?product_id=${product.productId}">
+                                        Update
                                     </button>
                                     <button type="button" class="btn btn-light"
-                                            onclick="window.location.href='/admin/product-variation-management?product_id=${product.productId}'">Cancel
+                                            onclick="window.location.href='/admin/product-variation-management?product_id=${product.productId}'">
+                                        Cancel
                                     </button>
                                 </div>
                             </form:form>
@@ -190,6 +192,18 @@
 </div>
 <%----%>
 <script>
+    <c:if test="${msgDeleteProductVariation}">
+    Swal.fire({
+        title: "Something went wrong?",
+        text: "Product Variation data still exists so cannot be deleted!",
+        icon: "error",
+        confirmButtonText: "Ok"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `/admin/product-management`;
+        }
+    });
+    </c:if>
     // confirm delete
     const confirmDelete = (productItemId, productId) => {
         Swal.fire({

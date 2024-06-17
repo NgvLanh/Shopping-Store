@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collections;
 import java.util.List;
@@ -104,9 +105,16 @@ public class ProductController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        productRepository.deleteById(id);
-        return "redirect:/admin/product-management";
+    public String delete(@PathVariable Long id,
+                         Model model,
+                         @ModelAttribute("product") Product product) {
+        try {
+            productRepository.deleteById(id);
+        } catch (Exception e) {
+            model.addAttribute("msgDeleteProduct", true);
+        }
+        model.addAttribute("page", "productManagement.jsp");
+        return "admin/index";
     }
 
 

@@ -219,6 +219,18 @@
 <%----%>
 <%----%>
 <script>
+    <c:if test="${msgDeleteProduct}">
+        Swal.fire({
+            title: "Something went wrong?",
+            text: "Product data still exists so cannot be deleted!",
+            icon: "error",
+            confirmButtonText: "Ok"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `/admin/product-management`;
+            }
+        });
+    </c:if>
     // confirm delete
     const confirmDelete = (id) => {
         Swal.fire({
