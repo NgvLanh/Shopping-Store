@@ -69,7 +69,7 @@
                                             <td>
                                                 <!-- Button trigger modal -->
                                                 <a href="/admin/brands-management?brand_id=${brand.brandId}">
-                                                    <i class="mdi mdi-table-plus" data-toggle="modal"
+                                                    <i class="mdi mdi-table-edit" data-toggle="modal"
                                                        data-target="#staticBackdrop"
                                                        style="font-size: 1.5rem; color: coral"></i>
                                                 </a>

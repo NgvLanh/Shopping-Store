@@ -92,7 +92,10 @@
                                                 <fmt:formatDate value="${discount.endTime}"/>
                                             </td>
                                             <td>
-                                                <a href="/admin/discounts-management/delete/${discount.discountId}" class="btn btn-danger">Delete</a>
+                                                <a onclick="confirmDelete(${discount.discountId})">
+                                                    <i class="mdi mdi-delete"
+                                                       style="font-size: 1.5rem; color: red"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -121,5 +124,39 @@
             result += characters.charAt(Math.floor(Math.random() * characters.length));
         }
         code.value = result;
+    }
+    <c:if test="${msgDeleteProduct}">
+    Swal.fire({
+        title: "Something went wrong?",
+        text: "Discount data still exists so cannot be deleted!",
+        icon: "error",
+        confirmButtonText: "Ok"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `/admin/discounts-management`;
+        }
+    });
+    </c:if>
+    // confirm delete
+    const confirmDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = `/admin/discounts-management/delete/` + id;
+                });
+            }
+        });
     }
 </script>
