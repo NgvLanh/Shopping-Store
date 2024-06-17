@@ -191,7 +191,7 @@
                         <td colspan="1">
                             <div class="checkout_btn_inner d-flex align-items-center">
                                 <a class="gray_btn" href="/home">Continue Shopping</a>
-                                <button class="primary-btn ml-2"
+                                <button class="primary-btn ml-2" id="check-out"
                                         data-toggle="modal"
                                         data-target="#exampleModal"
                                         style="border: none"
@@ -241,9 +241,9 @@
                                 <c:set var="subtotal" value="${subtotal + (item.productItem.price * item.quantity)}"/>
                             </c:forEach>
 
-<%--                            <c:set var="shippingCost" value=""/>--%>
-<%--                            <c:set var="total"--%>
-<%--                                   value="${discountPercent == 0 ? (subtotal + shippingCost) : ((subtotal + shippingCost) * (100 - discountPercent)) / 100}"/>--%>
+                            <%--                            <c:set var="shippingCost" value=""/>--%>
+                            <%--                            <c:set var="total"--%>
+                            <%--                                   value="${discountPercent == 0 ? (subtotal + shippingCost) : ((subtotal + shippingCost) * (100 - discountPercent)) / 100}"/>--%>
 
                             <ul class="list list_2">
                                 <li><a href="#">Subtotal <span id="subtotal-bill">
@@ -352,6 +352,12 @@
         });
     });
 
+    const buttonCheckOut = setInterval(function () {
+            const disabledButtonCheckOut = document.getElementById('check-out');
+            const total = document.getElementById('total-bill');
+            disabledButtonCheckOut.disabled = total.textContent.trim() === '';
+        }
+        , 1000);
 
     window.addEventListener('DOMContentLoaded', () => {
         updateTotals();
@@ -603,7 +609,6 @@
                 document.getElementById('shippingFee').textContent = 'Error calculating shipping fee';
             });
     }
-
 </script>
 
 <!--================ Start footer Area =================-->

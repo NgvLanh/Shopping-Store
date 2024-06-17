@@ -40,7 +40,4 @@ public class ProductItem {
     @NotNull(message = "Please select the size.")
     private Size size;
 
-//    @OneToMany(mappedBy = "productItem")
-//    private List<Discount> discounts;
-
 }

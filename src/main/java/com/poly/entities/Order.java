@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity(name = "Orders")
@@ -26,4 +27,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "paymentId")
     private Payment payment;
+
+    @ManyToOne
+    @JoinColumn(name = "discountId")
+    private Discount discount;
 }

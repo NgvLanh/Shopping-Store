@@ -62,6 +62,7 @@ public class CartController {
         List<Discount> discounts = discountRepository.findAll();
         for (Discount discount : discounts) {
             if (code.trim().equals(discount.getCode())) {
+                sessionService.set("discount", discount);
                 model.addAttribute("msgCode", "Your order gets " + discount.getPercentNumber() + "% discount. ");
                 model.addAttribute("percent", discount.getPercentNumber());
                 model.addAttribute("page", "cart.jsp");

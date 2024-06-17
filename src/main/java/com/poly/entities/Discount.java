@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity(name = "discounts")
@@ -36,6 +37,9 @@ public class Discount {
     Date createTime = new Date();
 
     private Date endTime;
+
+    @OneToMany(mappedBy = "discount")
+    private List<Order> orders;
 
     @Override
     public String toString() {

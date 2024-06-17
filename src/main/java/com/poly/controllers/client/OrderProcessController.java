@@ -38,7 +38,12 @@ public class OrderProcessController {
     VNPayService vnPayService;
 
     @PostMapping("/order")
-    public String order(Model model, @RequestParam("total") Double total, @RequestParam("payment-method") String paymentMethod, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public String order(Model model,
+                        @RequestParam("total") Double total,
+                        @RequestParam("payment-method") String paymentMethod,
+                        HttpServletRequest request,
+                        RedirectAttributes redirectAttributes,
+                        @RequestParam("selectedItems") List<Long> selectedItems) {
         Payment payment = new Payment();
         payment.setAmount(total);
         payment.setMethod(paymentMethod);
@@ -46,6 +51,10 @@ public class OrderProcessController {
 //
         Order order = new Order();
         Customer customer = sessionService.get("customer");
+        Discount discount = sessionService.get("discount");
+        if (discount != null) {
+            order.setDiscount(discount);
+        }
         order.setCustomer(customer);
         order.setStatus("Wait to Confirmation");
         order.setTotal(total);
@@ -57,7 +66,7 @@ public class OrderProcessController {
 
         Long orderId = order1.getOrderId();
 //
-        List<CartItem> cartItemList = cartItemRepository.findAll();
+        List<CartItem> cartItemList = cartItemRepository.findAllById(selectedItems);
         for (CartItem cartItem : cartItemList) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
@@ -81,7 +90,8 @@ public class OrderProcessController {
             redirectAttributes.addFlashAttribute(orderRepository.findAll().get(orderRepository.findAll().size() - 1).getOrderId());
             return "redirect:" + vnpayUrl;
         }
-        cartItemRepository.deleteAll();
+        cartItemRepository.deleteAllById(selectedItems);
+        sessionService.remove("discount");
         sessionService.remove("itemNumber");
         redirectAttributes.addFlashAttribute(orderRepository.findAll().get(orderRepository.findAll().size() - 1).getOrderId());
         return "redirect:/your-order";
