@@ -38,11 +38,30 @@ public class OrderController {
     @GetMapping("/update/{orderId}")
     public String update(Model model, @PathVariable Long orderId) {
         Order order = orderRepository.findById(orderId).orElse(null);
-        order.setStatus("confirm");
+        order.setStatus("Confirm");
         orderRepository.save(order);
         model.addAttribute("page", "orderManagement.jsp");
         return "redirect:/admin/order-management";
     }
+
+    @GetMapping("/update1/{orderId}")
+    public String update1(Model model, @PathVariable Long orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        order.setStatus("Shipping orders");
+        orderRepository.save(order);
+        model.addAttribute("page", "orderManagement.jsp");
+        return "redirect:/admin/order-management";
+    }
+
+    @GetMapping("/update2/{orderId}")
+    public String update2(Model model, @PathVariable Long orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        order.setStatus("Delivered");
+        orderRepository.save(order);
+        model.addAttribute("page", "orderManagement.jsp");
+        return "redirect:/admin/order-management";
+    }
+
 
 
     @ModelAttribute("orders")
@@ -55,6 +74,18 @@ public class OrderController {
     @ModelAttribute("orders1")
     public List<Order> getAllOrders1() {
         List<Order> list = orderRepository.findByStatus1();
+        Collections.reverse(list);
+        return list;
+    }
+    @ModelAttribute("orders2")
+    public List<Order> getAllOrders2() {
+        List<Order> list = orderRepository.findByStatus2();
+        Collections.reverse(list);
+        return list;
+    }
+    @ModelAttribute("orders3")
+    public List<Order> getAllOrders3() {
+        List<Order> list = orderRepository.findByStatus3();
         Collections.reverse(list);
         return list;
     }
