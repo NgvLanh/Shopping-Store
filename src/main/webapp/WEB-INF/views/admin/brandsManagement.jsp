@@ -67,10 +67,18 @@
                                             <td>${brand.name}</td>
                                             <td>${brand.description}</td>
                                             <td>
-                                                <a href="/admin/brands-management/edit/${brand.brandId}"
-                                                   class="btn btn-warning btn-sm">Edit</a>
-                                                <a href="/admin/brands-management/delete/${brand.brandId}"
-                                                   class="btn btn-danger btn-sm">Delete</a>
+                                                <!-- Button trigger modal -->
+                                                <a href="/admin/brands-management?brand_id=${brand.brandId}">
+                                                    <i class="mdi mdi-table-plus" data-toggle="modal"
+                                                       data-target="#staticBackdrop"
+                                                       style="font-size: 1.5rem; color: coral"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a onclick="confirmDelete(${brand.brandId})">
+                                                    <i class="mdi mdi-delete"
+                                                       style="font-size: 1.5rem; color: red"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -89,3 +97,40 @@
         </footer>
     </div>
 </div>
+<script>
+    <c:if test="${msgDeleteProduct}">
+    Swal.fire({
+        title: "Something went wrong?",
+        text: "Brand data still exists so cannot be deleted!",
+        icon: "error",
+        confirmButtonText: "Ok"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `/admin/brands-management`;
+        }
+    });
+    </c:if>
+    // confirm delete
+    const confirmDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = `/admin/brands-management/delete/` + id;
+                });
+            }
+        });
+    }
+
+</script>
