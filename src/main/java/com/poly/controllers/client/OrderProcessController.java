@@ -38,8 +38,7 @@ public class OrderProcessController {
     VNPayService vnPayService;
 
     @PostMapping("/order")
-    public String order(Model model,
-                        @RequestParam("total") Double total,
+    public String order(@RequestParam("total") Double total,
                         @RequestParam("payment-method") String paymentMethod,
                         HttpServletRequest request,
                         RedirectAttributes redirectAttributes) {

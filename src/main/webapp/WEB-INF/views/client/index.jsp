@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/vendors/owl-carousel/owl.carousel.min.css">
 
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <!--================ Start Header Menu Area =================-->

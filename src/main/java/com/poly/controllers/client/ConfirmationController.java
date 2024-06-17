@@ -3,8 +3,10 @@ package com.poly.controllers.client;
 import com.poly.entities.Customer;
 import com.poly.entities.Order;
 import com.poly.entities.OrderItem;
+import com.poly.entities.Payment;
 import com.poly.repositories.OrderItemRepository;
 import com.poly.repositories.OrderRepository;
+import com.poly.repositories.PaymentRepository;
 import com.poly.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,8 @@ public class ConfirmationController {
     OrderItemRepository orderItemRepository;
     @Autowired
     SessionService sessionService;
+    @Autowired
+    PaymentRepository paymentRepository;
 
     @GetMapping
     public String confirmation(Model model) {
@@ -41,6 +45,20 @@ public class ConfirmationController {
         model.addAttribute("orderItems", orderItemList);
         model.addAttribute("page", "confirmation.jsp");
         return "client/index";
+    }
+
+    @GetMapping("/update-status")
+    public String updateStatus(@RequestParam("status") String status,
+                               @RequestParam("order_id") Long orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        order.setStatus(status);
+        if (status.equals("delivered")) {
+            Payment payment = order.getPayment();
+            payment.setStatus("completed");
+            paymentRepository.save(payment);
+        }
+        orderRepository.save(order);
+        return "redirect:/your-order";
     }
 
     @ModelAttribute("orders")

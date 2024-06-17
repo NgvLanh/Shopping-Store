@@ -52,7 +52,7 @@
                                 <p>${order.date}</p>
                             </td>
                             <td>
-                                <h5 id="status">${order.status}</h5>
+                                <h5 class="status">${order.status}</h5>
                             </td>
                             <td>
                                 <p>
@@ -61,12 +61,13 @@
                                 </p>
                             </td>
                             <td>
-                                <button class="btn btn-outline-dark" id="cancel">
+                                <button class="cancel btn btn-outline-dark" onclick="confirmCancel(${order.orderId})">
                                     Cancel
                                 </button>
                             </td>
                             <td>
-                                <button class="btn btn-outline-success" id="received">
+                                <button class="received btn btn-outline-success"
+                                        onclick="confirmReceived(${order.orderId})">
                                     Yes
                                 </button>
                             </td>
@@ -124,17 +125,63 @@
 </section>
 <!--================End Order Details Area =================-->
 <script>
-    const cancels = document.querySelectorAll('#cancel');
-    const receives = document.querySelectorAll('#received');
-    const status = document.querySelectorAll('#status');
-    cancels.forEach((cancel, index) => {
-        const statusOfOrder = status[index].textContent.trim().toLowerCase();
-        if (statusOfOrder === 'wait to confirmation') {
-            cancel.disabled = true;
-        } else {
-            cancel.disabled = false;
-        }
+
+    const receivedButtons = document.querySelectorAll('.received');
+    const cancelButtons = document.querySelectorAll('.cancel');
+    const statusElements = document.querySelectorAll('.status');
+
+    cancelButtons.forEach((cancelButton, index) => {
+        const orderStatus = statusElements[index].textContent.trim().toLowerCase();
+        cancelButton.disabled = (orderStatus !== 'wait to confirmation');
     });
+
+    receivedButtons.forEach((receivedButton, index) => {
+        const orderStatus = statusElements[index].textContent.trim().toLowerCase();
+        receivedButton.disabled = (orderStatus !== 'shipping orders');
+    });
+
+    const confirmReceived = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Received it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Received!",
+                    text: "Thank you for your order.",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = `/your-order/update-status?status=delivered&order_id=` + id;
+                });
+            }
+        });
+    }
+    const confirmCancel = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Cancel it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Cancel!",
+                    text: "Your order has been Canceled.",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = `/your-order/update-status?status=cancel&order_id=` + id;
+                });
+            }
+        });
+    }
 </script>
 
 <!--================ Start footer Area =================-->
