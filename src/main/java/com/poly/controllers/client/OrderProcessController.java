@@ -97,9 +97,5 @@ public class OrderProcessController {
         return "redirect:/your-order";
     }
 
-    @GetMapping("/cancel/{id}")
-    public String delete(@PathVariable Long id) {
-        orderRepository.cancelOrderById(id);
-        return "redirect:/your-order";
-    }
+
 }
