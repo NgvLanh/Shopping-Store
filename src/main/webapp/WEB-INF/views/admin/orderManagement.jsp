@@ -237,7 +237,7 @@ To change this template use File | Settings | File Templates.
                                                                 </td>
                                                                 <td class="status">${order.status}</td>
                                                                 <td>${order.total}</td>
-                                                                <td>Finish
+                                                                <td>Done
                                                                 </td>
                                                             </tr>
                                                         </c:forEach>
@@ -281,10 +281,7 @@ To change this template use File | Settings | File Templates.
                                                                 </td>
                                                                 <td class="status">${order.status}</td>
                                                                 <td>${order.total}</td>
-                                                                <td onclick="
-                                                                        window.location.href = '/admin/order-management/update4/' + ${order.orderId};">
-                                                                    <i style="font-size: 15px; color: darkgreen; cursor: pointer">Shipping
-                                                                        orders</i>
+                                                                <td> Cancel
                                                                 </td>
                                                             </tr>
                                                         </c:forEach>

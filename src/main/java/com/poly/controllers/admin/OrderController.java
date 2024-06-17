@@ -34,11 +34,10 @@ public class OrderController {
     }
 
 
-
     @GetMapping("/update/{orderId}")
     public String update(Model model, @PathVariable Long orderId) {
         Order order = orderRepository.findById(orderId).orElse(null);
-        order.setStatus("Confirm");
+        order.setStatus("confirm");
         orderRepository.save(order);
         model.addAttribute("page", "orderManagement.jsp");
         return "redirect:/admin/order-management";
@@ -47,7 +46,7 @@ public class OrderController {
     @GetMapping("/update1/{orderId}")
     public String update1(Model model, @PathVariable Long orderId) {
         Order order = orderRepository.findById(orderId).orElse(null);
-        order.setStatus("Shipping orders");
+        order.setStatus("shipping orders");
         orderRepository.save(order);
         model.addAttribute("page", "orderManagement.jsp");
         return "redirect:/admin/order-management";
@@ -56,12 +55,11 @@ public class OrderController {
     @GetMapping("/update2/{orderId}")
     public String update2(Model model, @PathVariable Long orderId) {
         Order order = orderRepository.findById(orderId).orElse(null);
-        order.setStatus("Delivered");
+        order.setStatus("delivered");
         orderRepository.save(order);
         model.addAttribute("page", "orderManagement.jsp");
         return "redirect:/admin/order-management";
     }
-
 
 
     @ModelAttribute("orders")
@@ -77,12 +75,14 @@ public class OrderController {
         Collections.reverse(list);
         return list;
     }
+
     @ModelAttribute("orders2")
     public List<Order> getAllOrders2() {
         List<Order> list = orderRepository.findByStatus2();
         Collections.reverse(list);
         return list;
     }
+
     @ModelAttribute("orders3")
     public List<Order> getAllOrders3() {
         List<Order> list = orderRepository.findByStatus3();
@@ -90,4 +90,10 @@ public class OrderController {
         return list;
     }
 
+    @ModelAttribute("orders4")
+    public List<Order> getAllOrders4() {
+        List<Order> list = orderRepository.findByStatus4();
+        Collections.reverse(list);
+        return list;
+    }
 }

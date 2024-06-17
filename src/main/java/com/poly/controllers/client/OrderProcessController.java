@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -55,7 +57,7 @@ public class OrderProcessController {
             order.setDiscount(discount);
         }
         order.setCustomer(customer);
-        order.setStatus("Wait to Confirmation");
+        order.setStatus("wait to confirmation");
         order.setTotal(total);
         order.setPayment(payment);
         orderRepository.save(order);
@@ -93,6 +95,12 @@ public class OrderProcessController {
         sessionService.remove("discount");
         sessionService.remove("itemNumber");
         redirectAttributes.addFlashAttribute(orderRepository.findAll().get(orderRepository.findAll().size() - 1).getOrderId());
+        return "redirect:/your-order";
+    }
+
+    @GetMapping("/cancel/{id}")
+    public String delete(@PathVariable Long id) {
+        orderRepository.cancelOrderById(id);
         return "redirect:/your-order";
     }
 }
