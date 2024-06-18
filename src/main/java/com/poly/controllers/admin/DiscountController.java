@@ -2,6 +2,7 @@ package com.poly.controllers.admin;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.poly.entities.Brand;
 import com.poly.entities.Discount;
 import com.poly.repositories.DiscountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,9 +121,16 @@ public class DiscountController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(Model model, @PathVariable Long id) {
-        discountRepository.deleteById(id);
-        return "redirect:/admin/discounts-management";
+    public String delete(@PathVariable Long id,
+                         Model model,
+                         @ModelAttribute("discount") Discount discount) {
+        try {
+            discountRepository.deleteById(id);
+        } catch (Exception e) {
+            model.addAttribute("msgDeleteProduct", true);
+        }
+        model.addAttribute("page", "discountsManagement.jsp");
+        return "admin/index";
     }
 
     @ModelAttribute("discounts")

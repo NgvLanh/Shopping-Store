@@ -1,14 +1,21 @@
 package com.poly.controllers.admin;
 
 import com.poly.entities.Brand;
+import com.poly.entities.Product;
+import com.poly.entities.ProductItem;
 import com.poly.repositories.BrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/brands-management")
@@ -63,9 +70,17 @@ public class BrandController {
         return "admin/index";
     }
 
+
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id, Model model) {
-        brandRepository.deleteById(id);
-        return "redirect:/admin/brands-management";
+    public String delete(@PathVariable Long id,
+                         Model model,
+                         @ModelAttribute("brand") Brand brand) {
+        try {
+            brandRepository.deleteById(id);
+        } catch (Exception e) {
+            model.addAttribute("msgDeleteProduct", true);
+        }
+        model.addAttribute("page", "brandsManagement.jsp");
+        return "admin/index";
     }
 }

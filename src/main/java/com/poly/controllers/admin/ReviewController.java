@@ -26,9 +26,16 @@ public class ReviewController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        reviewRepository.deleteById(id);
-        return "redirect:/admin/review-management";
+    public String delete(@PathVariable Long id,
+                         Model model,
+                        Review review) {
+        try {
+            reviewRepository.deleteById(id);
+        } catch (Exception e) {
+            model.addAttribute("msgDeleteProduct", true);
+        }
+        model.addAttribute("page", "reviewManagement.jsp");
+        return "admin/index";
     }
 
     @ModelAttribute("reviews")
