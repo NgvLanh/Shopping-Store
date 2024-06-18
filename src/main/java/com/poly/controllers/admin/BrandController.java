@@ -79,8 +79,11 @@ public class BrandController {
             brandRepository.deleteById(id);
         } catch (Exception e) {
             model.addAttribute("msgDeleteProduct", true);
+            model.addAttribute("page", "brandsManagement.jsp");
+            return "admin/index";
+
         }
-        model.addAttribute("page", "brandsManagement.jsp");
-        return "admin/index";
+
+        return "redirect:/admin/brands-management";
     }
 }
