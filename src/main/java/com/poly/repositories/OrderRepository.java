@@ -1,6 +1,8 @@
 package com.poly.repositories;
 
 import com.poly.entities.Order;
+import com.poly.entities.PendingInvoice;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -42,9 +44,18 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT COUNT(o) FROM Orders o join payments p on p.paymentId = o.orderId WHERE p.status like 'completed' AND o.date = :currentDate")
     Long findTotalOrdersForDateA(@Param("currentDate") LocalDate currentDate);
 
+    //truy vấn tổng số đơn đặt hàng ngày hiện tại đã thanh toán
+    @Query("SELECT COUNT(o) FROM Orders o join payments p on p.paymentId = o.orderId WHERE o.date = :currentDate")
+    Long findTotalOrdersForDateNotPayment(@Param("currentDate") LocalDate currentDate);
+
     //truy vấn tổng số đơn đặt hàng tháng hiện tại đã thanh toán
     @Query("SELECT COUNT(o) FROM Orders o JOIN payments p ON p.paymentId = o.orderId " +
             "WHERE p.status = 'completed' AND MONTH(o.date) = MONTH(:currentDate) AND YEAR(o.date) = YEAR(:currentDate)")
     Long findTotalOrdersForCurrentMonth(@Param("currentDate") LocalDate currentDate);
 
+    @Query("SELECT new com.poly.entities.PendingInvoice(o.orderId, o.total, o.date, c.name, c.image) " +
+            "FROM  Orders o JOIN o.customer c " +
+            "WHERE o.status LIKE 'Wait to Confirmation' " +
+            "ORDER BY o.orderId DESC")
+    List<PendingInvoice> findTop5OrdersWithCustomers(Pageable pageable);
 }

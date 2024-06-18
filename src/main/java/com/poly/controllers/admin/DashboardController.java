@@ -1,9 +1,6 @@
 package com.poly.controllers.admin;
 
-import com.poly.entities.Customer;
-import com.poly.entities.Order;
-import com.poly.entities.OrderItem;
-import com.poly.entities.Payment;
+import com.poly.entities.*;
 import com.poly.repositories.OrderItemRepository;
 import com.poly.repositories.OrderRepository;
 import com.poly.repositories.PaymentRepository;
@@ -65,10 +62,13 @@ public class DashboardController {
         Double totalDate = dashboardService.getTotalRevenueForToday();
         model.addAttribute("totalDate", (totalDate != null) ? df.format(totalDate) : "0.000");
 
-        // Tổng đơn hàng trong ngày hôm nay
+        // Tổng đơn hàng trong ngày hôm nay (đã thanh toán)
         Long totalOrderDay = dashboardService.getTotalOrdersForTodayA();
-        model.addAttribute("totalOrderDay", (totalOrderDay != null) ? df2.format(totalOrderDay) : "0");
+        model.addAttribute("totalPaymentDay", (totalOrderDay != null) ? df2.format(totalOrderDay) : "0");
 
+        // Tổng đơn hàng trong ngày hôm nay (chưa thanh toán)
+        Long totalOrderDayNotPayment = dashboardService.getTotalOrdersForTodayNotPayment();
+        model.addAttribute("totalOrderDay", (totalOrderDayNotPayment != null) ? df2.format(totalOrderDayNotPayment) : "0");
         // Tổng sản phẩm bán được trong ngày hôm nay
         Long totalOrderProDay = dashboardService.getTotalProductsSoldForToday();
         model.addAttribute("totalOrderProDay", (totalOrderProDay != null) ? df2.format(totalOrderProDay) : "0");
@@ -86,21 +86,27 @@ public class DashboardController {
         model.addAttribute("totalYear", (totalYear != null) ? df.format(totalYear) : "0.000");
 
         model.addAttribute("page", "home.jsp");
-
         return "admin/index";
     }
 
     @ModelAttribute("months")
     public List<String> months() {
-        List<String> months = new ArrayList<>();
-//        List<Payment> payments = paymentRepository.findDistinctByDate();
-//        System.out.println(payments);
-
-//        for(Payment payment : payments){
-//            months.add(payment.getDate().toString());
-//
-//        }
-        return months;
+        return paymentRepository.findDistinctByDate();
     }
 
+    @ModelAttribute("payments")
+    public List<Payment> payments() {
+        return paymentRepository.findAll();
+    }
+
+    @ModelAttribute("monthlySalesSummary")
+    public List<MonthlySalesSummary> monthlySalesSummary() {
+        return paymentRepository.findMonthlySalesSummary();
+    }
+
+    @ModelAttribute("findTop5OrdersWithCustomers")
+    public List<PendingInvoice> top5() {
+        Pageable pageable = PageRequest.of(0, 5);
+        return orderRepository.findTop5OrdersWithCustomers(pageable);
+    }
 }

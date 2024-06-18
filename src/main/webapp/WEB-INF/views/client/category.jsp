@@ -18,8 +18,6 @@
     </div>
 </section>
 <!-- ================ end banner area ================= -->
-
-
 <!-- ================ category section start ================= -->
 <section class="section-margin--small mb-5">
     <div class="container">
@@ -80,21 +78,7 @@
             </div>
             <div class="col-xl-9 col-lg-8 col-md-7">
                 <!-- Start Filter Bar -->
-                <div class="filter-bar d-flex flex-wrap align-items-center">
-                    <div class="sorting">
-                        <select>
-                            <option value="1">Default sorting</option>
-                            <option value="1">Default sorting</option>
-                            <option value="1">Default sorting</option>
-                        </select>
-                    </div>
-                    <div class="sorting mr-auto">
-                        <select>
-                            <option value="1">Show 12</option>
-                            <option value="1">Show 12</option>
-                            <option value="1">Show 12</option>
-                        </select>
-                    </div>
+                <div class="filter-bar d-flex flex-wrap align-items-center justify-content-end">
                     <div>
                         <form action="/category" method="post" class="mb-3">
                             <div class="input-group filter-bar-search">
@@ -107,7 +91,6 @@
                                 </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
                 <!-- End Filter Bar -->
@@ -122,130 +105,12 @@
         </div>
     </div>
 </section>
-<!-- ================ category section end ================= -->
-
-<!-- ================ top product area start ================= -->
-<%--<section class="related-product-area">--%>
-<%--    <div class="container">--%>
-<%--        <div class="section-intro pb-60px">--%>
-<%--            <p>Popular Item in the market</p>--%>
-<%--            <h2>Top <span class="section-intro__style">Product</span></h2>--%>
-<%--        </div>--%>
-<%--        <div class="row mt-30">--%>
-<%--            <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">--%>
-<%--                <div class="single-search-product-wrapper">--%>
-<%--                    <div class="single-search-product d-flex">--%>
-<%--                        <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>--%>
-<%--                        <div class="desc">--%>
-<%--                            <a href="#" class="title">Gray Coffee Cup</a>--%>
-<%--                            <div class="price">$170.00</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="single-search-product d-flex">--%>
-<%--                        <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>--%>
-<%--                        <div class="desc">--%>
-<%--                            <a href="#" class="title">Gray Coffee Cup</a>--%>
-<%--                            <div class="price">$170.00</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="single-search-product d-flex">--%>
-<%--                        <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>--%>
-<%--                        <div class="desc">--%>
-<%--                            <a href="#" class="title">Gray Coffee Cup</a>--%>
-<%--                            <div class="price">$170.00</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-
-<%--            <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">--%>
-<%--                <div class="single-search-product-wrapper">--%>
-<%--                    <div class="single-search-product d-flex">--%>
-<%--                        <a href="#"><img src="img/product/product-sm-4.png" alt=""></a>--%>
-<%--                        <div class="desc">--%>
-<%--                            <a href="#" class="title">Gray Coffee Cup</a>--%>
-<%--                            <div class="price">$170.00</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="single-search-product d-flex">--%>
-<%--                        <a href="#"><img src="img/product/product-sm-5.png" alt=""></a>--%>
-<%--                        <div class="desc">--%>
-<%--                            <a href="#" class="title">Gray Coffee Cup</a>--%>
-<%--                            <div class="price">$170.00</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="single-search-product d-flex">--%>
-<%--                        <a href="#"><img src="img/product/product-sm-6.png" alt=""></a>--%>
-<%--                        <div class="desc">--%>
-<%--                            <a href="#" class="title">Gray Coffee Cup</a>--%>
-<%--                            <div class="price">$170.00</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-
-<%--            <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">--%>
-<%--                <div class="single-search-product-wrapper">--%>
-<%--                    <div class="single-search-product d-flex">--%>
-<%--                        <a href="#"><img src="img/product/product-sm-7.png" alt=""></a>--%>
-<%--                        <div class="desc">--%>
-<%--                            <a href="#" class="title">Gray Coffee Cup</a>--%>
-<%--                            <div class="price">$170.00</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="single-search-product d-flex">--%>
-<%--                        <a href="#"><img src="img/product/product-sm-8.png" alt=""></a>--%>
-<%--                        <div class="desc">--%>
-<%--                            <a href="#" class="title">Gray Coffee Cup</a>--%>
-<%--                            <div class="price">$170.00</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="single-search-product d-flex">--%>
-<%--                        <a href="#"><img src="img/product/product-sm-9.png" alt=""></a>--%>
-<%--                        <div class="desc">--%>
-<%--                            <a href="#" class="title">Gray Coffee Cup</a>--%>
-<%--                            <div class="price">$170.00</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-
-<%--            <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">--%>
-<%--                <div class="single-search-product-wrapper">--%>
-<%--                    <div class="single-search-product d-flex">--%>
-<%--                        <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>--%>
-<%--                        <div class="desc">--%>
-<%--                            <a href="#" class="title">Gray Coffee Cup</a>--%>
-<%--                            <div class="price">$170.00</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="single-search-product d-flex">--%>
-<%--                        <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>--%>
-<%--                        <div class="desc">--%>
-<%--                            <a href="#" class="title">Gray Coffee Cup</a>--%>
-<%--                            <div class="price">$170.00</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="single-search-product d-flex">--%>
-<%--                        <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>--%>
-<%--                        <div class="desc">--%>
-<%--                            <a href="#" class="title">Gray Coffee Cup</a>--%>
-<%--                            <div class="price">$170.00</div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</section>--%>
-<!-- ================ top product area end ================= -->
-
 <!-- ================ Subscribe section start ================= -->
 <section class="subscribe-position">
     <div class="container">
         <div class="subscribe text-center">
             <h3 class="subscribe__title">Get Update From Anywhere</h3>
-            <p>Bearing Void gathering light light his eavening unto dont afraid</p>
+            <p>Bearing Void gathering light light his evening unto dont afraid</p>
             <div id="mc_embed_signup">
                 <form target="_blank"
                       action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"

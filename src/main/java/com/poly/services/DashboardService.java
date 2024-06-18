@@ -40,6 +40,12 @@ public class DashboardService {
         return orderRepository.findTotalOrdersForDateA(today);
     }
 
+    //
+    public Long getTotalOrdersForTodayNotPayment() {
+        LocalDate today = LocalDate.now();
+        return orderRepository.findTotalOrdersForDateNotPayment(today);
+    }
+
     // tổng doanh thu số lượng sản phẩm theo ngày đơn hàng đã đặt
     public Long getTotalProductsSoldForToday() {
         LocalDate today = LocalDate.now();

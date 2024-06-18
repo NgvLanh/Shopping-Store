@@ -112,9 +112,10 @@ public class ProductController {
             productRepository.deleteById(id);
         } catch (Exception e) {
             model.addAttribute("msgDeleteProduct", true);
+            model.addAttribute("page", "productManagement.jsp");
+            return "admin/index";
         }
-        model.addAttribute("page", "productManagement.jsp");
-        return "admin/index";
+        return "redirect:/admin/product-management";
     }
 
 
