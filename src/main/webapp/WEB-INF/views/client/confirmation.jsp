@@ -32,6 +32,42 @@
                 </c:otherwise>
             </c:choose>
         </p>
+        <div>
+            <c:if test="${not empty orderItems}">
+                <div class="card card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Order Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="item" items="${orderItems}">
+                            <tr>
+                                <td>
+                                    <p>${item.order.orderId}</p>
+                                </td>
+                                <td>
+                                    <p>${item.productItem.product.name}</p>
+                                </td>
+                                <td>
+                                    <p>${item.quantity}</p>
+                                </td>
+                                <td>
+                                    <p>
+                                        $${item.price}.00
+                                    </p>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </c:if>
+        </div>
         <c:forEach var="order" items="${orders}">
             <div class="order_details_table">
                 <h2>Order Details (${order.orderId})</h2>
@@ -80,44 +116,14 @@
                         <a href="/your-order/order-details?order_id=${order.orderId}">
                             View all products
                         </a>
-                        <button class="btn" type="button" data-toggle="collapse"
-                                data-target="#collapse${order.orderId}" aria-expanded="false"
-                                aria-controls="collapseExample"
-                                style="transform: rotate(90deg); color: #007bff; background: transparent;
-                                box-shadow: none !important; padding: 8px;">
-                            >
-                        </button>
+<%--                        <button class="btn" type="button" data-toggle="collapse"--%>
+                            <%--                                data-target="#collapse${order.orderId}" aria-expanded="false"--%>
+                            <%--                                aria-controls="collapseExample"--%>
+                            <%--                                style="transform: rotate(90deg); color: #007bff; background: transparent;--%>
+                            <%--                                box-shadow: none !important; padding: 8px;">--%>
+                            <%--                            >--%>
+                            <%--                        </button>--%>
                     </p>
-                    <div class="collapse" id="collapse${order.orderId}">
-                        <div class="card card-body">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Price</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="item" items="${orderItems}">
-                                    <tr>
-                                        <td>
-                                            <p>${item.productItem.product.name}</p>
-                                        </td>
-                                        <td>
-                                            <h5>${item.quantity}</h5>
-                                        </td>
-                                        <td>
-                                            <p>
-                                                    ${item.price}
-                                            </p>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </c:forEach>

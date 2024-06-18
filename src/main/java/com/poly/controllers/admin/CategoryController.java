@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -76,8 +77,9 @@ public class CategoryController {
             categoryRepository.deleteById(id);
         } catch (Exception e) {
             model.addAttribute("msgDeleteProduct", true);
+            model.addAttribute("page", "categoriesManagement.jsp");
+            return "admin/index";
         }
-        model.addAttribute("page", "categoriesManagement.jsp");
-        return "admin/index";
+        return "redirect:/admin/categories-management";
     }
 }

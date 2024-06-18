@@ -47,7 +47,7 @@
         <div class="container">
             <div class="section-intro pb-60px">
                 <p>Popular Item in the market</p>
-                <h2>Trending <span class="section-intro__style">Product</span></h2>
+                <h2>New <span class="section-intro__style">Product</span></h2>
             </div>
             <div class="row">
                 <jsp:useBean id="trendingProducts" scope="request" type="org.springframework.data.domain.Page"/>
@@ -128,12 +128,11 @@
                 <h2>Best <span class="section-intro__style">Sellers</span></h2>
             </div>
             <div class="owl-carousel owl-theme" id="bestSellerCarousel">
-                <c:forEach var="productItems" items="${productItemsList}">
-
+                <c:forEach var="productItems" items="${bestSellers}">
                     <div class="card text-center card-product">
                         <div class="card-product__img">
                             <img style="height: 320px; width: 260px"
-                                 src="../../uploads/${productItems.product.image}" alt="">
+                                 src="../../uploads/${productItems.image}" alt="">
                             <ul class="card-product__imgOverlay">
                                 <li>
                                     <button>
@@ -142,7 +141,7 @@
                                 </li>
                                 <li>
                                     <button>
-                                        <a href="/single-product?product_id=${productItems.product.productId}">
+                                        <a href="/single-product?product_id=${productItems.productId}">
                                             <i class="ti-shopping-cart"></i>
                                         </a>
                                     </button>
@@ -155,11 +154,11 @@
                             </ul>
                         </div>
                         <div class="card-body">
-                            <p>${productItems.product.brand.name}</p>
+                            <p>${productItems.timesSold} Sold</p>
                             <h4 class="card-product__title">
-                                <a href="single-product">${productItems.product.name}</a>
+                                <a href="single-product">${productItems.name}</a>
                             </h4>
-                            <p class="card-product__price">${productItems.product.category.name}</p>
+                            <p class="card-product__price">$${productItems.price}</p>
                         </div>
                     </div>
 

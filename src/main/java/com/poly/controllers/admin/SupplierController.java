@@ -43,8 +43,8 @@ public class SupplierController {
             if (supplierNameExist == null) {
                 supplierRepository.save(supplier);
                 return "redirect:/admin/supplier-management";
-            }else{
-                model.addAttribute("messageError","SupplierName is exist");
+            } else {
+                model.addAttribute("messageError", "SupplierName is exist");
             }
         }
         model.addAttribute("page", "supplierManagement.jsp");
@@ -79,12 +79,12 @@ public class SupplierController {
                          @ModelAttribute("supplier") Supplier supplier) {
         try {
             supplierRepository.deleteById(id);
-            return "redirect:/admin/supplier-management";
         } catch (Exception e) {
             model.addAttribute("msgDeleteProduct", true);
+            model.addAttribute("page", "supplierManagement.jsp");
+            return "admin/index";
         }
-        model.addAttribute("page", "supplierManagement.jsp");
-        return "admin/index";
+        return "redirect:/admin/supplier-management";
     }
 
 

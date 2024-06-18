@@ -49,6 +49,11 @@ public class DiscountController {
                          BindingResult result, Model model,
                          @RequestParam("endTime") String endTime) {
         // Kiểm tra ngày kết thúc
+        if (endTime.trim().isEmpty()) {
+            model.addAttribute("msgDate", " Please select an end time.");
+            model.addAttribute("page", "discountsManagement.jsp");
+            return "admin/index";
+        }
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date parsedDate = dateFormat.parse(endTime);
@@ -68,12 +73,11 @@ public class DiscountController {
                 model.addAttribute("page", "discountsManagement.jsp");
                 return "admin/index";
             }
-            if (!result.hasErrors()) {
+            System.out.println(discount);
+            if (discount.getEndTime() != null && discount.getPercentNumber() != null && discount.getCode() != null) {
                 discountRepository.save(discount);
+                return "redirect:/admin/discounts-management";
             }
-            // Lấy danh sách mới và gửi lại cho giao diện người dùng
-            List<Discount> updatedDiscounts = discountRepository.findAll();
-            model.addAttribute("discounts", updatedDiscounts);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -88,7 +92,6 @@ public class DiscountController {
                          BindingResult result, Model model,
                          @RequestParam("endTime") String endTime) {
 
-        System.out.println("end:" + endTime);
         if (endTime.trim().isEmpty()) {
             model.addAttribute("msgDate", " Please select an end time.");
         }
@@ -126,6 +129,7 @@ public class DiscountController {
                          @ModelAttribute("discount") Discount discount) {
         try {
             discountRepository.deleteById(id);
+            return "redirect:/admin/discounts-management";
         } catch (Exception e) {
             model.addAttribute("msgDeleteProduct", true);
         }

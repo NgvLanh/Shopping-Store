@@ -62,7 +62,7 @@
                     <tbody>
                     <c:set var="numberItem" value="${fn:length(cartItems)}"/>
                     <c:forEach var="item" items="${cartItems}">
-                        <form action="/cart/update-quantity/${item.cartItemId}" method="post">
+                        <form action="/cart/update-quantity/${item.cartItemId}" method="post" id="itemCart">
                             <span class="d-none" id="cartItemId">${item.cartItemId}</span>
                             <tr>
                                 <td>
@@ -355,7 +355,9 @@
     const buttonCheckOut = setInterval(function () {
             const disabledButtonCheckOut = document.getElementById('check-out');
             const total = document.getElementById('total-bill');
-            disabledButtonCheckOut.disabled = total.textContent.trim() === '';
+            const itemCart = document.getElementById('itemCart');
+            console.log(itemCart)
+            disabledButtonCheckOut.disabled = total.textContent.trim() === '' || itemCart == null;
         }
         , 1000);
 

@@ -1,5 +1,6 @@
 package com.poly.repositories;
 
+import com.poly.entities.BestSellerProduct;
 import com.poly.entities.MonthlySalesSummary;
 import com.poly.entities.Payment;
 import com.poly.entities.PendingInvoice;
@@ -43,5 +44,17 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
             "GROUP BY YEAR(p.date), MONTH(p.date) " +
             "ORDER BY YEAR(p.date), MONTH(p.date)")
     List<MonthlySalesSummary> findMonthlySalesSummary();
+
+    @Query("SELECT new com.poly.entities.BestSellerProduct(pr.productId, pr.name, pr.image, pi.price, SUM(oi.quantity)) " +
+            "FROM orderItems oi " +
+            "JOIN oi.order o " +
+            "JOIN o.payment p " +
+            "JOIN oi.productItem pi " +
+            "JOIN pi.product pr " +
+            "WHERE p.status LIKE 'completed' " +
+            "GROUP BY pr.productId, pr.name, pr.image, pi.price " +
+            "ORDER BY SUM(oi.quantity) DESC")
+    List<BestSellerProduct> getBestSellers();
+
 
 }

@@ -1,9 +1,10 @@
 package com.poly.controllers.client;
 
+import com.poly.entities.BestSellerProduct;
+import com.poly.entities.OrderItem;
 import com.poly.entities.Product;
 import com.poly.entities.ProductItem;
-import com.poly.repositories.ProductItemRepository;
-import com.poly.repositories.ProductRepository;
+import com.poly.repositories.*;
 import com.poly.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +30,8 @@ public class HomeController {
 
     @Autowired
     ProductItemRepository productItemRepository;
-
+    @Autowired
+    PaymentRepository paymentRepository;
     @Autowired
     SessionService sessionService;
 
@@ -48,4 +51,11 @@ public class HomeController {
         Collections.shuffle(list);
         return list;
     }
+
+    @ModelAttribute("bestSellers")
+    public List<BestSellerProduct> bestSellers() {
+        return paymentRepository.getBestSellers();
+    }
+
+
 }
