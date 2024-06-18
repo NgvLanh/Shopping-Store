@@ -30,6 +30,8 @@
                                     <form:errors path="supplierName"
                                                  cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
+                                    <span class="text-danger"
+                                          style="font-size: 14px; margin: 4px">${messageError}</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="contactName">Contact name</label>

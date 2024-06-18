@@ -37,9 +37,15 @@ public class SupplierController {
     public String createBrand(@Validated @ModelAttribute("supplier") Supplier supplier,
                               BindingResult result, Model model) {
         model.addAttribute("disabledUpdate", "disabled");
+
         if (!result.hasErrors()) {
-            supplierRepository.save(supplier);
-            return "redirect:/admin/supplier-management";
+            Supplier supplierNameExist = supplierRepository.findBySupplierNameLike(supplier.getSupplierName());
+            if (supplierNameExist == null) {
+                supplierRepository.save(supplier);
+                return "redirect:/admin/supplier-management";
+            }else{
+                model.addAttribute("messageError","SupplierName is exist");
+            }
         }
         model.addAttribute("page", "supplierManagement.jsp");
         return "admin/index";
@@ -73,6 +79,7 @@ public class SupplierController {
                          @ModelAttribute("supplier") Supplier supplier) {
         try {
             supplierRepository.deleteById(id);
+            return "redirect:/admin/supplier-management";
         } catch (Exception e) {
             model.addAttribute("msgDeleteProduct", true);
         }
