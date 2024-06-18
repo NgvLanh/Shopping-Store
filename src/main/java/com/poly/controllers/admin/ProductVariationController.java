@@ -87,10 +87,17 @@ public class ProductVariationController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id,
                          Model model,
+                         @ModelAttribute("productItem") ProductItem productItem,
                          @RequestParam("product_id") Long productId) {
         Product product = productRepository.findById(productId).orElse(null);
         model.addAttribute("product", product);
-        productItemRepository.deleteById(id);
+        try {
+            productItemRepository.deleteById(id);
+        } catch (Exception e) {
+            model.addAttribute("msgDeleteProductVariation", true);
+            model.addAttribute("page", "productVariationManagement.jsp");
+            return "admin/index";
+        }
         return "redirect:/admin/product-variation-management?product_id=" + productId;
     }
 

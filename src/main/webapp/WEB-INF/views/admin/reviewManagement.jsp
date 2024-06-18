@@ -55,7 +55,7 @@
                                                     ${review.comment}
                                             </td>
                                             <td>
-                                                <fmt:formatDate value="${review.reviewDate}"/>
+                                                ${review.reviewDate}
                                             </td>
                                             <td>
                                                 <a onclick="confirmDelete(${review.reviewId})">
@@ -65,7 +65,7 @@
                                             </td>
                                             <td>
                                                 <button class="btn btn-warning"
-                                                        onclick="window.location.href='/single-product'">View details
+                                                        onclick="window.location.href='/single-product?product_id=${review.product.productId}'">View details
                                                 </button>
                                             </td>
                                         </tr>

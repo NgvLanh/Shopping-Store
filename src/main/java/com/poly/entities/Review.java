@@ -23,5 +23,7 @@ public class Review {
 
     private Integer rating;
     private String comment;
-    private Date reviewDate;
+
+    @Temporal(TemporalType.DATE)
+    private Date reviewDate = new Date();
 }

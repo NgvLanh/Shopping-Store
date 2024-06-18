@@ -162,7 +162,7 @@
                 <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab"
                    aria-controls="review"
                    aria-selected="false">Reviews</a>
-<%--                ừknlànơn --%>
+                <%--                ừknlànơn --%>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -171,17 +171,17 @@
                     <div class="col-lg-6">
                         <div class="row total_rate">
                             <div class="col-12">
-                                <c:set var="totalStars" value="0" />
-                                <c:set var="reviewCount" value="0" />
+                                <c:set var="totalStars" value="0"/>
+                                <c:set var="reviewCount" value="0"/>
 
                                 <!-- Lặp qua các đánh giá để tính tổng số sao và số lượng đánh giá -->
                                 <c:forEach var="review" items="${reviews}">
-                                    <c:set var="totalStars" value="${totalStars + review.rating}" />
-                                    <c:set var="reviewCount" value="${reviewCount + 1}" />
+                                    <c:set var="totalStars" value="${totalStars + review.rating}"/>
+                                    <c:set var="reviewCount" value="${reviewCount + 1}"/>
                                 </c:forEach>
 
                                 <!-- Tính số sao trung bình -->
-                                <c:set var="avgStar" value="${reviewCount == 0 ? 0 : totalStars / reviewCount}" />
+                                <c:set var="avgStar" value="${reviewCount == 0 ? 0 : totalStars / reviewCount}"/>
                                 <div class="box_total">
                                     <h5>Overall</h5>
                                     <h4>${avgStar}</h4>
@@ -191,19 +191,25 @@
                         </div>
                         <div class="review_list mt-4">
                             <c:forEach var="review" items="${reviews}">
-                                <div class="review_item">
+                                <div class="review_item p-3 mb-3 border rounded">
                                     <div class="media">
-                                        <div class="d-flex">
-                                            <img src="../../uploads/${review.customer.image}" alt="" width="50px" height="50px" class="rounded-circle">
+                                        <div class="d-flex align-items-center mr-3">
+                                            <img src="../../uploads/${review.customer.image}" alt="" width="50px"
+                                                 height="50px" class="rounded-circle">
                                         </div>
                                         <div class="media-body">
-                                            <h4>${review.customer.name}</h4>
-                                            <span>Rating: ${review.rating}</span>
-                                            <i class="fa fa-star"></i>
+                                            <h4 class="mt-0 mb-1">${review.customer.name}</h4>
+                                            <div class="d-flex align-items-center">
+                                                <span class="mr-2">Rating: ${review.rating}</span>
+                                                <i class="fa fa-star text-warning"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                    <h6 class="mt-2">Comment</h6>
-                                    <p class="py-1">${review.comment}</p>
+                                    <div class="d-flex align-items-center mt-2" style="gap: 8px;">
+                                        <h6 class="mb-0">Comment</h6>
+                                        <span class="text-muted small">${review.reviewDate}</span>
+                                    </div>
+                                    <p class="mt-2">${review.comment}</p>
                                     <hr>
                                 </div>
                             </c:forEach>
