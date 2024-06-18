@@ -35,6 +35,7 @@
                                     <form:input path="colorName" type="text" class="form-control" id="color"
                                                 placeholder="Color name"/>
                                     <form:errors path="colorName" cssClass="text-danger" cssStyle="font-size: 14px; margin: 4px"/>
+                                    <span Class="text-danger" Style="font-size: 14px; margin: 4px">${msg}</span>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="colorDescription">Description</label>
@@ -74,10 +75,18 @@
                                             <td>${color.colorName}</td>
                                             <td>${color.colorDescription}</td>
                                             <td>
-                                                <a href="/admin/size-color-management/edit-color/${color.colorId}"
-                                                   class="btn btn-warning btn-sm">Edit</a>
-                                                <a href="/admin/size-color-management/delete-color/${color.colorId}"
-                                                   class="btn btn-danger btn-sm">Delete</a>
+                                                <!-- Button trigger modal -->
+                                                <a href="/admin/size-color-management/edit-color/${color.colorId}">
+                                                    <i class="mdi mdi-table-edit" data-toggle="modal"
+                                                       data-target="#staticBackdrop"
+                                                       style="font-size: 1.5rem; color: coral"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a onclick="confirmDelete(${color.colorId})">
+                                                    <i class="mdi mdi-delete"
+                                                       style="font-size: 1.5rem; color: red"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -103,6 +112,8 @@
                                                 placeholder="Size"/>
                                     <form:errors path="sizeName" cssClass="text-danger"
                                                  cssStyle="font-size: 14px; margin: 4px"/>
+                                    <span Class="text-danger" Style="font-size: 14px; margin: 4px">${msg1   }</span>
+
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="sizeDescription">Description</label>
@@ -143,10 +154,18 @@
                                             <td>${size.sizeName}</td>
                                             <td>${size.sizeDescription}</td>
                                             <td>
-                                                <a href="/admin/size-color-management/edit-size/${size.sizeId}"
-                                                   class="btn btn-warning btn-sm">Edit</a>
-                                                <a href="/admin/size-color-management/delete-size/${size.sizeId}"
-                                                   class="btn btn-danger btn-sm">Delete</a>
+                                                <!-- Button trigger modal -->
+                                                <a href="/admin/size-color-management/edit-size/${size.sizeId}">
+                                                    <i class="mdi mdi-table-edit" data-toggle="modal"
+                                                       data-target="#staticBackdrop"
+                                                       style="font-size: 1.5rem; color: coral"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a onclick="confirmDelete2(${size.sizeId})">
+                                                    <i class="mdi mdi-delete"
+                                                       style="font-size: 1.5rem; color: red"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -165,3 +184,74 @@
         </footer>
     </div>
 </div>
+<script>
+    //
+    <c:if test="${msgDeleteColor}">
+    Swal.fire({
+        title: "Something went wrong?",
+        text: "Color data still exists so cannot be deleted!",
+        icon: "error",
+        confirmButtonText: "Ok"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `/admin/size-color-management`;
+        }
+    });
+    </c:if>
+    // confirm delete
+    const confirmDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = `/admin/size-color-management/delete-color/` + id;
+                });
+            }
+        });
+    }
+    <c:if test="${msgDeleteSize}">
+    Swal.fire({
+        title: "Something went wrong?",
+        text: "Size data still exists so cannot be deleted!",
+        icon: "error",
+        confirmButtonText: "Ok"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `/admin/size-color-management`;
+        }
+    });
+    </c:if>
+    // confirm delete
+    const confirmDelete2 = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                }).then(() => {
+                    window.location.href = `/admin/size-color-management/delete-size/` + id;
+                });
+            }
+        });
+    }
+</script>

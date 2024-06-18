@@ -1,8 +1,8 @@
 package com.poly.controllers.admin;
 
 
-
 import com.poly.entities.Color;
+import com.poly.entities.Product;
 import com.poly.entities.Size;
 import com.poly.repositories.ColorRepository;
 import com.poly.repositories.SizeRepository;
@@ -42,15 +42,22 @@ public class ColorSizeController {
         model.addAttribute("page", "sizeColorManagement.jsp");
         return "admin/index";
     }
+
     /*Create*/
     @PostMapping("/create-color")
     public String createColor(@Validated @ModelAttribute("color") Color color,
                               BindingResult result, @ModelAttribute("size") Size size,
                               Model model) {
         model.addAttribute("disabledUpdate", "disabled");
+
         if (!result.hasErrors()) {
-            colorRepository.save(color);
-            return "redirect:/admin/size-color-management";
+            Color colorName = colorRepository.findByColorName(color.getColorName());
+            if (colorName == null) {
+                colorRepository.save(color);
+                return "redirect:/admin/size-color-management";
+            } else {
+                model.addAttribute("msg", "Color name is exists");
+            }
         }
         model.addAttribute("page", "sizeColorManagement.jsp");
         return "admin/index";
@@ -64,12 +71,19 @@ public class ColorSizeController {
 
         model.addAttribute("disabledUpdate", "disabled");
         if (!result.hasErrors()) {
-            sizeRepository.save(size);
-            return "redirect:/admin/size-color-management";
+            Size sizeName = sizeRepository.findBySizeName(size.getSizeName());
+            if (sizeName == null) {
+                sizeRepository.save(size);
+                return "redirect:/admin/size-color-management";
+            } else {
+                model.addAttribute("msg1", "Size name is exists");
+            }
+
         }
         model.addAttribute("page", "sizeColorManagement.jsp");
         return "admin/index";
     }
+
     /*Update*/
     @PostMapping("/update-color")
     public String updateColor(@Validated @ModelAttribute("color") Color color,
@@ -85,9 +99,10 @@ public class ColorSizeController {
         model.addAttribute("page", "sizeColorManagement.jsp");
         return "admin/index";
     }
+
     @PostMapping("/update-size")
     public String updateSize(@Validated @ModelAttribute("size") Size size,
-                             BindingResult result,@ModelAttribute("color") Color color ,
+                             BindingResult result, @ModelAttribute("color") Color color,
                              Model model) {
         model.addAttribute("disabledSaveSize", "disabled");
         if (!result.hasErrors()) {
@@ -99,30 +114,51 @@ public class ColorSizeController {
         model.addAttribute("page", "sizeColorManagement.jsp");
         return "admin/index";
     }
+
     /*Edit*/
     @GetMapping("/edit-color/{id}")
-    public String editColor(@PathVariable Long id,@ModelAttribute("") Size size, Model model) {
+    public String editColor(@PathVariable Long id, @ModelAttribute("") Size size, Model model) {
         model.addAttribute("disabledSaveColor", "disabled");
         model.addAttribute("color", colorRepository.findById(id).orElse(null));
         model.addAttribute("page", "sizeColorManagement.jsp");
         return "admin/index";
     }
+
     @GetMapping("/edit-size/{id}")
-    public String editSize(@PathVariable Long id,@ModelAttribute("") Color color,Model model) {
+    public String editSize(@PathVariable Long id, @ModelAttribute("") Color color, Model model) {
         model.addAttribute("disabledSaveSize", "disabled");
         model.addAttribute("size", sizeRepository.findById(id).orElse(null));
         model.addAttribute("page", "sizeColorManagement.jsp");
         return "admin/index";
     }
+
     /*Delete*/
     @GetMapping("/delete-color/{id}")
-    public String deleteColor(@PathVariable Long id) {
-        colorRepository.deleteById(id);
-        return "redirect:/admin/size-color-management";
+    public String deleteColor(@PathVariable Long id, Model model,
+                              @ModelAttribute("color") Color color,
+                              @ModelAttribute("size") Size size) {
+        try {
+            colorRepository.deleteById(id);
+            return "redirect:/admin/size-color-management";
+        } catch (Exception e) {
+            model.addAttribute("msgDeleteColor", true);
+        }
+        model.addAttribute("page", "sizeColorManagement.jsp");
+        return "admin/index";
+
     }
+
     @GetMapping("/delete-size/{id}")
-    public String deleteSize(@PathVariable Long id) {
-        sizeRepository.deleteById(id);
-        return "redirect:/admin/size-color-management";
+    public String deleteSize(@PathVariable Long id, Model model,
+                             @ModelAttribute("size") Size size,
+                             @ModelAttribute("color") Color color) {
+        try {
+            sizeRepository.deleteById(id);
+            return "redirect:/admin/size-color-management";
+        } catch (Exception e) {
+            model.addAttribute("msgDeleteSize", true);
+        }
+        model.addAttribute("page", "sizeColorManagement.jsp");
+        return "admin/index";
     }
 }
